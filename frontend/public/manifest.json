@@ -1,0 +1,26 @@
+{
+  "name": "FarmIt — Smart Agriculture Platform",
+  "short_name": "FarmIt",
+  "description": "AI-powered farming assistant for modern Indian agriculture. Get real-time weather, mandi prices, crop diagnosis, and expert advice.",
+  "start_url": "/farmer/home",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#ebffe7",
+  "theme_color": "#2E7D32",
+  "categories": ["agriculture", "weather", "business"],
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

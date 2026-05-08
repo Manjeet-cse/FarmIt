@@ -1,0 +1,410 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #2E7D32;
+  --primary-light: #4CAF50;
+  --primary-container: #2e7d32;
+  --on-primary: #ffffff;
+  --on-primary-container: #cbffc2;
+  --primary-fixed-dim: #88d982;
+  --surface: #ebffe7;
+  --surface-light: #F1F8F1;
+  --surface-container-low: #e5f9e2;
+  --surface-container: #dff3dc;
+  --surface-container-high: #daeed6;
+  --surface-container-highest: #d4e8d1;
+  --surface-container-lowest: #ffffff;
+  --surface-variant: #d4e8d1;
+  --on-surface: #0f1f11;
+  --on-surface-variant: #40493d;
+  --tertiary: #F9A825;
+  --tertiary-container: #986200;
+  --neutral-dark: #1B2B1C;
+  --text-muted: #6B8F6E;
+  --bg-inner: #FFFFFF;
+  --error: #D32F2F;
+  --border-color: #D0E8D0;
+  --outline: #707a6c;
+  --outline-variant: #bfcaba;
+  
+  --font-headline: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Be Vietnam Pro', sans-serif;
+  --font-label: 'Be Vietnam Pro', sans-serif;
+
+  /* Responsive layout */
+  --sidebar-width: 260px;
+  --sidebar-collapsed: 72px;
+  --navbar-height: 64px;
+}
+
+html, body { 
+  margin: 0; 
+  font-family: var(--font-body);
+  color: var(--on-surface);
+  background: #f5f8f5;
+}
+
+/* ═══════════════════════════════════════════
+   SCROLLBAR STYLES
+   ═══════════════════════════════════════════ */
+
+/* Hide scrollbars on mobile */
+@media (max-width: 767px) {
+  * {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  *::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Styled scrollbar on desktop */
+@media (min-width: 768px) {
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   TYPOGRAPHY
+   ═══════════════════════════════════════════ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headline);
+  margin: 0;
+  color: var(--on-surface);
+}
+
+p {
+  margin: 0;
+  color: var(--on-surface-variant);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  font-family: var(--font-headline);
+}
+
+input {
+  font-family: var(--font-body);
+}
+
+/* ═══════════════════════════════════════════
+   AUTH SCREENS — Centered card on desktop
+   ═══════════════════════════════════════════ */
+
+.auth-container {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e5f9e2 0%, #ebffe7 50%, #dff3dc 100%);
+}
+
+@media (min-width: 768px) {
+  .auth-container > div {
+    max-width: 420px;
+    width: 100%;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+    background: white;
+    min-height: auto;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   SCREEN LAYOUT SYSTEM (used by screens)
+   ═══════════════════════════════════════════ */
+
+.screen-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.screen-topbar {
+  flex-shrink: 0;
+  z-index: 50;
+  width: 100%;
+}
+
+/* Hide mobile app bar on desktop — TopNavbar replaces it */
+@media (min-width: 768px) {
+  .screen-topbar,
+  .mobile-only-topbar {
+    display: none;
+  }
+}
+
+.screen-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.screen-content {
+  min-height: 100%;
+  width: 100%;
+  padding: 0 16px 16px;
+}
+
+@media (min-width: 768px) {
+  .screen-content {
+    padding: 0 24px 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1280px) {
+  .screen-content {
+    padding: 0 32px 32px;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE CARD SYSTEM
+   ═══════════════════════════════════════════ */
+
+.card {
+  background: var(--surface-container-lowest);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+@media (min-width: 768px) {
+  .card {
+    border-radius: 20px;
+    padding: 20px;
+  }
+}
+
+/* Card hover effect for desktop */
+@media (min-width: 768px) {
+  .card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(15, 31, 17, 0.08);
+  }
+}
+
+/* Glass card utility */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE GRID SYSTEM
+   ═══════════════════════════════════════════ */
+
+.responsive-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .responsive-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .responsive-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+}
+
+/* Dashboard 2-column layout for desktop */
+.dashboard-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .dashboard-grid > .full-span {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   PAGE CONTENT WRAPPER
+   ═══════════════════════════════════════════ */
+
+.page-content {
+  padding: 20px 16px 100px;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .page-content {
+    padding: 24px 28px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1280px) {
+  .page-content {
+    padding: 28px 40px 40px;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════ */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════ */
+
+.bg-muted { background: var(--surface); }
+.mt-4 { margin-top: 16px; }
+.mb-4 { margin-bottom: 16px; }
+.full-width { width: 100%; }
+.text-muted { color: var(--text-muted); }
+.text-error { color: var(--error); }
+.green-text { color: var(--primary); }
+.font-bold { font-weight: 600; }
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.items-center { align-items: center; }
+.gap-3 { gap: 12px; }
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px 0 8px;
+}
+
+.text-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.btn-outline-primary {
+  background: transparent;
+  border: 1.5px solid var(--primary);
+  color: var(--primary);
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-primary:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.settings-list {
+  padding: 0;
+}
+
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.settings-row:hover {
+  background: var(--surface-container-low);
+}
+
+.settings-row:first-child {
+  border-radius: 16px 16px 0 0;
+}
+
+.settings-row:last-child {
+  border-radius: 0 0 16px 16px;
+}
+
+/* no-scrollbar utility */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
