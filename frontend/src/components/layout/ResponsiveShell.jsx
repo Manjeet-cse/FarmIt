@@ -15,7 +15,7 @@ export default function ResponsiveShell({ children }) {
 
   if (isMobile) {
     return (
-      <div className="flex flex-col h-[100dvh] overflow-hidden bg-surface">
+      <div className="fixed inset-0 flex flex-col overflow-hidden bg-surface">
         <div className="flex-1 overflow-hidden flex flex-col">
           {children}
         </div>
