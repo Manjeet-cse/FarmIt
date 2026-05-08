@@ -1,0 +1,284 @@
+{
+  "common": {
+    "continue": "Continue",
+    "next": "Next",
+    "back": "Back",
+    "skip": "Skip",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "search": "Search",
+    "loading": "Loading...",
+    "viewMore": "View More",
+    "getStarted": "Get Started",
+    "logout": "Logout",
+    "language": "Language",
+    "selectLanguage": "Select Language"
+  },
+
+  "splash": {
+    "tagline": "Voice of the Farmer, Power of AI",
+    "initializing": "Initializing Systems"
+  },
+
+  "languageSelect": {
+    "title": "Select Language",
+    "subtitle": "Choose your preferred language to customize your agricultural experience."
+  },
+
+  "onboarding": {
+    "slide1Title": "Detect Crop Disease Instantly",
+    "slide1Subtitle": "Take a photo of your crop and get instant AI-powered diagnosis with unbiased treatment advice.",
+    "slide2Title": "Live Mandi Prices, Always.",
+    "slide2Subtitle": "Check real-time crop prices and stop distress selling to middlemen. Negotiate with confidence.",
+    "slide3Title": "Talk to Verified Agri Experts",
+    "slide3Subtitle": "Book 1-on-1 consultations with verified agronomists. First 5 minutes completely free."
+  },
+
+  "roleSelect": {
+    "title": "Who are you?",
+    "subtitle": "Select your role to get started",
+    "tagline": "Empowering Farmers with AI",
+    "farmer": "Farmer",
+    "farmerDesc": "Manage your crops and yields",
+    "expert": "Agri Expert",
+    "expertDesc": "Provide insights and guidance",
+    "vendor": "Vendor",
+    "vendorDesc": "Sell agricultural products"
+  },
+
+  "login": {
+    "kisanLogin": "Kisan Login",
+    "welcomeBack": "Welcome Back!",
+    "mobileNumber": "Mobile Number",
+    "enterMobile": "Enter your 10-digit number",
+    "passwordPin": "Password / PIN",
+    "enterPin": "Enter PIN",
+    "forgotPin": "Forgot PIN?",
+    "enterOtp": "Enter OTP",
+    "otpPlaceholder": "6-digit OTP",
+    "sendOtp": "Send OTP",
+    "logIn": "LOG IN",
+    "orLoginWith": "or log in with",
+    "usePassword": "Use Password / PIN",
+    "otpLogin": "OTP Login",
+    "continueGoogle": "Continue with Google",
+    "newUser": "New User?",
+    "signUp": "Sign Up",
+    "validMobile": "Enter a valid 10-digit mobile number",
+    "validPin": "Enter a valid PIN or password",
+    "validOtp": "Enter valid 6-digit OTP"
+  },
+
+  "signup": {
+    "step1Title": "Create Account",
+    "fullName": "Full Name",
+    "enterFullName": "Enter your full name",
+    "mobile": "Mobile Number",
+    "email": "Email",
+    "pincode": "Pincode",
+    "village": "Village",
+    "landSize": "Land Size",
+    "activeCrops": "Active Crops",
+    "addCrop": "Add Crop",
+    "step2Title": "Farm Details",
+    "step3Title": "Set PIN"
+  },
+
+  "nav": {
+    "home": "Home",
+    "diagnosis": "Diagnosis",
+    "experts": "Experts",
+    "learning": "Learning",
+    "marketplace": "Marketplace",
+    "dashboard": "Dashboard",
+    "weather": "Weather",
+    "cropHealth": "Crop Health",
+    "mandiPrices": "Mandi Prices",
+    "learningHub": "Learning Hub",
+    "aiAssistant": "AI Assistant",
+    "govtSchemes": "Govt Schemes",
+    "myOrders": "My Orders",
+    "profile": "Profile",
+    "settings": "Settings",
+    "help": "Help"
+  },
+
+  "home": {
+    "goodEvening": "Good Evening, Manjeet 👋",
+    "farmOverview": "Your crops are looking great today. Here's your farm overview.",
+    "yourCrops": "Your Crops",
+    "wheat": "Wheat",
+    "mustard": "Mustard",
+    "healthy": "HEALTHY",
+    "needsAttention": "Needs Attention",
+    "wheatAdvice": "Crop is healthy. Continue current irrigation schedule.",
+    "mustardAdvice": "Aphid attack risk detected. Spray Neem oil today.",
+    "growth": "Growth",
+    "stage": "Stage",
+    "grainFilling": "Grain Filling",
+    "nextHarvest": "Next: Harvesting in 18 days",
+    "nextIrrigation": "Next: Irrigation in 2 days",
+    "viewSchedule": "View Schedule",
+    "takeAction": "Take Action",
+    "quickActions": "Quick Actions",
+    "aiDiagnosis": "AI Diagnosis",
+    "askExpert": "Ask an Expert",
+    "govtSchemes": "Govt Schemes",
+    "mandiPrices": "Mandi Prices",
+    "weatherImpact": "Weather Impact on Your Crops",
+    "wheatSafe": "Wheat (Safe)",
+    "mustardRisk": "Mustard (Risk)",
+    "sprayBefore": "Spray before 8 AM",
+    "tomorrow": "Tomorrow",
+    "aiTipTitle": "AI Tip for Today",
+    "aiTipContent": "Apply DAP fertilizer to Wheat within the next 48 hours for optimal tiller development. The current soil moisture at 18% is ideal for absorption.",
+    "askAiMore": "Ask AI for more tips",
+    "mandiUpdates": "Mandi Updates",
+    "gunaMarket": "Guna Market",
+    "humidity": "Humidity",
+    "wind": "Wind"
+  },
+
+  "profile": {
+    "title": "Farmer Profile",
+    "totalCrops": "Total Crops",
+    "active": "Active",
+    "recent": "Recent",
+    "myCrops": "My Crops",
+    "addCrop": "Add Crop",
+    "acres": "Acres",
+    "acre": "Acre",
+    "growingStage": "Growing stage",
+    "sowingStage": "Sowing stage",
+    "normal": "Normal",
+    "needsAttention": "Needs Attention",
+    "farmDetails": "Farm Details",
+    "totalLand": "Total Land",
+    "irrigation": "Irrigation",
+    "canalBorewell": "Canal & Borewell",
+    "soilType": "Soil Type",
+    "alluvialLoam": "Alluvial Loam",
+    "preferences": "Preferences",
+    "priceAlerts": "Price Alerts",
+    "weatherAlerts": "Weather Alerts"
+  },
+
+  "diagnosis": {
+    "title": "AI Diagnosis",
+    "avgImpact": "Avg. Impact",
+    "yieldSaved": "35% Yield Saved",
+    "chemicalUse": "Chemical Use",
+    "costCut": "40% Cost Cut",
+    "processing": "Processing",
+    "instantResults": "Instant Results",
+    "identifyCropIssues": "Identify Crop Issues",
+    "identifyDesc": "Take a clear photo of the affected leaf or fruit. Our AI will analyze it instantly.",
+    "tapToScan": "Tap to scan crop",
+    "fileTypes": "JPG, PNG • Max 10MB",
+    "camera": "Camera",
+    "gallery": "Gallery",
+    "diagnoseWithAi": "Diagnose with AI",
+    "analyzing": "Analyzing leaf patterns…",
+    "recentAnalysis": "Recent Analysis",
+    "detectedCrop": "Detected Crop",
+    "organicSolution": "Organic Solution",
+    "organicDesc": "Apply neem oil extract (0.5%) or spray baking soda solution mixed with mild soap during early morning.",
+    "viewSteps": "View steps",
+    "chemicalControl": "Chemical Control",
+    "chemicalDesc": "Apply sulfur-based fungicides or Propiconazole 25% EC at recommended dosage if infection spreads.",
+    "viewDosages": "View dosages",
+    "needExpertAdvice": "Need expert advice?",
+    "connectAgronomist": "Connect with an agronomist instantly.",
+    "talkToExpert": "Talk to Expert"
+  },
+
+  "experts": {
+    "title": "Expert Consultation",
+    "searchPlaceholder": "Search experts...",
+    "experience": "Yrs Exp",
+    "bookAudio": "Audio",
+    "bookVideo": "Video",
+    "free": "FREE",
+    "consultNow": "Consult Now"
+  },
+
+  "booking": {
+    "selectConsultationType": "Select Consultation Type",
+    "audioCall": "Audio Call",
+    "videoCall": "Video Call",
+    "stableInternet": "Requires a stable internet connection",
+    "sameFee": "Audio and Video have the same fee",
+    "selectDate": "Select Date",
+    "availableTime": "Available Time",
+    "bookingSummary": "Booking Summary",
+    "consultationType": "Consultation Type",
+    "selectedSlot": "Selected Slot",
+    "consultationFee": "Consultation Fee",
+    "platformFee": "Platform Fee",
+    "totalPayable": "Total Payable",
+    "confirmBooking": "Confirm Booking",
+    "bookingConfirmed": "Booking Confirmed!",
+    "bookingConfirmedDesc": "Your consultation with {{name}} has been successfully scheduled for {{date}}, {{time}}.",
+    "meetingLink": "Meeting Link",
+    "meetingLinkDesc": "Will be shared 15 mins before",
+    "backToExperts": "Back to Experts"
+  },
+
+  "cart": {
+    "title": "My Cart",
+    "emptyTitle": "Your cart is empty",
+    "emptyDesc": "Looks like you haven't added anything to your cart yet.",
+    "startShopping": "Start Shopping",
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal",
+    "items": "items",
+    "deliveryFee": "Delivery Fee",
+    "totalAmount": "Total Amount",
+    "proceedToCheckout": "Proceed to Checkout"
+  },
+
+  "marketplace": {
+    "title": "Marketplace",
+    "searchProducts": "Search products...",
+    "allProducts": "All Products",
+    "addToCart": "Add to Cart",
+    "viewInCart": "View in Cart"
+  },
+
+  "more": {
+    "premiumMember": "Premium Member",
+    "exploreNeoKrishi": "Explore NeoKrishi",
+    "subsidyGuide": "Subsidy Guide",
+    "learningHub": "Learning Hub",
+    "weatherDetail": "Weather Detail",
+    "accountSupport": "Account & Support",
+    "helpSupport": "Help & Support",
+    "connectFarmIt": "Connect with FarmIt"
+  },
+
+  "weather": {
+    "title": "Weather",
+    "sunny": "Sunny",
+    "cloudy": "Cloudy",
+    "rainy": "Rainy",
+    "forecast": "Forecast"
+  },
+
+  "mandi": {
+    "title": "Mandi Prices",
+    "searchCrop": "Search crop..."
+  },
+
+  "learning": {
+    "title": "Learning Hub",
+    "searchCourses": "Search courses..."
+  },
+
+  "subsidy": {
+    "title": "Govt Schemes & Subsidies"
+  }
+}

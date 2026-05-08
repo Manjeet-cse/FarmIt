@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const SLIDES = [
   {
@@ -30,8 +31,11 @@ const SLIDES = [
 
 export default function OnboardingScreen() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [step, setStep] = useState(0);
   const slide = SLIDES[step];
+  const slideTitles = [t('onboarding.slide1Title'), t('onboarding.slide2Title'), t('onboarding.slide3Title')];
+  const slideSubtitles = [t('onboarding.slide1Subtitle'), t('onboarding.slide2Subtitle'), t('onboarding.slide3Subtitle')];
 
   const handleNext = () => {
     if (step < SLIDES.length - 1) {
@@ -54,7 +58,7 @@ export default function OnboardingScreen() {
       {/* ── Skip Button ──────────────────────── */}
       {!slide.isLast && (
         <div className="flex justify-end pt-3 px-6 min-h-[44px] shrink-0">
-          <button className="text-[#40493d] font-['Be_Vietnam_Pro',sans-serif] text-[14px] font-medium tracking-[0.04em] bg-transparent border-none cursor-pointer py-2 px-1 transition-colors duration-200 hover:text-[#0d631b]" onClick={handleSkip}>Skip</button>
+          <button className="text-[#40493d] font-['Be_Vietnam_Pro',sans-serif] text-[14px] font-medium tracking-[0.04em] bg-transparent border-none cursor-pointer py-2 px-1 transition-colors duration-200 hover:text-[#0d631b]" onClick={handleSkip}>{t('common.skip')}</button>
         </div>
       )}
       {slide.isLast && <div className="flex justify-end pt-3 px-6 min-h-[44px] shrink-0" />}
@@ -73,8 +77,8 @@ export default function OnboardingScreen() {
 
       {/* ── Text Content ─────────────────────── */}
       <div className="text-center pt-7 px-6 shrink-0 animate-[onb-fadeIn_0.4s_ease-out]" key={`text-${step}`}>
-        <h1 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-[26px] leading-[1.25] text-[#0f1f11] m-0 mb-3.5">{slide.title}</h1>
-        <p className="font-['Be_Vietnam_Pro',sans-serif] text-[15px] leading-[1.6] text-[#40493d] m-0 max-w-[300px] mx-auto">{slide.subtitle}</p>
+        <h1 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-[26px] leading-[1.25] text-[#0f1f11] m-0 mb-3.5">{slideTitles[step]}</h1>
+        <p className="font-['Be_Vietnam_Pro',sans-serif] text-[15px] leading-[1.6] text-[#40493d] m-0 max-w-[300px] mx-auto">{slideSubtitles[step]}</p>
       </div>
 
       {/* ── Dots ─────────────────────────────── */}
@@ -91,12 +95,12 @@ export default function OnboardingScreen() {
       <div className="pt-7 px-8 flex flex-col gap-5 shrink-0">
         {slide.isLast ? (
           <button className="w-full h-14 rounded-full bg-gradient-to-b from-[#0d631b] to-[#2e7d32] text-white font-['Be_Vietnam_Pro',sans-serif] text-[15px] font-semibold uppercase tracking-[0.08em] shadow-[0_8px_24px_-8px_rgba(13,99,27,0.4)] flex items-center justify-center gap-2 border-none cursor-pointer transition-transform duration-200 active:scale-[0.96]" onClick={handleNext}>
-            GET STARTED
+            {t('common.getStarted').toUpperCase()}
             <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>arrow_forward</span>
           </button>
         ) : (
           <button className="w-full h-14 rounded-full border-[1.5px] border-[rgba(191,202,186,0.5)] bg-transparent text-[#0d631b] font-['Be_Vietnam_Pro',sans-serif] text-[14px] font-semibold uppercase tracking-[0.1em] flex items-center justify-center gap-2 cursor-pointer transition-all duration-200 hover:bg-[rgba(13,99,27,0.04)] active:scale-[0.97]" onClick={handleNext}>
-            NEXT
+            {t('common.next').toUpperCase()}
             <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>arrow_forward</span>
           </button>
         )}

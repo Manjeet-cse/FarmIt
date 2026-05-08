@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const LANGUAGES = [
   { code: 'hi', native: 'हिंदी', label: 'Hindi' },
@@ -14,9 +15,11 @@ const LANGUAGES = [
 
 export default function LanguageSelectScreen() {
   const navigate = useNavigate();
-  const [selected, setSelected] = useState('en');
+  const { t, i18n } = useTranslation();
+  const [selected, setSelected] = useState(i18n.language || 'en');
 
   const handleContinue = () => {
+    i18n.changeLanguage(selected);
     localStorage.setItem('appLanguage', selected);
     navigate('/onboarding');
   };
@@ -30,12 +33,12 @@ export default function LanguageSelectScreen() {
           className="material-symbols-outlined text-[28px] text-[#0d631b]"
           aria-hidden="true"
         >language</span>
-        <h1 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-[24px] text-[#0d631b] m-0">Select Language</h1>
+        <h1 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-[24px] text-[#0d631b] m-0">{t('languageSelect.title')}</h1>
       </header>
 
       {/* ── Subtitle ──────────────────────────── */}
       <p className="text-center text-[15px] leading-[1.6] text-[#40493d] m-0 px-12 pb-7 max-w-[320px] self-center">
-        Choose your preferred language to customize your agricultural experience.
+        {t('languageSelect.subtitle')}
       </p>
 
       {/* ── Language Grid ─────────────────────── */}
@@ -69,7 +72,7 @@ export default function LanguageSelectScreen() {
       {/* ── Bottom CTA ────────────────────────── */}
       <div className="sticky bottom-0 left-0 w-full px-6 pt-10 pb-8 bg-gradient-to-t from-[#ebffe7] from-60% to-transparent z-20 flex justify-center shrink-0">
         <button className="w-full h-14 rounded-full bg-gradient-to-b from-[#0d631b] to-[#2e7d32] text-white font-['Be_Vietnam_Pro',sans-serif] text-[14px] font-semibold uppercase tracking-[0.08em] flex items-center justify-center gap-2 border-none cursor-pointer shadow-[0_12px_24px_rgba(15,31,17,0.15)] transition-transform duration-150 active:scale-[0.95]" onClick={handleContinue}>
-          CONTINUE
+          {t('common.continue').toUpperCase()}
           <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>
             arrow_forward
           </span>

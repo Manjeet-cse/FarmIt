@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Leaf } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function SplashScreen() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -27,7 +29,7 @@ export default function SplashScreen() {
         </div>
         <div className="text-center relative z-10">
           <h1 className="text-[28px] font-bold tracking-[-0.025em] text-white drop-shadow-[0_4px_3px_rgba(0,0,0,0.07)] mb-3">FarmIt</h1>
-          <p className="text-sm italic text-[#88d982] font-medium tracking-[0.025em] drop-shadow-[0_1px_2px_rgba(0,0,0,0.1)]">Voice of the Farmer, Power of AI</p>
+          <p className="text-sm italic text-[#88d982] font-medium tracking-[0.025em] drop-shadow-[0_1px_2px_rgba(0,0,0,0.1)]">{t('splash.tagline')}</p>
         </div>
       </div>
       
@@ -35,7 +37,7 @@ export default function SplashScreen() {
         <div className="h-1 bg-white/20 rounded-full overflow-hidden w-full max-w-md mx-auto">
           <div className="h-full bg-white rounded-full w-0 animate-[splash-load_2s_ease-in-out_forwards]"></div>
         </div>
-        <p className="text-center text-xs mt-3 text-white/60 font-medium tracking-[0.1em] uppercase">Initializing Systems</p>
+        <p className="text-center text-xs mt-3 text-white/60 font-medium tracking-[0.1em] uppercase">{t('splash.initializing')}</p>
       </div>
 
       <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#0d631b] rounded-full blur-[120px] opacity-60"></div>

@@ -1,0 +1,284 @@
+{
+  "common": {
+    "continue": "आगे बढ़ें",
+    "next": "अगला",
+    "back": "वापस",
+    "skip": "छोड़ें",
+    "cancel": "रद्द करें",
+    "confirm": "पुष्टि करें",
+    "save": "सहेजें",
+    "delete": "हटाएं",
+    "edit": "संपादित करें",
+    "close": "बंद करें",
+    "search": "खोजें",
+    "loading": "लोड हो रहा है...",
+    "viewMore": "और देखें",
+    "getStarted": "शुरू करें",
+    "logout": "लॉग आउट",
+    "language": "भाषा",
+    "selectLanguage": "भाषा चुनें"
+  },
+
+  "splash": {
+    "tagline": "किसान की आवाज़, AI की शक्ति",
+    "initializing": "सिस्टम शुरू हो रहा है"
+  },
+
+  "languageSelect": {
+    "title": "भाषा चुनें",
+    "subtitle": "अपनी कृषि अनुभव को बेहतर बनाने के लिए अपनी पसंदीदा भाषा चुनें।"
+  },
+
+  "onboarding": {
+    "slide1Title": "फसल रोग तुरंत पहचानें",
+    "slide1Subtitle": "अपनी फसल की तस्वीर लें और AI-संचालित निदान के साथ तुरंत उपचार सलाह पाएं।",
+    "slide2Title": "लाइव मंडी भाव, हमेशा।",
+    "slide2Subtitle": "रियल-टाइम फसल की कीमतें देखें और बिचौलियों को बिक्री बंद करें। विश्वास के साथ सौदा करें।",
+    "slide3Title": "सत्यापित कृषि विशेषज्ञों से बात करें",
+    "slide3Subtitle": "सत्यापित कृषि विशेषज्ञों के साथ 1-on-1 परामर्श बुक करें। पहले 5 मिनट बिल्कुल मुफ्त।"
+  },
+
+  "roleSelect": {
+    "title": "आप कौन हैं?",
+    "subtitle": "शुरू करने के लिए अपनी भूमिका चुनें",
+    "tagline": "AI के साथ किसानों को सशक्त बनाना",
+    "farmer": "किसान",
+    "farmerDesc": "अपनी फसलें और उपज प्रबंधित करें",
+    "expert": "कृषि विशेषज्ञ",
+    "expertDesc": "जानकारी और मार्गदर्शन प्रदान करें",
+    "vendor": "विक्रेता",
+    "vendorDesc": "कृषि उत्पाद बेचें"
+  },
+
+  "login": {
+    "kisanLogin": "किसान लॉगिन",
+    "welcomeBack": "वापस स्वागत है!",
+    "mobileNumber": "मोबाइल नंबर",
+    "enterMobile": "अपना 10 अंकों का नंबर दर्ज करें",
+    "passwordPin": "पासवर्ड / PIN",
+    "enterPin": "PIN दर्ज करें",
+    "forgotPin": "PIN भूल गए?",
+    "enterOtp": "OTP दर्ज करें",
+    "otpPlaceholder": "6 अंकों का OTP",
+    "sendOtp": "OTP भेजें",
+    "logIn": "लॉग इन",
+    "orLoginWith": "या इसके साथ लॉग इन करें",
+    "usePassword": "पासवर्ड / PIN उपयोग करें",
+    "otpLogin": "OTP लॉगिन",
+    "continueGoogle": "Google से जारी रखें",
+    "newUser": "नए उपयोगकर्ता?",
+    "signUp": "साइन अप करें",
+    "validMobile": "वैध 10 अंकों का मोबाइल नंबर दर्ज करें",
+    "validPin": "वैध PIN या पासवर्ड दर्ज करें",
+    "validOtp": "वैध 6 अंकों का OTP दर्ज करें"
+  },
+
+  "signup": {
+    "step1Title": "खाता बनाएं",
+    "fullName": "पूरा नाम",
+    "enterFullName": "अपना पूरा नाम दर्ज करें",
+    "mobile": "मोबाइल नंबर",
+    "email": "ईमेल",
+    "pincode": "पिनकोड",
+    "village": "गाँव",
+    "landSize": "भूमि का आकार",
+    "activeCrops": "सक्रिय फसलें",
+    "addCrop": "फसल जोड़ें",
+    "step2Title": "खेत का विवरण",
+    "step3Title": "PIN सेट करें"
+  },
+
+  "nav": {
+    "home": "होम",
+    "diagnosis": "निदान",
+    "experts": "विशेषज्ञ",
+    "learning": "सीखें",
+    "marketplace": "बाज़ार",
+    "dashboard": "डैशबोर्ड",
+    "weather": "मौसम",
+    "cropHealth": "फसल स्वास्थ्य",
+    "mandiPrices": "मंडी भाव",
+    "learningHub": "लर्निंग हब",
+    "aiAssistant": "AI सहायक",
+    "govtSchemes": "सरकारी योजनाएं",
+    "myOrders": "मेरे ऑर्डर",
+    "profile": "प्रोफ़ाइल",
+    "settings": "सेटिंग्स",
+    "help": "सहायता"
+  },
+
+  "home": {
+    "goodEvening": "शुभ संध्या, मंजीत 👋",
+    "farmOverview": "आपकी फसलें आज बढ़िया दिख रही हैं। यहाँ आपका खेत का विवरण है।",
+    "yourCrops": "आपकी फसलें",
+    "wheat": "गेहूं",
+    "mustard": "सरसों",
+    "healthy": "स्वस्थ",
+    "needsAttention": "ध्यान दें",
+    "wheatAdvice": "फसल स्वस्थ है। वर्तमान सिंचाई कार्यक्रम जारी रखें।",
+    "mustardAdvice": "एफिड हमले का खतरा पाया गया। आज नीम का तेल छिड़कें।",
+    "growth": "विकास",
+    "stage": "चरण",
+    "grainFilling": "दाना भरना",
+    "nextHarvest": "अगला: 18 दिनों में कटाई",
+    "nextIrrigation": "अगला: 2 दिनों में सिंचाई",
+    "viewSchedule": "शेड्यूल देखें",
+    "takeAction": "कार्रवाई करें",
+    "quickActions": "त्वरित कार्य",
+    "aiDiagnosis": "AI निदान",
+    "askExpert": "विशेषज्ञ से पूछें",
+    "govtSchemes": "सरकारी योजनाएं",
+    "mandiPrices": "मंडी भाव",
+    "weatherImpact": "आपकी फसलों पर मौसम का प्रभाव",
+    "wheatSafe": "गेहूं (सुरक्षित)",
+    "mustardRisk": "सरसों (जोखिम)",
+    "sprayBefore": "सुबह 8 बजे से पहले छिड़काव करें",
+    "tomorrow": "कल",
+    "aiTipTitle": "आज की AI सलाह",
+    "aiTipContent": "इष्टतम कल्ले के विकास के लिए अगले 48 घंटों में गेहूं पर DAP उर्वरक लगाएं। 18% पर वर्तमान मिट्टी की नमी अवशोषण के लिए आदर्श है।",
+    "askAiMore": "AI से और सुझाव मांगें",
+    "mandiUpdates": "मंडी अपडेट",
+    "gunaMarket": "गुना मंडी",
+    "humidity": "आर्द्रता",
+    "wind": "हवा"
+  },
+
+  "profile": {
+    "title": "किसान प्रोफ़ाइल",
+    "totalCrops": "कुल फसलें",
+    "active": "सक्रिय",
+    "recent": "हाल की",
+    "myCrops": "मेरी फसलें",
+    "addCrop": "फसल जोड़ें",
+    "acres": "एकड़",
+    "acre": "एकड़",
+    "growingStage": "विकास चरण",
+    "sowingStage": "बुवाई चरण",
+    "normal": "सामान्य",
+    "needsAttention": "ध्यान दें",
+    "farmDetails": "खेत का विवरण",
+    "totalLand": "कुल भूमि",
+    "irrigation": "सिंचाई",
+    "canalBorewell": "नहर और बोरवेल",
+    "soilType": "मिट्टी का प्रकार",
+    "alluvialLoam": "जलोढ़ दोमट",
+    "preferences": "प्राथमिकताएं",
+    "priceAlerts": "मूल्य सूचनाएं",
+    "weatherAlerts": "मौसम सूचनाएं"
+  },
+
+  "diagnosis": {
+    "title": "AI निदान",
+    "avgImpact": "औसत प्रभाव",
+    "yieldSaved": "35% उपज बचाई",
+    "chemicalUse": "रसायन उपयोग",
+    "costCut": "40% लागत कटौती",
+    "processing": "प्रोसेसिंग",
+    "instantResults": "तुरंत परिणाम",
+    "identifyCropIssues": "फसल की समस्या पहचानें",
+    "identifyDesc": "प्रभावित पत्ती या फल की स्पष्ट तस्वीर लें। हमारा AI तुरंत विश्लेषण करेगा।",
+    "tapToScan": "स्कैन करने के लिए टैप करें",
+    "fileTypes": "JPG, PNG • अधिकतम 10MB",
+    "camera": "कैमरा",
+    "gallery": "गैलरी",
+    "diagnoseWithAi": "AI से निदान करें",
+    "analyzing": "पत्ती के पैटर्न का विश्लेषण हो रहा है…",
+    "recentAnalysis": "हालिया विश्लेषण",
+    "detectedCrop": "पहचानी गई फसल",
+    "organicSolution": "जैविक उपचार",
+    "organicDesc": "सुबह जल्दी नीम तेल अर्क (0.5%) या बेकिंग सोडा घोल हल्के साबुन के साथ छिड़कें।",
+    "viewSteps": "चरण देखें",
+    "chemicalControl": "रासायनिक नियंत्रण",
+    "chemicalDesc": "संक्रमण फैलने पर सल्फर-आधारित कवकनाशी या प्रोपिकोनाज़ोल 25% EC अनुशंसित मात्रा में लगाएं।",
+    "viewDosages": "खुराक देखें",
+    "needExpertAdvice": "विशेषज्ञ सलाह चाहिए?",
+    "connectAgronomist": "तुरंत कृषि विशेषज्ञ से जुड़ें।",
+    "talkToExpert": "विशेषज्ञ से बात करें"
+  },
+
+  "experts": {
+    "title": "विशेषज्ञ परामर्श",
+    "searchPlaceholder": "विशेषज्ञ खोजें...",
+    "experience": "वर्ष अनुभव",
+    "bookAudio": "ऑडियो",
+    "bookVideo": "वीडियो",
+    "free": "मुफ़्त",
+    "consultNow": "अभी परामर्श करें"
+  },
+
+  "booking": {
+    "selectConsultationType": "परामर्श प्रकार चुनें",
+    "audioCall": "ऑडियो कॉल",
+    "videoCall": "वीडियो कॉल",
+    "stableInternet": "स्थिर इंटरनेट कनेक्शन आवश्यक है",
+    "sameFee": "ऑडियो और वीडियो की फीस समान है",
+    "selectDate": "तारीख चुनें",
+    "availableTime": "उपलब्ध समय",
+    "bookingSummary": "बुकिंग सारांश",
+    "consultationType": "परामर्श प्रकार",
+    "selectedSlot": "चयनित स्लॉट",
+    "consultationFee": "परामर्श शुल्क",
+    "platformFee": "प्लेटफॉर्म शुल्क",
+    "totalPayable": "कुल भुगतान",
+    "confirmBooking": "बुकिंग पुष्टि करें",
+    "bookingConfirmed": "बुकिंग पुष्टि हो गई!",
+    "bookingConfirmedDesc": "{{name}} के साथ आपकी परामर्श {{date}}, {{time}} के लिए सफलतापूर्वक निर्धारित की गई है।",
+    "meetingLink": "मीटिंग लिंक",
+    "meetingLinkDesc": "15 मिनट पहले साझा किया जाएगा",
+    "backToExperts": "विशेषज्ञों पर वापस जाएं"
+  },
+
+  "cart": {
+    "title": "मेरा कार्ट",
+    "emptyTitle": "आपका कार्ट खाली है",
+    "emptyDesc": "लगता है आपने अभी तक अपने कार्ट में कुछ नहीं जोड़ा।",
+    "startShopping": "शॉपिंग शुरू करें",
+    "orderSummary": "ऑर्डर सारांश",
+    "subtotal": "उप-कुल",
+    "items": "आइटम",
+    "deliveryFee": "डिलीवरी शुल्क",
+    "totalAmount": "कुल राशि",
+    "proceedToCheckout": "चेकआउट पर जाएं"
+  },
+
+  "marketplace": {
+    "title": "बाज़ार",
+    "searchProducts": "उत्पाद खोजें...",
+    "allProducts": "सभी उत्पाद",
+    "addToCart": "कार्ट में डालें",
+    "viewInCart": "कार्ट में देखें"
+  },
+
+  "more": {
+    "premiumMember": "प्रीमियम सदस्य",
+    "exploreNeoKrishi": "नियोकृषि एक्सप्लोर करें",
+    "subsidyGuide": "सब्सिडी गाइड",
+    "learningHub": "लर्निंग हब",
+    "weatherDetail": "मौसम विवरण",
+    "accountSupport": "खाता और सहायता",
+    "helpSupport": "सहायता और समर्थन",
+    "connectFarmIt": "FarmIt से जुड़ें"
+  },
+
+  "weather": {
+    "title": "मौसम",
+    "sunny": "धूप",
+    "cloudy": "बादल",
+    "rainy": "बारिश",
+    "forecast": "पूर्वानुमान"
+  },
+
+  "mandi": {
+    "title": "मंडी भाव",
+    "searchCrop": "फसल खोजें..."
+  },
+
+  "learning": {
+    "title": "लर्निंग हब",
+    "searchCourses": "कोर्स खोजें..."
+  },
+
+  "subsidy": {
+    "title": "सरकारी योजनाएं और सब्सिडी"
+  }
+}

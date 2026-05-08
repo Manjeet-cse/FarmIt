@@ -2,11 +2,13 @@ import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppTopBar from '../../components/common/AppTopBar';
 import { useIsMobile } from '../../hooks/useMediaQuery';
+import { useTranslation } from 'react-i18next';
 
 export default function Home() {
   const navigate = useNavigate();
   const scrollRef = useRef(null);
   const isMobile = useIsMobile();
+  const { t } = useTranslation();
 
   // Restore scroll position when returning from sub-screens
   useEffect(() => {
@@ -45,8 +47,8 @@ export default function Home() {
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#4CAF50]/10 rounded-full blur-3xl -mr-20 -mt-20" />
               <div className="relative z-10 flex items-center justify-between">
                 <div>
-                  <h1 className="font-headline font-bold text-2xl lg:text-3xl text-white mb-2">Good Evening, Manjeet 👋</h1>
-                  <p className="text-white/70 text-sm lg:text-base">Your crops are looking great today. Here's your farm overview.</p>
+                  <h1 className="font-headline font-bold text-2xl lg:text-3xl text-white mb-2">{t('home.goodEvening')}</h1>
+                  <p className="text-white/70 text-sm lg:text-base">{t('home.farmOverview')}</p>
                 </div>
                 <div className="hidden xl:flex items-center gap-3 bg-white/10 backdrop-blur-md rounded-2xl px-5 py-3 border border-white/10">
                   <span className="material-symbols-outlined text-[#88d982] text-[28px]" style={{ fontVariationSettings: "'FILL' 1" }}>wb_sunny</span>
@@ -64,7 +66,7 @@ export default function Home() {
 
             {/* SECTION 1: Your Crops */}
             <section className="full-span">
-              <h2 className="font-headline font-bold text-lg md:text-xl mb-4 text-onSurface mt-0">Your Crops</h2>
+              <h2 className="font-headline font-bold text-lg md:text-xl mb-4 text-onSurface mt-0">{t('home.yourCrops')}</h2>
               <div className="flex md:grid md:grid-cols-2 xl:grid-cols-3 gap-4 overflow-x-auto md:overflow-x-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-4 px-4 md:mx-0 md:px-0 pb-2 md:pb-0">
                 {/* Wheat Card */}
                 <div className="min-w-[260px] md:min-w-0 bg-surface-containerLowest rounded-2xl overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.05)] flex flex-col card-hover">
@@ -77,19 +79,19 @@ export default function Home() {
                   </div>
                   <div className="p-4 flex flex-col gap-3 flex-1">
                     <div className="flex justify-between items-center">
-                      <h3 className="font-bold text-onSurface text-base m-0">Wheat</h3>
-                      <span className="px-2 py-0.5 text-[10px] font-bold rounded-full uppercase bg-primary/10 text-[#006e1c]">HEALTHY</span>
+                      <h3 className="font-bold text-onSurface text-base m-0">{t('home.wheat')}</h3>
+                      <span className="px-2 py-0.5 text-[10px] font-bold rounded-full uppercase bg-primary/10 text-[#006e1c]">{t('home.healthy')}</span>
                     </div>
                     <div className="bg-[#e5f9e2] p-2 rounded-lg border-l-2 border-[#006e1c]">
                       <p className="text-[10px] text-[#006e1c] font-medium leading-tight m-0">
                         <span className="material-symbols-outlined text-[12px] align-middle mr-1">check_circle</span> 
-                        Crop is healthy. Continue current irrigation schedule.
+                        {t('home.wheatAdvice')}
                       </p>
                     </div>
                     <div>
                       <div className="flex justify-between text-[11px] mb-1">
-                        <span className="text-onSurface-variant">Growth: 65%</span>
-                        <span className="text-onSurface-variant font-medium text-primary">Stage: Grain Filling</span>
+                        <span className="text-onSurface-variant">{t('home.growth')}: 65%</span>
+                        <span className="text-onSurface-variant font-medium text-primary">{t('home.stage')}: {t('home.grainFilling')}</span>
                       </div>
                       <div className="w-full bg-surface-container h-1.5 rounded-full">
                         <div className="bg-primary h-1.5 rounded-full" style={{ width: '65%' }}></div>
@@ -97,9 +99,9 @@ export default function Home() {
                     </div>
                     <div className="mt-auto flex flex-col gap-3">
                       <div className="px-3 py-1 text-[10px] font-semibold rounded-lg inline-block self-start bg-[#ffb957]/20 text-[#643f00]">
-                        Next: Harvesting in 18 days
+                        {t('home.nextHarvest')}
                       </div>
-                      <button className="w-full p-2 border border-primary text-primary text-xs font-bold rounded-xl bg-transparent transition-transform cursor-pointer active:scale-95 hover:bg-primary hover:text-white">View Schedule</button>
+                      <button className="w-full p-2 border border-primary text-primary text-xs font-bold rounded-xl bg-transparent transition-transform cursor-pointer active:scale-95 hover:bg-primary hover:text-white">{t('home.viewSchedule')}</button>
                     </div>
                   </div>
                 </div>
@@ -115,13 +117,13 @@ export default function Home() {
                   </div>
                   <div className="p-4 flex flex-col gap-3 flex-1">
                     <div className="flex justify-between items-center">
-                      <h3 className="font-bold text-onSurface text-base m-0">Mustard</h3>
-                      <span className="px-2 py-0.5 text-[10px] font-bold rounded-full uppercase bg-tertiary/10 text-tertiary">Needs Attention</span>
+                      <h3 className="font-bold text-onSurface text-base m-0">{t('home.mustard')}</h3>
+                      <span className="px-2 py-0.5 text-[10px] font-bold rounded-full uppercase bg-tertiary/10 text-tertiary">{t('home.needsAttention')}</span>
                     </div>
                     <div className="bg-[#ffdad6]/50 p-2 rounded-lg border-l-2 border-error">
                       <p className="text-[10px] text-[#93000a] font-medium leading-tight m-0">
                         <span className="material-symbols-outlined text-[12px] align-middle mr-1">warning</span> 
-                        Aphid attack risk detected. Spray Neem oil today.
+                        {t('home.mustardAdvice')}
                       </p>
                     </div>
                     <div>
@@ -134,9 +136,9 @@ export default function Home() {
                     </div>
                     <div className="mt-auto flex flex-col gap-3">
                       <div className="px-3 py-1 text-[10px] font-semibold rounded-lg inline-block self-start bg-surface-containerHigh text-onSurface-variant">
-                        Next: Irrigation in 2 days
+                        {t('home.nextIrrigation')}
                       </div>
-                      <button className="w-full p-2 border border-error text-error text-xs font-bold rounded-xl bg-transparent transition-transform cursor-pointer active:scale-95 hover:bg-error hover:text-white">Take Action</button>
+                      <button className="w-full p-2 border border-error text-error text-xs font-bold rounded-xl bg-transparent transition-transform cursor-pointer active:scale-95 hover:bg-error hover:text-white">{t('home.takeAction')}</button>
                     </div>
                   </div>
                 </div>
@@ -193,31 +195,31 @@ export default function Home() {
 
             {/* SECTION 3: Quick Actions Grid */}
             <section>
-              <h2 className="font-headline font-bold text-lg md:text-xl mb-4 text-onSurface mt-0">Quick Actions</h2>
+              <h2 className="font-headline font-bold text-lg md:text-xl mb-4 text-onSurface mt-0">{t('home.quickActions')}</h2>
               <div className="grid grid-cols-4 md:grid-cols-4 lg:grid-cols-8 gap-4">
                 <div className="group flex flex-col items-center gap-2 cursor-pointer transition-transform" onClick={() => navigateTo('/farmer/diagnosis')}>
                   <div className="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-active:scale-90 group-hover:scale-105 bg-[#006e1c]/10 text-[#006e1c]">
                     <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>medical_services</span>
                   </div>
-                  <span className="text-[10px] font-bold text-center leading-tight">AI Diagnosis</span>
+                  <span className="text-[10px] font-bold text-center leading-tight">{t('home.aiDiagnosis')}</span>
                 </div>
                 <div className="group flex flex-col items-center gap-2 cursor-pointer transition-transform" onClick={() => navigateTo('/farmer/marketplace')}>
                   <div className="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-active:scale-90 group-hover:scale-105 bg-tertiary/10 text-tertiary">
                     <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>shopping_cart</span>
                   </div>
-                  <span className="text-[10px] font-bold text-center leading-tight">Marketplace</span>
+                  <span className="text-[10px] font-bold text-center leading-tight">{t('nav.marketplace')}</span>
                 </div>
                 <div className="group flex flex-col items-center gap-2 cursor-pointer transition-transform" onClick={() => navigateTo('/farmer/experts')}>
                   <div className="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-active:scale-90 group-hover:scale-105 bg-[#DBEAFE] text-[#1D4ED8]">
                     <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>psychology</span>
                   </div>
-                  <span className="text-[10px] font-bold text-center leading-tight">Ask an Expert</span>
+                  <span className="text-[10px] font-bold text-center leading-tight">{t('home.askExpert')}</span>
                 </div>
                 <div className="group flex flex-col items-center gap-2 cursor-pointer transition-transform" onClick={() => navigateTo('/farmer/subsidy')}>
                   <div className="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-active:scale-90 group-hover:scale-105 bg-[#F3E8FF] text-[#7E22CE]">
                     <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>account_balance</span>
                   </div>
-                  <span className="text-[10px] font-bold text-center leading-tight">Govt Schemes</span>
+                  <span className="text-[10px] font-bold text-center leading-tight">{t('home.govtSchemes')}</span>
                 </div>
                 {/* Desktop-only extra actions */}
                 <div className="hidden lg:flex group flex-col items-center gap-2 cursor-pointer transition-transform" onClick={() => navigateTo('/farmer/mandi')}>
@@ -249,7 +251,7 @@ export default function Home() {
 
             {/* SECTION 4: Government Schemes */}
             <section>
-              <h2 className="font-headline font-bold text-lg md:text-xl mb-4 text-onSurface mt-0">Govt Schemes</h2>
+              <h2 className="font-headline font-bold text-lg md:text-xl mb-4 text-onSurface mt-0">{t('home.govtSchemes')}</h2>
               <div 
                 className="bg-white rounded-2xl p-4 shadow-sm border border-[#bfcaba]/30 cursor-pointer card-hover" 
                 onClick={() => navigateTo('/farmer/subsidy')}
@@ -286,13 +288,13 @@ export default function Home() {
             <section className="bg-surface-containerLowest rounded-2xl border-l-[6px] border-tertiary p-5 shadow-[0_1px_2px_rgba(0,0,0,0.05)] cursor-pointer card-hover" onClick={() => navigateTo('/farmer/ai-assistant')}>
               <div className="flex items-center gap-2 mb-3">
                 <span className="material-symbols-outlined text-tertiary" style={{ fontVariationSettings: "'FILL' 1" }}>smart_toy</span>
-                <h2 className="text-tertiary font-bold text-sm m-0">AI Tip for Today</h2>
+                <h2 className="text-tertiary font-bold text-sm m-0">{t('home.aiTipTitle')}</h2>
               </div>
               <p className="text-onSurface-variant text-xs leading-[1.625] mb-4 m-0">
-                Apply DAP fertilizer to Wheat within the next 48 hours for optimal tiller development. The current soil moisture at 18% is ideal for absorption.
+                {t('home.aiTipContent')}
               </p>
               <button className="group flex items-center gap-2 text-tertiary text-xs font-bold bg-transparent border-none cursor-pointer p-0" onClick={(e) => { e.stopPropagation(); navigateTo('/farmer/ai-assistant'); }}>
-                Ask AI for more tips
+                {t('home.askAiMore')}
                 <span className="material-symbols-outlined text-[14px] transition-transform group-hover:translate-x-1">arrow_forward</span>
               </button>
             </section>
@@ -300,8 +302,8 @@ export default function Home() {
             {/* SECTION 6: Mandi Updates Teaser */}
             <section className="bg-surface-containerLowest rounded-2xl p-5 shadow-[0_1px_2px_rgba(0,0,0,0.05)] cursor-pointer card-hover" onClick={() => navigateTo('/farmer/mandi')}>
               <div className="flex justify-between items-center mb-4">
-                <h2 className="font-headline font-bold text-sm md:text-base text-onSurface m-0">Mandi Updates</h2>
-                <span className="text-[10px] text-onSurface-variant font-medium">Guna Market</span>
+                <h2 className="font-headline font-bold text-sm md:text-base text-onSurface m-0">{t('home.mandiUpdates')}</h2>
+                <span className="text-[10px] text-onSurface-variant font-medium">{t('home.gunaMarket')}</span>
               </div>
               <div className="flex flex-col">
                 <div className="flex justify-between items-center py-3 border-t border-[#d4e8d1]/30 first:border-t-0">

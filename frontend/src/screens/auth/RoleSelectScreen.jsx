@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const ROLES = [
   {
@@ -24,7 +25,29 @@ const ROLES = [
 
 export default function RoleSelectScreen() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [selectedRole, setSelectedRole] = useState('farmer');
+
+  const ROLES = [
+    {
+      id: 'farmer',
+      icon: 'agriculture',
+      label: t('roleSelect.farmer'),
+      desc: t('roleSelect.farmerDesc'),
+    },
+    {
+      id: 'expert',
+      icon: 'science',
+      label: t('roleSelect.expert'),
+      desc: t('roleSelect.expertDesc'),
+    },
+    {
+      id: 'vendor',
+      icon: 'storefront',
+      label: t('roleSelect.vendor'),
+      desc: t('roleSelect.vendorDesc'),
+    },
+  ];
 
   const handleContinue = () => {
     localStorage.setItem('selectedRole', selectedRole);
@@ -44,13 +67,13 @@ export default function RoleSelectScreen() {
             >eco</span>
           </div>
           <h1 className="font-['Plus_Jakarta_Sans',sans-serif] font-extrabold text-[24px] text-[#0d631b] tracking-[-0.025em] m-0">FarmIt</h1>
-          <p className="font-['Be_Vietnam_Pro',sans-serif] text-[14px] text-[#40493d] mt-1 m-0">Empowering Farmers with AI</p>
+          <p className="font-['Be_Vietnam_Pro',sans-serif] text-[14px] text-[#40493d] mt-1 m-0">{t('roleSelect.tagline')}</p>
         </div>
 
         {/* ── Question ──────────────────────── */}
         <div className="text-center mb-6">
-          <h2 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-[22px] text-[#0f1f11] m-0 mb-1.5">Who are you?</h2>
-          <p className="font-['Be_Vietnam_Pro',sans-serif] text-[13px] text-[#40493d] m-0">Select your role to get started</p>
+          <h2 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-[22px] text-[#0f1f11] m-0 mb-1.5">{t('roleSelect.title')}</h2>
+          <p className="font-['Be_Vietnam_Pro',sans-serif] text-[13px] text-[#40493d] m-0">{t('roleSelect.subtitle')}</p>
         </div>
 
         {/* ── Role Tiles ────────────────────── */}
@@ -91,7 +114,7 @@ export default function RoleSelectScreen() {
         {/* ── Actions ───────────────────────── */}
         <div className="mt-7 flex flex-col items-center gap-3.5 pb-2">
           <button className="w-full h-14 rounded-full bg-gradient-to-b from-[#0d631b] to-[#2e7d32] text-white font-['Be_Vietnam_Pro',sans-serif] text-[15px] font-semibold uppercase tracking-[0.08em] flex items-center justify-center shadow-[0_8px_24px_-8px_rgba(13,99,27,0.4)] border-none cursor-pointer transition-transform duration-200 active:scale-[0.97]" onClick={handleContinue}>
-            Continue
+            {t('common.continue')}
           </button>
         </div>
 

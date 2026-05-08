@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useIsMobile } from '../../hooks/useMediaQuery';
+import { useTranslation } from 'react-i18next';
 
 const GRID_ITEMS = [
   { icon: 'description',   label: 'Subsidy Guide',   iconClass: 'bg-primary-container text-white',   route: '/farmer/subsidy'     },
@@ -14,8 +15,9 @@ const GRID_ITEMS = [
 export default function More() {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
+  const { t, i18n } = useTranslation();
   const [showLangSheet, setShowLangSheet] = useState(false);
-  const [currentLang, setCurrentLang] = useState(localStorage.getItem('appLanguage') || 'en');
+  const [currentLang, setCurrentLang] = useState(i18n.language || 'en');
 
   const languages = [
     { code: 'hi', native: 'हिंदी', label: 'Hindi' },
@@ -74,7 +76,7 @@ export default function More() {
 
           {/* ── Explore Grid ────────────────── */}
           <section className="flex flex-col gap-3.5">
-            <h3 className="font-['Be_Vietnam_Pro',sans-serif] font-semibold text-[11px] tracking-[0.1em] uppercase text-onSurface-variant px-0.5 m-0">Explore NeoKrishi</h3>
+            <h3 className="font-['Be_Vietnam_Pro',sans-serif] font-semibold text-[11px] tracking-[0.1em] uppercase text-onSurface-variant px-0.5 m-0">{t('more.exploreNeoKrishi')}</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {GRID_ITEMS.map(({ icon, label, iconClass, route }) => (
                 <button
@@ -95,29 +97,29 @@ export default function More() {
 
           {/* ── Account & Support ───────────── */}
           <section className="flex flex-col gap-3.5">
-            <h3 className="font-['Be_Vietnam_Pro',sans-serif] font-semibold text-[11px] tracking-[0.1em] uppercase text-onSurface-variant px-0.5 m-0">Account &amp; Support</h3>
+            <h3 className="font-['Be_Vietnam_Pro',sans-serif] font-semibold text-[11px] tracking-[0.1em] uppercase text-onSurface-variant px-0.5 m-0">{t('more.accountSupport')}</h3>
             <div className="flex flex-col gap-0.5">
               <button className="w-full flex items-center gap-3.5 py-3.5 px-3 rounded-2xl border-none bg-transparent cursor-pointer text-left transition-colors duration-200 hover:bg-surface-containerLow" onClick={() => setShowLangSheet(true)}>
                 <span className="material-symbols-outlined text-[22px] text-outline shrink-0">language</span>
-                <span className="font-['Be_Vietnam_Pro',sans-serif] font-medium text-[14px] text-onSurface flex-1">Language</span>
+                <span className="font-['Be_Vietnam_Pro',sans-serif] font-medium text-[14px] text-onSurface flex-1">{t('common.language')}</span>
                 <span className="font-['Be_Vietnam_Pro',sans-serif] text-[13px] text-onSurface-variant">{currentLangNative}</span>
                 <span className="material-symbols-outlined text-[18px] text-[#bfcaba]">chevron_right</span>
               </button>
               <button className="w-full flex items-center gap-3.5 py-3.5 px-3 rounded-2xl border-none bg-transparent cursor-pointer text-left transition-colors duration-200 hover:bg-surface-containerLow">
                 <span className="material-symbols-outlined text-[22px] text-outline shrink-0">help</span>
-                <span className="font-['Be_Vietnam_Pro',sans-serif] font-medium text-[14px] text-onSurface flex-1">Help &amp; Support</span>
+                <span className="font-['Be_Vietnam_Pro',sans-serif] font-medium text-[14px] text-onSurface flex-1">{t('more.helpSupport')}</span>
                 <span className="material-symbols-outlined text-[18px] text-[#bfcaba]">chevron_right</span>
               </button>
               <button className="w-full flex items-center gap-3.5 py-3.5 px-3 rounded-2xl border-none bg-transparent cursor-pointer text-left transition-colors duration-200 hover:bg-[#fff1f0]" onClick={handleLogout}>
                 <span className="material-symbols-outlined text-[22px] text-error shrink-0">logout</span>
-                <span className="font-['Be_Vietnam_Pro',sans-serif] font-medium text-[14px] text-error flex-1">Logout</span>
+                <span className="font-['Be_Vietnam_Pro',sans-serif] font-medium text-[14px] text-error flex-1">{t('common.logout')}</span>
               </button>
             </div>
           </section>
 
           {/* ── Social Section ──────────────── */}
           <section className="flex flex-col items-center gap-3.5 pb-2">
-            <p className="font-['Be_Vietnam_Pro',sans-serif] text-[12px] text-onSurface-variant m-0">Connect with FarmIt</p>
+            <p className="font-['Be_Vietnam_Pro',sans-serif] text-[12px] text-onSurface-variant m-0">{t('more.connectFarmIt')}</p>
             <div className="flex gap-3.5">
               <button className="w-10 h-10 rounded-full border-none bg-surface-container text-primary flex items-center justify-center cursor-pointer transition-all duration-200 hover:bg-primary-container hover:text-white active:scale-[0.92]" aria-label="Share">
                 <span className="material-symbols-outlined text-[20px]">share</span>
@@ -154,7 +156,7 @@ export default function More() {
             overflowY: 'auto'
           }} onClick={e => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-              <h3 style={{ margin: 0, fontFamily: 'var(--font-headline)', color: '#0d631b', fontSize: '18px' }}>Select Language</h3>
+              <h3 style={{ margin: 0, fontFamily: 'var(--font-headline)', color: '#0d631b', fontSize: '18px' }}>{t('common.selectLanguage')}</h3>
               <button onClick={() => setShowLangSheet(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#40493d' }}>
                 <span className="material-symbols-outlined">close</span>
               </button>
@@ -166,6 +168,7 @@ export default function More() {
                   key={l.code}
                   onClick={() => {
                     setCurrentLang(l.code);
+                    i18n.changeLanguage(l.code);
                     localStorage.setItem('appLanguage', l.code);
                     setShowLangSheet(false);
                   }}
