@@ -40,7 +40,7 @@ export default function ProfileScreen() {
               <img
                 alt="Profile"
                 className="w-full h-full object-cover object-[center_20%] scale-150"
-                src="/images/manjeet_profile.jpg"
+                src="/images/manjeet_profile.webp"
               />
             </div>
             <h2 className="font-headline font-bold text-3xl text-onSurface mb-2 mt-0">Manjeet Lodha</h2>

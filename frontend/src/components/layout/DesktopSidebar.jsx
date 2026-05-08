@@ -150,7 +150,7 @@ export default function DesktopSidebar({ collapsed = false, onToggle }) {
         >
           <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-white/20 shrink-0">
             <img
-              src="/images/manjeet_profile.jpg"
+              src="/images/manjeet_profile.webp"
               alt="Profile"
               className="w-full h-full object-cover object-[center_20%] scale-150"
             />

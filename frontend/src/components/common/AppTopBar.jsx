@@ -111,7 +111,7 @@ export default function AppTopBar({
               onClick={() => navigate('/farmer/profile')}
             >
               <img 
-                src="/images/manjeet_profile.jpg" 
+                src="/images/manjeet_profile.webp" 
                 alt="Profile" 
                 className="w-full h-full object-cover object-[center_20%] scale-150"
               />
@@ -130,7 +130,7 @@ export default function AppTopBar({
               <div className="flex flex-col gap-3">
                 <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-primary/20 shadow-sm">
                   <img 
-                    src="/images/manjeet_profile.jpg" 
+                    src="/images/manjeet_profile.webp" 
                     alt="Profile" 
                     className="w-full h-full object-cover object-[center_20%] scale-150"
                   />

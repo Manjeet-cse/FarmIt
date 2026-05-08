@@ -38,7 +38,7 @@ const EXPERTS = [
     experience: '5 Yrs Exp',
     topics: ['Organic Farming', 'Wheat'],
     rating: 4.5,
-    image: '/experts/expert_priyanshu.png'
+    image: '/experts/expert_priyanshu.webp'
   },
   {
     id: 5,
@@ -47,7 +47,7 @@ const EXPERTS = [
     experience: '10 Yrs Exp',
     topics: ['Pest Control', 'Vegetables'],
     rating: 4.7,
-    image: '/experts/expert_piyush.png'
+    image: '/experts/expert_piyush.webp'
   },
   {
     id: 6,
@@ -56,7 +56,7 @@ const EXPERTS = [
     experience: '12 Yrs Exp',
     topics: ['Soil Health', 'Irrigation'],
     rating: 4.8,
-    image: '/experts/expert_karunesh.png'
+    image: '/experts/expert_karunesh.webp'
   },
   {
     id: 7,
@@ -65,7 +65,7 @@ const EXPERTS = [
     experience: '7 Yrs Exp',
     topics: ['Wheat', 'Sugarcane'],
     rating: 4.6,
-    image: '/experts/expert_madhav.png'
+    image: '/experts/expert_madhav.webp'
   },
   {
     id: 8,
@@ -74,7 +74,7 @@ const EXPERTS = [
     experience: '4 Yrs Exp',
     topics: ['Organic Farming', 'Soil Health'],
     rating: 4.4,
-    image: '/experts/expert_vishal.png'
+    image: '/experts/expert_vishal.webp'
   },
   {
     id: 9,
@@ -83,7 +83,7 @@ const EXPERTS = [
     experience: '6 Yrs Exp',
     topics: ['Irrigation', 'Pest Control'],
     rating: 4.5,
-    image: '/experts/expert_golu.png'
+    image: '/experts/expert_golu.webp'
   },
   {
     id: 10,
@@ -92,7 +92,7 @@ const EXPERTS = [
     experience: '18 Yrs Exp',
     topics: ['Sugarcane', 'Soil Health'],
     rating: 4.9,
-    image: '/experts/expert_narendra.png'
+    image: '/experts/expert_narendra.webp'
   },
   {
     id: 11,
@@ -101,7 +101,7 @@ const EXPERTS = [
     experience: '9 Yrs Exp',
     topics: ['Pest Control', 'Organic Farming'],
     rating: 4.7,
-    image: '/experts/expert_satish.png'
+    image: '/experts/expert_satish.webp'
   }
 ];
 

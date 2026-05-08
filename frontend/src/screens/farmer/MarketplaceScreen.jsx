@@ -6,40 +6,40 @@ import { useIsMobile } from '../../hooks/useMediaQuery';
 
 const MOCK_PRODUCTS = [
   // Seeds
-  { id: 1, name: 'Sharbati Wheat Seeds', category: 'Seeds', brand: 'KisanBeej', price: 450, unit: '5kg', rating: 4.8, verified: true, image: '/assets/marketplace/wheat_seeds.png' },
-  { id: 2, name: 'Hybrid Tomato Seeds', category: 'Seeds', brand: 'AgriPro', price: 120, unit: '50g', rating: 4.5, verified: true, image: '/assets/marketplace/tomato_seeds.png' },
-  { id: 3, name: 'Basmati Rice Seeds', category: 'Seeds', brand: 'KisanBeej', price: 800, unit: '10kg', rating: 4.9, verified: true, image: '/assets/marketplace/rice_seeds.png' },
-  { id: 4, name: 'BT Cotton Seeds', category: 'Seeds', brand: 'Nuziveedu', price: 950, unit: '450g', rating: 4.2, verified: false, image: '/assets/marketplace/cotton_seeds.png' },
-  { id: 5, name: 'Yellow Maize Seeds', category: 'Seeds', brand: 'Pioneer', price: 1200, unit: '5kg', rating: 4.6, verified: true, image: '/assets/marketplace/maize_seeds.png' },
+  { id: 1, name: 'Sharbati Wheat Seeds', category: 'Seeds', brand: 'KisanBeej', price: 450, unit: '5kg', rating: 4.8, verified: true, image: '/assets/marketplace/wheat_seeds.webp' },
+  { id: 2, name: 'Hybrid Tomato Seeds', category: 'Seeds', brand: 'AgriPro', price: 120, unit: '50g', rating: 4.5, verified: true, image: '/assets/marketplace/tomato_seeds.webp' },
+  { id: 3, name: 'Basmati Rice Seeds', category: 'Seeds', brand: 'KisanBeej', price: 800, unit: '10kg', rating: 4.9, verified: true, image: '/assets/marketplace/rice_seeds.webp' },
+  { id: 4, name: 'BT Cotton Seeds', category: 'Seeds', brand: 'Nuziveedu', price: 950, unit: '450g', rating: 4.2, verified: false, image: '/assets/marketplace/cotton_seeds.webp' },
+  { id: 5, name: 'Yellow Maize Seeds', category: 'Seeds', brand: 'Pioneer', price: 1200, unit: '5kg', rating: 4.6, verified: true, image: '/assets/marketplace/maize_seeds.webp' },
   // Fertilizers
-  { id: 6, name: 'Premium DAP Fertilizer', category: 'Fertilizers', brand: 'IFFCO', price: 1350, unit: '50kg', rating: 4.9, verified: true, image: '/assets/marketplace/cat_fertilizer_1776883473185.png' },
-  { id: 7, name: 'Urea 46% N', category: 'Fertilizers', brand: 'KRIBHCO', price: 266, unit: '45kg', rating: 4.7, verified: true, image: '/assets/marketplace/cat_fertilizer_1776883473185.png' },
-  { id: 8, name: 'MOP - Muriate of Potash', category: 'Fertilizers', brand: 'IPL', price: 1700, unit: '50kg', rating: 4.4, verified: false, image: '/assets/marketplace/cat_fertilizer_1776883473185.png' },
-  { id: 9, name: 'Zinc Sulphate', category: 'Fertilizers', brand: 'Aries', price: 450, unit: '5kg', rating: 4.3, verified: true, image: '/assets/marketplace/cat_fertilizer_1776883473185.png' },
-  { id: 10, name: 'Organic Vermicompost', category: 'Fertilizers', brand: 'EcoFarms', price: 300, unit: '50kg', rating: 4.8, verified: true, image: '/assets/marketplace/cat_fertilizer_1776883473185.png' },
+  { id: 6, name: 'Premium DAP Fertilizer', category: 'Fertilizers', brand: 'IFFCO', price: 1350, unit: '50kg', rating: 4.9, verified: true, image: '/assets/marketplace/cat_fertilizer_1776883473185.webp' },
+  { id: 7, name: 'Urea 46% N', category: 'Fertilizers', brand: 'KRIBHCO', price: 266, unit: '45kg', rating: 4.7, verified: true, image: '/assets/marketplace/cat_fertilizer_1776883473185.webp' },
+  { id: 8, name: 'MOP - Muriate of Potash', category: 'Fertilizers', brand: 'IPL', price: 1700, unit: '50kg', rating: 4.4, verified: false, image: '/assets/marketplace/cat_fertilizer_1776883473185.webp' },
+  { id: 9, name: 'Zinc Sulphate', category: 'Fertilizers', brand: 'Aries', price: 450, unit: '5kg', rating: 4.3, verified: true, image: '/assets/marketplace/cat_fertilizer_1776883473185.webp' },
+  { id: 10, name: 'Organic Vermicompost', category: 'Fertilizers', brand: 'EcoFarms', price: 300, unit: '50kg', rating: 4.8, verified: true, image: '/assets/marketplace/cat_fertilizer_1776883473185.webp' },
   // Pesticides
-  { id: 11, name: 'Organic Neem Oil', category: 'Pesticides', brand: 'AgriLife', price: 320, unit: '1L', rating: 4.5, verified: true, image: '/assets/marketplace/neem_oil_bottle.png', tags: ['Organic Safe'] },
-  { id: 12, name: 'Chlorpyrifos 20% EC', category: 'Pesticides', brand: 'Bayer', price: 450, unit: '1L', rating: 4.1, verified: false, image: '/assets/marketplace/pesticide_bottle_red.png' },
-  { id: 13, name: 'Imidacloprid 17.8% SL', category: 'Pesticides', brand: 'Tata Rallis', price: 850, unit: '500ml', rating: 4.6, verified: true, image: '/assets/marketplace/pesticide_bottle_red.png' },
-  { id: 14, name: 'Mancozeb 75% WP Fungicide', category: 'Pesticides', brand: 'UPL', price: 380, unit: '1kg', rating: 4.4, verified: true, image: '/assets/marketplace/fungicide_powder_packet.png', tags: ['Recommended'] },
-  { id: 15, name: 'Glyphosate 41% SL Herbicide', category: 'Pesticides', brand: 'Excel', price: 600, unit: '1L', rating: 4.3, verified: false, image: '/assets/marketplace/pesticide_bottle_red.png' },
+  { id: 11, name: 'Organic Neem Oil', category: 'Pesticides', brand: 'AgriLife', price: 320, unit: '1L', rating: 4.5, verified: true, image: '/assets/marketplace/neem_oil_bottle.webp', tags: ['Organic Safe'] },
+  { id: 12, name: 'Chlorpyrifos 20% EC', category: 'Pesticides', brand: 'Bayer', price: 450, unit: '1L', rating: 4.1, verified: false, image: '/assets/marketplace/pesticide_bottle_red.webp' },
+  { id: 13, name: 'Imidacloprid 17.8% SL', category: 'Pesticides', brand: 'Tata Rallis', price: 850, unit: '500ml', rating: 4.6, verified: true, image: '/assets/marketplace/pesticide_bottle_red.webp' },
+  { id: 14, name: 'Mancozeb 75% WP Fungicide', category: 'Pesticides', brand: 'UPL', price: 380, unit: '1kg', rating: 4.4, verified: true, image: '/assets/marketplace/fungicide_powder_packet.webp', tags: ['Recommended'] },
+  { id: 15, name: 'Glyphosate 41% SL Herbicide', category: 'Pesticides', brand: 'Excel', price: 600, unit: '1L', rating: 4.3, verified: false, image: '/assets/marketplace/pesticide_bottle_red.webp' },
   // Tools
-  { id: 16, name: 'Heavy Duty Shovel', category: 'Tools', brand: 'Tata Agrico', price: 450, unit: '1 pc', rating: 4.7, verified: true, image: '/assets/marketplace/cat_tools_1776883508076.png' },
-  { id: 17, name: 'Hand Sickle', category: 'Tools', brand: 'Local Forge', price: 150, unit: '1 pc', rating: 3.9, verified: false, image: '/assets/marketplace/cat_tools_1776883508076.png' },
-  { id: 18, name: 'Pruning Shears', category: 'Tools', brand: 'Falcon', price: 550, unit: '1 pc', rating: 4.8, verified: true, image: '/assets/marketplace/cat_tools_1776883508076.png' },
-  { id: 19, name: 'Watering Can 10L', category: 'Tools', brand: 'Plasto', price: 300, unit: '1 pc', rating: 4.2, verified: true, image: '/assets/marketplace/cat_tools_1776883508076.png' },
-  { id: 20, name: 'Wheelbarrow', category: 'Tools', brand: 'Tata Agrico', price: 3200, unit: '1 pc', rating: 4.6, verified: true, image: '/assets/marketplace/cat_tools_1776883508076.png' },
+  { id: 16, name: 'Heavy Duty Shovel', category: 'Tools', brand: 'Tata Agrico', price: 450, unit: '1 pc', rating: 4.7, verified: true, image: '/assets/marketplace/cat_tools_1776883508076.webp' },
+  { id: 17, name: 'Hand Sickle', category: 'Tools', brand: 'Local Forge', price: 150, unit: '1 pc', rating: 3.9, verified: false, image: '/assets/marketplace/cat_tools_1776883508076.webp' },
+  { id: 18, name: 'Pruning Shears', category: 'Tools', brand: 'Falcon', price: 550, unit: '1 pc', rating: 4.8, verified: true, image: '/assets/marketplace/cat_tools_1776883508076.webp' },
+  { id: 19, name: 'Watering Can 10L', category: 'Tools', brand: 'Plasto', price: 300, unit: '1 pc', rating: 4.2, verified: true, image: '/assets/marketplace/cat_tools_1776883508076.webp' },
+  { id: 20, name: 'Wheelbarrow', category: 'Tools', brand: 'Tata Agrico', price: 3200, unit: '1 pc', rating: 4.6, verified: true, image: '/assets/marketplace/cat_tools_1776883508076.webp' },
   // Machinery
-  { id: 21, name: 'Heavy Duty Tiller', category: 'Machinery', brand: 'Honda', price: 45000, unit: '1 unit', rating: 4.9, verified: true, image: '/assets/marketplace/cat_machinery_1776883521697.png' },
-  { id: 22, name: 'Knapsack Sprayer 16L', category: 'Machinery', brand: 'Aspee', price: 2100, unit: '1 unit', rating: 4.5, verified: true, image: '/assets/marketplace/cat_machinery_1776883521697.png' },
-  { id: 23, name: 'Battery Operated Sprayer', category: 'Machinery', brand: 'KisanKraft', price: 3500, unit: '1 unit', rating: 4.7, verified: true, image: '/assets/marketplace/cat_machinery_1776883521697.png' },
-  { id: 24, name: 'Water Pump 5HP', category: 'Machinery', brand: 'Crompton', price: 18500, unit: '1 unit', rating: 4.8, verified: true, image: '/assets/marketplace/cat_machinery_1776883521697.png' },
-  { id: 25, name: 'Chaff Cutter Machine', category: 'Machinery', brand: 'Local', price: 12000, unit: '1 unit', rating: 4.0, verified: false, image: '/assets/marketplace/cat_machinery_1776883521697.png' },
+  { id: 21, name: 'Heavy Duty Tiller', category: 'Machinery', brand: 'Honda', price: 45000, unit: '1 unit', rating: 4.9, verified: true, image: '/assets/marketplace/cat_machinery_1776883521697.webp' },
+  { id: 22, name: 'Knapsack Sprayer 16L', category: 'Machinery', brand: 'Aspee', price: 2100, unit: '1 unit', rating: 4.5, verified: true, image: '/assets/marketplace/cat_machinery_1776883521697.webp' },
+  { id: 23, name: 'Battery Operated Sprayer', category: 'Machinery', brand: 'KisanKraft', price: 3500, unit: '1 unit', rating: 4.7, verified: true, image: '/assets/marketplace/cat_machinery_1776883521697.webp' },
+  { id: 24, name: 'Water Pump 5HP', category: 'Machinery', brand: 'Crompton', price: 18500, unit: '1 unit', rating: 4.8, verified: true, image: '/assets/marketplace/cat_machinery_1776883521697.webp' },
+  { id: 25, name: 'Chaff Cutter Machine', category: 'Machinery', brand: 'Local', price: 12000, unit: '1 unit', rating: 4.0, verified: false, image: '/assets/marketplace/cat_machinery_1776883521697.webp' },
   // Diagnosis Treatments
-  { id: 101, name: 'Propiconazole 25% EC', category: 'Pesticides', brand: 'Syngenta', price: 650, unit: '500ml', rating: 4.8, verified: true, image: '/assets/marketplace/pesticide_bottle_red.png', tags: ['Best Match', 'Fast Acting'] },
-  { id: 102, name: 'Sulfur 80% WDG Fungicide', category: 'Pesticides', brand: 'UPL', price: 250, unit: '1kg', rating: 4.6, verified: true, image: '/assets/marketplace/fungicide_powder_packet.png', tags: ['Preventative'] },
-  { id: 103, name: 'Baking Soda Plant Spray', category: 'Pesticides', brand: 'EcoAgri', price: 150, unit: '500g', rating: 4.5, verified: true, image: '/assets/marketplace/organic_spray_bottle.png', tags: ['Organic', 'Safe'] },
-  { id: 104, name: 'Bio-Fungicide Trichoderma', category: 'Pesticides', brand: 'AgriLife', price: 280, unit: '1kg', rating: 4.7, verified: true, image: '/assets/marketplace/fungicide_powder_packet.png', tags: ['Organic', 'Best Match'] }
+  { id: 101, name: 'Propiconazole 25% EC', category: 'Pesticides', brand: 'Syngenta', price: 650, unit: '500ml', rating: 4.8, verified: true, image: '/assets/marketplace/pesticide_bottle_red.webp', tags: ['Best Match', 'Fast Acting'] },
+  { id: 102, name: 'Sulfur 80% WDG Fungicide', category: 'Pesticides', brand: 'UPL', price: 250, unit: '1kg', rating: 4.6, verified: true, image: '/assets/marketplace/fungicide_powder_packet.webp', tags: ['Preventative'] },
+  { id: 103, name: 'Baking Soda Plant Spray', category: 'Pesticides', brand: 'EcoAgri', price: 150, unit: '500g', rating: 4.5, verified: true, image: '/assets/marketplace/organic_spray_bottle.webp', tags: ['Organic', 'Safe'] },
+  { id: 104, name: 'Bio-Fungicide Trichoderma', category: 'Pesticides', brand: 'AgriLife', price: 280, unit: '1kg', rating: 4.7, verified: true, image: '/assets/marketplace/fungicide_powder_packet.webp', tags: ['Organic', 'Best Match'] }
 ];
 
 const CATEGORIES = ['All', 'Seeds', 'Fertilizers', 'Pesticides', 'Machinery', 'Tools'];

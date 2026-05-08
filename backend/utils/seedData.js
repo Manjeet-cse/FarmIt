@@ -89,7 +89,7 @@ const seedData = async () => {
         acreage: 1.0,
         farmerId: farmer._id,
         nextAction: 'Irrigation in 2 days',
-        image: '/mustard_field.png',
+        image: '/mustard_field.webp',
       },
     ]);
 

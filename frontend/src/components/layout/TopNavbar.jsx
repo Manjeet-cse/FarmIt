@@ -135,7 +135,7 @@ export default function TopNavbar() {
           onClick={() => navigate('/farmer/profile')}
         >
           <img
-            src="/images/manjeet_profile.jpg"
+            src="/images/manjeet_profile.webp"
             alt="Profile"
             className="w-full h-full object-cover object-[center_20%] scale-150"
           />

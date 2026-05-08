@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppTopBar from '../../components/common/AppTopBar';
-import wheatMildewImg from '../../assets/images/wheat_mildew.png';
+import wheatMildewImg from '../../assets/images/wheat_mildew.webp';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 
 /* ─── Static Data ─────────────────────────────────────────────────── */

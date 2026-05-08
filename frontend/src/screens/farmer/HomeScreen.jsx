@@ -110,7 +110,7 @@ export default function Home() {
                     <img 
                       className="w-full h-full object-cover"
                       alt="Mustard field" 
-                      src="/mustard_field.png"
+                      src="/mustard_field.webp"
                     />
                   </div>
                   <div className="p-4 flex flex-col gap-3 flex-1">
