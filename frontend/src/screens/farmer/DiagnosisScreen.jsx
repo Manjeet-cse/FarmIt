@@ -1,48 +1,36 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import AppTopBar from '../../components/common/AppTopBar';
 import wheatMildewImg from '../../assets/images/wheat_mildew.webp';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 
-/* ─── Static Data ─────────────────────────────────────────────────── */
-const STAT_CHIPS = [
-  { icon: 'savings', iconClass: 'text-primary', label: 'Avg. Impact', value: '35% Yield Saved' },
-  { icon: 'trending_down', iconClass: 'text-[#774c00]', label: 'Chemical Use', value: '40% Cost Cut' },
-  { icon: 'bolt', iconClass: 'text-[#774c00]', label: 'Processing', value: 'Instant Results' },
-];
-
-const RECENT_RESULT = {
-  crop: 'Wheat',
-  latin: 'Triticum',
-  disease: 'Powdery Mildew',
-  severity: 'Medium Severity',
-  solutions: [
-    {
-      key: 'organic',
-      icon: 'eco',
-      title: 'Organic Solution',
-      desc: 'Apply neem oil extract (0.5%) or spray baking soda solution mixed with mild soap during early morning.',
-      linkText: 'View steps',
-    },
-    {
-      key: 'chemical',
-      icon: 'science',
-      title: 'Chemical Control',
-      desc: 'Apply sulfur-based fungicides or Propiconazole 25% EC at recommended dosage if infection spreads.',
-      linkText: 'View dosages',
-    },
-  ],
-};
-
 /* ─── Component ───────────────────────────────────────────────────── */
 export default function DiagnosisScreen() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const scrollRef = useRef(null);
   const isMobile = useIsMobile();
   const [analyzing, setAnalyzing] = useState(false);
-  const [showResult, setShowResult] = useState(true); // default: show result section as in reference
+  const [showResult, setShowResult] = useState(true);
 
-  // Restore scroll position when returning from Treatments
+  const STAT_CHIPS = [
+    { icon: 'savings', iconClass: 'text-primary', label: t('diagnosis.avgImpact'), value: t('diagnosis.yieldSaved') },
+    { icon: 'trending_down', iconClass: 'text-[#774c00]', label: t('diagnosis.chemicalUse'), value: t('diagnosis.costCut') },
+    { icon: 'bolt', iconClass: 'text-[#774c00]', label: t('diagnosis.processing'), value: t('diagnosis.instantResults') },
+  ];
+
+  const RECENT_RESULT = {
+    crop: t('home.wheat'),
+    latin: 'Triticum',
+    disease: 'Powdery Mildew',
+    severity: t('home.needsAttention'),
+    solutions: [
+      { key: 'organic', icon: 'eco', title: t('diagnosis.organicSolution'), desc: t('diagnosis.organicDesc'), linkText: t('diagnosis.viewSteps') },
+      { key: 'chemical', icon: 'science', title: t('diagnosis.chemicalControl'), desc: t('diagnosis.chemicalDesc'), linkText: t('diagnosis.viewDosages') },
+    ],
+  };
+
   useEffect(() => {
     const saved = sessionStorage.getItem('diagnosis_scroll');
     if (saved && scrollRef.current) {
@@ -52,7 +40,6 @@ export default function DiagnosisScreen() {
   }, []);
 
   const navigateToTreatment = (sol) => {
-    // Save scroll position before navigating away
     if (scrollRef.current) {
       sessionStorage.setItem('diagnosis_scroll', scrollRef.current.scrollTop);
     }
@@ -77,7 +64,7 @@ export default function DiagnosisScreen() {
             <button className="w-10 h-10 rounded-full bg-transparent border-none flex items-center justify-center text-white cursor-pointer transition-all duration-150 ease-in-out hover:bg-white/10 active:scale-95" onClick={() => navigate(-1)}>
               <span className="material-symbols-outlined">arrow_back</span>
             </button>
-            <h1 className="font-headline text-[18px] font-bold text-white tracking-[-0.2px] m-0">AI Diagnosis</h1>
+            <h1 className="font-headline text-[18px] font-bold text-white tracking-[-0.2px] m-0">{t('diagnosis.title')}</h1>
           </div>
         </div>
       )}
@@ -106,8 +93,8 @@ export default function DiagnosisScreen() {
             <div className="absolute -top-12 -right-12 w-24 h-24 bg-[#0d631b]/5 rounded-full pointer-events-none" aria-hidden="true" />
 
             <div className="text-center mb-5">
-              <h2 className="font-headline text-[22px] font-extrabold text-onSurface mb-1.5 tracking-[-0.4px]">Identify Crop Issues</h2>
-              <p className="text-[13px] text-onSurface-variant leading-[1.5] max-w-[280px] mx-auto m-0">Take a clear photo of the affected leaf or fruit. Our AI will analyze it instantly.</p>
+              <h2 className="font-headline text-[22px] font-extrabold text-onSurface mb-1.5 tracking-[-0.4px]">{t('diagnosis.identifyCropIssues')}</h2>
+              <p className="text-[13px] text-onSurface-variant leading-[1.5] max-w-[280px] mx-auto m-0">{t('diagnosis.identifyDesc')}</p>
             </div>
 
             {/* Drop Zone */}
@@ -116,7 +103,7 @@ export default function DiagnosisScreen() {
               style={{ position: 'relative', backgroundImage: 'url("data:image/svg+xml,%3csvg width=\'100%25\' height=\'100%25\' xmlns=\'http://www.w3.org/2000/svg\'%3e%3crect width=\'100%25\' height=\'100%25\' fill=\'none\' rx=\'22\' ry=\'22\' stroke=\'%230d631b33\' stroke-width=\'4\' stroke-dasharray=\'12%2c 12\' stroke-dashoffset=\'0\' stroke-linecap=\'square\'/%3e%3c/svg%3e")' }}
               role="button"
               tabIndex={0}
-              aria-label="Tap to scan crop"
+              aria-label={t('diagnosis.tapToScan')}
               onClick={handleDiagnose}
               onKeyDown={(e) => e.key === 'Enter' && handleDiagnose()}
             >
@@ -130,30 +117,25 @@ export default function DiagnosisScreen() {
               {analyzing && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/40 rounded-[22px] z-10">
                   <div className="absolute top-0 left-0 right-0 h-[3px] bg-[#00e676] shadow-[0_0_10px_#00e676] animate-[scanAnim_2s_linear_infinite]" />
-                  <p className="bg-black/60 text-white py-1.5 px-4 rounded-full text-[13px] font-semibold m-0">Analyzing leaf patterns…</p>
+                  <p className="bg-black/60 text-white py-1.5 px-4 rounded-full text-[13px] font-semibold m-0">{t('diagnosis.analyzing')}</p>
                 </div>
               )}
               <div className="w-[72px] h-[72px] rounded-full bg-surface-containerHighest flex items-center justify-center mb-3.5 transition-transform duration-250 ease-in-out group-hover:scale-[1.06]">
-                <span
-                  className="material-symbols-outlined text-[36px] text-primary"
-                  style={{ fontVariationSettings: "'FILL' 1" }}
-                >
-                  add_a_photo
-                </span>
+                <span className="material-symbols-outlined text-[36px] text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>add_a_photo</span>
               </div>
-              <p className="font-headline text-[17px] font-bold text-primary mb-1 m-0">Tap to scan crop</p>
-              <p className="text-[12px] text-onSurface-variant m-0">JPG, PNG • Max 10MB</p>
+              <p className="font-headline text-[17px] font-bold text-primary mb-1 m-0">{t('diagnosis.tapToScan')}</p>
+              <p className="text-[12px] text-onSurface-variant m-0">{t('diagnosis.fileTypes')}</p>
             </div>
 
             {/* Camera / Gallery */}
             <div className="grid grid-cols-2 gap-3.5 mb-5">
-              <button className="h-[52px] rounded-2xl border-2 border-[#0d631b]/20 bg-transparent text-primary font-body text-[14px] font-semibold flex items-center justify-center gap-2 cursor-pointer transition-colors duration-150 hover:bg-[#0d631b]/5" aria-label="Use camera">
+              <button className="h-[52px] rounded-2xl border-2 border-[#0d631b]/20 bg-transparent text-primary font-body text-[14px] font-semibold flex items-center justify-center gap-2 cursor-pointer transition-colors duration-150 hover:bg-[#0d631b]/5" aria-label={t('diagnosis.camera')}>
                 <span className="material-symbols-outlined text-[20px]">photo_camera</span>
-                Camera
+                {t('diagnosis.camera')}
               </button>
-              <button className="h-[52px] rounded-2xl border-2 border-[#0d631b]/20 bg-transparent text-primary font-body text-[14px] font-semibold flex items-center justify-center gap-2 cursor-pointer transition-colors duration-150 hover:bg-[#0d631b]/5" aria-label="Choose from gallery">
+              <button className="h-[52px] rounded-2xl border-2 border-[#0d631b]/20 bg-transparent text-primary font-body text-[14px] font-semibold flex items-center justify-center gap-2 cursor-pointer transition-colors duration-150 hover:bg-[#0d631b]/5" aria-label={t('diagnosis.gallery')}>
                 <span className="material-symbols-outlined text-[20px]">image</span>
-                Gallery
+                {t('diagnosis.gallery')}
               </button>
             </div>
 
@@ -163,13 +145,8 @@ export default function DiagnosisScreen() {
               onClick={handleDiagnose}
               disabled={analyzing}
             >
-              <span
-                className="material-symbols-outlined text-[20px]"
-                style={{ fontVariationSettings: "'FILL' 1" }}
-              >
-                auto_awesome
-              </span>
-              Diagnose with AI
+              <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>auto_awesome</span>
+              {t('diagnosis.diagnoseWithAi')}
             </button>
           </section>
 
@@ -180,7 +157,7 @@ export default function DiagnosisScreen() {
               <div className="flex items-center justify-between mb-5">
                 <h3 className="flex items-center gap-2 font-headline text-[19px] font-extrabold text-onSurface m-0">
                   <span className="material-symbols-outlined text-[22px] text-primary">analytics</span>
-                  Recent Analysis
+                  {t('diagnosis.recentAnalysis')}
                 </h3>
                 <span className="text-[11px] font-bold font-body py-1 px-3.5 rounded-full bg-[#986200] text-white">{RECENT_RESULT.severity}</span>
               </div>
@@ -191,18 +168,13 @@ export default function DiagnosisScreen() {
                   <img src={wheatMildewImg} alt="Wheat leaf with powdery mildew infection" className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <p className="font-body text-[10px] font-bold text-onSurface-variant uppercase tracking-[0.8px] mb-1 m-0">Detected Crop</p>
+                  <p className="font-body text-[10px] font-bold text-onSurface-variant uppercase tracking-[0.8px] mb-1 m-0">{t('diagnosis.detectedCrop')}</p>
                   <p className="font-headline text-[22px] font-extrabold text-primary leading-[1.1] mb-2.5 m-0">
                     {RECENT_RESULT.crop}{' '}
                     <span className="text-[16px] font-medium text-onSurface">/ {RECENT_RESULT.latin}</span>
                   </p>
                   <div className="inline-flex items-center gap-1.5 bg-[#ba1a1a]/10 border border-[#ba1a1a]/20 py-1.5 px-3 rounded-lg">
-                    <span
-                      className="material-symbols-outlined text-[14px] text-[#ba1a1a]"
-                      style={{ fontVariationSettings: "'FILL' 1" }}
-                    >
-                      coronavirus
-                    </span>
+                    <span className="material-symbols-outlined text-[14px] text-[#ba1a1a]" style={{ fontVariationSettings: "'FILL' 1" }}>coronavirus</span>
                     <span className="text-[13px] font-bold text-[#ba1a1a]">{RECENT_RESULT.disease}</span>
                   </div>
                 </div>
@@ -214,12 +186,7 @@ export default function DiagnosisScreen() {
                   <div key={sol.key} className="bg-surface-containerLow rounded-xl p-4 flex flex-col border border-[#bfcaba]/30">
                     <div className="flex items-center gap-2.5 mb-2.5">
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${sol.key === 'organic' ? 'bg-[#006e1c]/10 text-[#006e1c]' : 'bg-[#774c00]/10 text-[#774c00]'}`}>
-                        <span
-                          className="material-symbols-outlined text-[16px]"
-                          style={{ fontVariationSettings: "'FILL' 1" }}
-                        >
-                          {sol.icon}
-                        </span>
+                        <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>{sol.icon}</span>
                       </div>
                       <h4 className="font-headline text-[13px] font-bold text-onSurface m-0">{sol.title}</h4>
                     </div>
@@ -238,14 +205,14 @@ export default function DiagnosisScreen() {
               {/* Expert CTA */}
               <div className="bg-surface-containerHighest rounded-xl p-4 flex items-center justify-between">
                 <div>
-                  <h4 className="font-headline text-[15px] font-bold text-onSurface mb-0.5 mt-0">Need expert advice?</h4>
-                  <p className="text-[12px] text-onSurface-variant m-0">Connect with an agronomist instantly.</p>
+                  <h4 className="font-headline text-[15px] font-bold text-onSurface mb-0.5 mt-0">{t('diagnosis.needExpertAdvice')}</h4>
+                  <p className="text-[12px] text-onSurface-variant m-0">{t('diagnosis.connectAgronomist')}</p>
                 </div>
                 <button
                   onClick={() => navigate('/farmer/experts')}
                   className="bg-surface-containerLowest text-primary border-none py-2.5 px-4 rounded-xl font-body text-[13px] font-bold cursor-pointer shadow-[0_2px_8px_rgba(0,0,0,0.06)] transition-shadow duration-150 hover:shadow-[0_4px_12px_rgba(0,0,0,0.1)] whitespace-nowrap shrink-0"
                 >
-                  Talk to Expert
+                  {t('diagnosis.talkToExpert')}
                 </button>
               </div>
             </section>
