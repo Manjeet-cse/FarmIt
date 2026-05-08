@@ -16,7 +16,9 @@ export default function FloatingAIButton() {
   || location.pathname.includes('more')
   || location.pathname.includes('cart')
   || location.pathname.includes('checkout')
-  || location.pathname.includes('order-success');
+  || location.pathname.includes('order-success')
+  || location.pathname.includes('expert-booking')
+  || location.pathname.includes('expert-chat');
 
   if (isHidden) return null;
 

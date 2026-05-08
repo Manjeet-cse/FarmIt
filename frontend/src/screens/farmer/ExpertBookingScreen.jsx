@@ -41,7 +41,7 @@ export default function ExpertBookingScreen() {
         }
       `}</style>
       {/* Modal / Bottom Sheet */}
-      <div className="w-full max-w-[600px] mx-auto rounded-t-[24px] sm:rounded-[24px] sm:mb-6 bg-surface-containerLowest flex flex-col max-h-[90vh] sm:max-h-[85vh] h-[795px] sm:h-auto relative overflow-hidden shadow-[0_-8px_24px_rgba(0,0,0,0.1)] animate-[slideUp_0.3s_cubic-bezier(0.16,1,0.3,1)]">
+      <div className="w-full max-w-[600px] mx-auto rounded-t-[24px] sm:rounded-[24px] sm:mb-6 bg-surface-containerLowest flex flex-col h-auto max-h-[95%] sm:max-h-[85vh] relative overflow-hidden shadow-[0_-8px_24px_rgba(0,0,0,0.1)] animate-[slideUp_0.3s_cubic-bezier(0.16,1,0.3,1)]">
         {/* Drag Handle (Mobile) */}
         <div className="w-full flex justify-center pt-3 pb-1 sm:hidden">
           <div className="w-12 h-1.5 bg-[#bfcaba]/50 rounded-full" />
