@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AppTopBar from '../../components/common/AppTopBar';
-import BottomTabs from '../../components/layout/BottomTabs';
 import FloatingAIButton from '../../components/ai/FloatingAIButton';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 
@@ -720,11 +719,6 @@ export default function LearningScreen() {
             </div>
 
             <FloatingAIButton />
-            {isMobile && (
-                <div className="shrink-0 z-50 w-full bg-white/92 backdrop-blur-md">
-                    <BottomTabs />
-                </div>
-            )}
-        </div>
+                    </div>
     );
 }

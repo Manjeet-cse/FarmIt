@@ -13,7 +13,7 @@ export default function SplashScreen() {
   }, [navigate]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-full w-full bg-[#2e7d32] text-white relative overflow-hidden">
+    <div className="flex flex-col items-center justify-center min-h-[100dvh] w-full bg-[#2e7d32] text-white relative overflow-hidden">
       <style>{`
         @keyframes splash-load {
           from { width: 0%; }

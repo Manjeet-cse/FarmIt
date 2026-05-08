@@ -1,6 +1,5 @@
 import { useState, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import BottomTabs from '../../components/layout/BottomTabs';
 import AppTopBar from '../../components/common/AppTopBar';
 import { useCart } from '../../store/CartContext';
 import { useIsMobile } from '../../hooks/useMediaQuery';
@@ -284,11 +283,6 @@ export default function MarketplaceScreen() {
       )}
 
       {/* ── Bottom Nav — Mobile only ── */}
-      {isMobile && (
-        <div className="shrink-0 z-50 w-full bg-white/92 backdrop-blur-md">
-          <BottomTabs />
-        </div>
-      )}
-    </div>
+          </div>
   );
 }

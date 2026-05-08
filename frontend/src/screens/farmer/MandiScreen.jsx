@@ -1,5 +1,4 @@
 import { useState, useMemo, useEffect } from 'react';
-import BottomTabs from '../../components/layout/BottomTabs';
 import AppTopBar from '../../components/common/AppTopBar';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 
@@ -634,11 +633,6 @@ export default function MandiScreen() {
 
 
       {/* ── Bottom Nav — Mobile only ── */}
-      {isMobile && (
-        <div className="shrink-0 z-50 w-full bg-white/92 backdrop-blur-md">
-          <BottomTabs />
-        </div>
-      )}
-    </div>
+          </div>
   );
 }

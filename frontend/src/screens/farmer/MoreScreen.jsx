@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import BottomTabs from '../../components/layout/BottomTabs';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 
 const GRID_ITEMS = [
@@ -192,11 +191,6 @@ export default function More() {
       )}
 
       {/* ── Bottom Nav — Mobile only ── */}
-      {isMobile && (
-        <div className="absolute bottom-0 left-0 right-0 z-30">
-          <BottomTabs />
-        </div>
-      )}
-    </div>
+          </div>
   );
 }

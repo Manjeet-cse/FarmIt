@@ -1,6 +1,5 @@
 import React from 'react';
 import AppTopBar from '../../components/common/AppTopBar';
-import BottomTabs from '../../components/layout/BottomTabs';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 
 export default function OrdersScreen() {
@@ -13,7 +12,6 @@ export default function OrdersScreen() {
         <h2 className="font-headline font-bold text-xl text-onSurface mb-2 m-0">No Orders Yet</h2>
         <p className="text-onSurface-variant text-center font-body m-0">Your order history will appear here.</p>
       </div>
-      {isMobile && <BottomTabs />}
-    </div>
+          </div>
   );
 }

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import BottomTabs from '../../components/layout/BottomTabs';
 import AppTopBar from '../../components/common/AppTopBar';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 
@@ -125,12 +124,7 @@ export default function SubsidyScreen() {
       </div>
 
       {/* ── Bottom Nav — Mobile only ── */}
-      {isMobile && (
-        <div className="shrink-0 z-50 w-full bg-white/92 backdrop-blur-md">
-          <BottomTabs />
-        </div>
-      )}
-    </div>
+          </div>
   );
 }
 

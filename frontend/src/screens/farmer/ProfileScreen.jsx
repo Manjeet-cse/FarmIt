@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import AppTopBar from '../../components/common/AppTopBar';
-import BottomTabs from '../../components/layout/BottomTabs';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 
 export default function ProfileScreen() {
@@ -189,12 +188,7 @@ export default function ProfileScreen() {
         </main>
       </div>
 
-      {isMobile && (
-        <div className="absolute bottom-0 left-0 w-full z-40">
-          <BottomTabs />
-        </div>
-      )}
-
+      
       {/* Language Selection Bottom Sheet */}
       {showLangSheet && (
         <>

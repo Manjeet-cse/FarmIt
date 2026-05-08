@@ -1,6 +1,5 @@
 import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import BottomTabs from '../../components/layout/BottomTabs';
 import AppTopBar from '../../components/common/AppTopBar';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 
