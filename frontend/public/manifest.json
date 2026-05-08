@@ -2,7 +2,7 @@
   "name": "FarmIt — Smart Agriculture Platform",
   "short_name": "FarmIt",
   "description": "AI-powered farming assistant for modern Indian agriculture. Get real-time weather, mandi prices, crop diagnosis, and expert advice.",
-  "start_url": "/farmer/home",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
