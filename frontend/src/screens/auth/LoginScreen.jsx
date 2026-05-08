@@ -43,7 +43,7 @@ export default function LoginScreen() {
   };
 
   return (
-    <div className="bg-surface min-h-[100dvh] relative flex flex-col overflow-hidden">
+    <div className="bg-surface h-[100dvh] relative flex flex-col overflow-hidden">
       
       {/* Header Background */}
       <div className="w-full min-h-[160px] bg-gradient-to-b from-[#d4e8d1] to-[#e5f9e2] rounded-b-[40px] relative flex flex-col items-center justify-center py-4 px-6 z-10 shrink-0">

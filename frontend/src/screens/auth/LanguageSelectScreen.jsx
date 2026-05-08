@@ -22,7 +22,7 @@ export default function LanguageSelectScreen() {
   };
 
   return (
-    <div className="flex flex-col min-h-[100dvh] bg-[#ebffe7] font-['Be_Vietnam_Pro',sans-serif] overflow-y-auto overflow-x-hidden relative [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div className="flex flex-col h-[100dvh] bg-[#ebffe7] font-['Be_Vietnam_Pro',sans-serif] overflow-y-auto overflow-x-hidden relative [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
 
       {/* ── Header ────────────────────────────── */}
       <header className="flex items-center gap-3 px-6 pt-5 pb-3 shrink-0">

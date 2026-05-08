@@ -44,7 +44,7 @@ export default function OnboardingScreen() {
   const handleSkip = () => navigate('/role-select');
 
   return (
-    <div className="flex flex-col min-h-[100dvh] bg-white font-['Be_Vietnam_Pro',sans-serif] overflow-y-auto overflow-x-hidden">
+    <div className="flex flex-col h-[100dvh] bg-white font-['Be_Vietnam_Pro',sans-serif] overflow-y-auto overflow-x-hidden">
       <style>{`
         @keyframes onb-fadeIn {
           from { opacity: 0; transform: translateX(30px); }

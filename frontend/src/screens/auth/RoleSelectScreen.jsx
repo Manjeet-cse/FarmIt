@@ -32,7 +32,7 @@ export default function RoleSelectScreen() {
   };
 
   return (
-    <div className="bg-white min-h-[100dvh] flex flex-col overflow-y-auto overflow-x-hidden font-['Be_Vietnam_Pro',sans-serif] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div className="bg-white h-[100dvh] flex flex-col overflow-y-auto overflow-x-hidden font-['Be_Vietnam_Pro',sans-serif] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       <div className="flex flex-col flex-1 py-6 px-6 pb-8 min-h-full">
 
         {/* ── Brand Header ──────────────────── */}
