@@ -6,29 +6,29 @@ import { useIsMobile } from '../../hooks/useMediaQuery';
 
 /* ─── Static Data ─────────────────────────────────────────────────── */
 const STAT_CHIPS = [
-  { icon: 'savings',       iconClass: 'text-primary', label: 'Avg. Impact',   value: '35% Yield Saved'  },
-  { icon: 'trending_down', iconClass: 'text-[#774c00]', label: 'Chemical Use',  value: '40% Cost Cut'     },
-  { icon: 'bolt',          iconClass: 'text-[#774c00]', label: 'Processing',    value: 'Instant Results'  },
+  { icon: 'savings', iconClass: 'text-primary', label: 'Avg. Impact', value: '35% Yield Saved' },
+  { icon: 'trending_down', iconClass: 'text-[#774c00]', label: 'Chemical Use', value: '40% Cost Cut' },
+  { icon: 'bolt', iconClass: 'text-[#774c00]', label: 'Processing', value: 'Instant Results' },
 ];
 
 const RECENT_RESULT = {
-  crop:     'Wheat',
-  latin:    'Triticum',
-  disease:  'Powdery Mildew',
+  crop: 'Wheat',
+  latin: 'Triticum',
+  disease: 'Powdery Mildew',
   severity: 'Medium Severity',
   solutions: [
     {
-      key:      'organic',
-      icon:     'eco',
-      title:    'Organic Solution',
-      desc:     'Apply neem oil extract (0.5%) or spray baking soda solution mixed with mild soap during early morning.',
+      key: 'organic',
+      icon: 'eco',
+      title: 'Organic Solution',
+      desc: 'Apply neem oil extract (0.5%) or spray baking soda solution mixed with mild soap during early morning.',
       linkText: 'View steps',
     },
     {
-      key:      'chemical',
-      icon:     'science',
-      title:    'Chemical Control',
-      desc:     'Apply sulfur-based fungicides or Propiconazole 25% EC at recommended dosage if infection spreads.',
+      key: 'chemical',
+      icon: 'science',
+      title: 'Chemical Control',
+      desc: 'Apply sulfur-based fungicides or Propiconazole 25% EC at recommended dosage if infection spreads.',
       linkText: 'View dosages',
     },
   ],
@@ -36,8 +36,8 @@ const RECENT_RESULT = {
 
 /* ─── Component ───────────────────────────────────────────────────── */
 export default function DiagnosisScreen() {
-  const navigate   = useNavigate();
-  const scrollRef  = useRef(null);
+  const navigate = useNavigate();
+  const scrollRef = useRef(null);
   const isMobile = useIsMobile();
   const [analyzing, setAnalyzing] = useState(false);
   const [showResult, setShowResult] = useState(true); // default: show result section as in reference
@@ -224,7 +224,7 @@ export default function DiagnosisScreen() {
                       <h4 className="font-headline text-[13px] font-bold text-onSurface m-0">{sol.title}</h4>
                     </div>
                     <p className="text-[12px] text-onSurface-variant leading-[1.5] flex-1 mb-2.5 m-0">{sol.desc}</p>
-                    <button 
+                    <button
                       className={`flex items-center gap-1 text-[12px] font-semibold bg-transparent border-none cursor-pointer p-0 no-underline ${sol.key === 'organic' ? 'text-[#006e1c]' : 'text-[#774c00]'}`}
                       onClick={() => navigateToTreatment(sol)}
                     >
@@ -241,7 +241,7 @@ export default function DiagnosisScreen() {
                   <h4 className="font-headline text-[15px] font-bold text-onSurface mb-0.5 mt-0">Need expert advice?</h4>
                   <p className="text-[12px] text-onSurface-variant m-0">Connect with an agronomist instantly.</p>
                 </div>
-                <button 
+                <button
                   onClick={() => navigate('/farmer/experts')}
                   className="bg-surface-containerLowest text-primary border-none py-2.5 px-4 rounded-xl font-body text-[13px] font-bold cursor-pointer shadow-[0_2px_8px_rgba(0,0,0,0.06)] transition-shadow duration-150 hover:shadow-[0_4px_12px_rgba(0,0,0,0.1)] whitespace-nowrap shrink-0"
                 >
@@ -255,6 +255,6 @@ export default function DiagnosisScreen() {
       </div>
 
       {/* ── Bottom Nav — Mobile only ── */}
-          </div>
+    </div>
   );
 }
