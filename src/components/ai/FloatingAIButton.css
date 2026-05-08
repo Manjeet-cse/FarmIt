@@ -1,0 +1,44 @@
+.floating-ai-wrapper {
+  position: absolute;
+  bottom: 100px; /* Moved up to clear 84px navbar */
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 45;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.floating-ai-wrapper:hover {
+  transform: translateY(-4px);
+}
+
+
+.floating-ai-button {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--tertiary);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(249, 168, 37, 0.3);
+  transition: transform 0.2s;
+}
+
+.floating-ai-button:active {
+  transform: scale(0.95);
+}
+
+.floating-ai-label {
+  font-size: 9px;
+  font-family: var(--font-headline);
+  font-weight: 700;
+  color: #FFFFFF;
+  background-color: rgba(27, 43, 28, 0.8);
+  padding: 2px 6px;
+  border-radius: 12px;
+}

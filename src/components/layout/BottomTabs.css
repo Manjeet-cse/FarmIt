@@ -1,0 +1,55 @@
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 84px; /* Increased height for safe area padding */
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  width: 100%;
+  padding: 0 4px 20px; /* 20px bottom padding for the home indicator */
+  border-top: 0.5px solid rgba(0, 0, 0, 0.05); /* Very subtle top separation */
+}
+
+.nav-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 12px 0 0;
+  height: 100%;
+  position: relative;
+  gap: 4px;
+  color: #757575;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-tab.active {
+  color: var(--primary);
+}
+
+.nav-tab span {
+  font-size: 10px;
+  font-weight: 700;
+  font-family: var(--font-headline);
+  color: inherit;
+  letter-spacing: 0.2px;
+}
+
+.nav-tab svg {
+  color: inherit;
+  transition: transform 0.3s ease;
+}
+
+.nav-tab.active svg {
+  transform: translateY(-2px);
+}
+
+.active-indicator {
+  display: none; /* Removed for a cleaner 'Editorial' look */
+}
+

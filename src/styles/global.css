@@ -1,0 +1,319 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #2E7D32;
+  --primary-light: #4CAF50;
+  --primary-container: #2e7d32;
+  --on-primary: #ffffff;
+  --on-primary-container: #cbffc2;
+  --primary-fixed-dim: #88d982;
+  --surface: #ebffe7;
+  --surface-light: #F1F8F1;
+  --surface-container-low: #e5f9e2;
+  --surface-container: #dff3dc;
+  --surface-container-high: #daeed6;
+  --surface-container-highest: #d4e8d1;
+  --surface-container-lowest: #ffffff;
+  --surface-variant: #d4e8d1;
+  --on-surface: #0f1f11;
+  --on-surface-variant: #40493d;
+  --tertiary: #F9A825;
+  --tertiary-container: #986200;
+  --neutral-dark: #1B2B1C;
+  --text-muted: #6B8F6E;
+  --bg-inner: #FFFFFF;
+  --error: #D32F2F;
+  --border-color: #D0E8D0;
+  --outline: #707a6c;
+  --outline-variant: #bfcaba;
+  
+  --font-headline: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Be Vietnam Pro', sans-serif;
+  --font-label: 'Be Vietnam Pro', sans-serif;
+}
+
+html, body { 
+  margin: 0; 
+  font-family: var(--font-body);
+  color: var(--on-surface);
+  background: #111111;
+}
+
+/* Globally Hide All Scrollbars */
+* {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+/* ═══════════════════════════════════════════
+   PHONE SHELL / SIMULATOR
+   ═══════════════════════════════════════════ */
+
+.phone-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #111111;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.phone-frame {
+  width: 390px;
+  height: 844px;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 44px;
+  border: 8px solid #1a1a1a;
+  overflow: hidden;
+  position: relative;
+  background: var(--surface);
+  box-shadow: 
+    0 0 0 1px #333333,
+    0 30px 80px rgba(0,0,0,0.6);
+}
+
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 30px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+  z-index: 100;
+}
+
+.phone-home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 5px;
+  background: #1a1a1a;
+  border-radius: 3px;
+  z-index: 100;
+}
+
+.phone-screen {
+  width: 100%;
+  height: calc(100% - 44px); /* subtract status bar height */
+  overflow: hidden; /* let inner screen-layout handle scrolling */
+  position: relative;
+}
+
+.phone-screen::-webkit-scrollbar {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════
+   SCREEN LAYOUT SYSTEM (flex column)
+   TopBar | Scrollable Body | BottomNav
+   ═══════════════════════════════════════════ */
+
+.screen-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.screen-topbar {
+  flex-shrink: 0;
+  z-index: 50;
+  width: 100%;
+}
+
+.screen-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.screen-body::-webkit-scrollbar {
+  display: none;
+}
+
+.screen-content {
+  min-height: 100%;
+  width: 100%;
+  padding: 0 16px 16px;
+}
+
+.screen-bottomnav {
+  flex-shrink: 0;
+  z-index: 50;
+  width: 100%;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* ═══════════════════════════════════════════
+   PAGE TRANSITIONS
+   ═══════════════════════════════════════════ */
+
+.page-enter {
+  transform: translateX(100%);
+}
+.page-enter-active {
+  transform: translateX(0);
+  transition: transform 300ms ease-in-out;
+}
+.page-exit {
+  transform: translateX(0);
+}
+.page-exit-active {
+  transform: translateX(-100%);
+  transition: transform 300ms ease-in-out;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE (real phone mode)
+   ═══════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .phone-container {
+    padding: 0;
+  }
+  .phone-frame {
+    width: 100%;
+    height: 100dvh;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+  .phone-notch { display: none; }
+  .phone-home-indicator { display: none; }
+}
+
+/* ═══════════════════════════════════════════
+   TYPOGRAPHY
+   ═══════════════════════════════════════════ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headline);
+  margin: 0;
+  color: var(--on-surface);
+}
+
+p {
+  margin: 0;
+  color: var(--on-surface-variant);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  font-family: var(--font-headline);
+}
+
+input {
+  font-family: var(--font-body);
+}
+
+/* ═══════════════════════════════════════════
+   CARD (No-Line Rule - tonal layering only)
+   ═══════════════════════════════════════════ */
+
+.card {
+  background: var(--surface-container-lowest);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+/* ═══════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════ */
+
+.bg-muted { background: var(--surface); }
+.mt-4 { margin-top: 16px; }
+.mb-4 { margin-bottom: 16px; }
+.full-width { width: 100%; }
+.text-muted { color: var(--text-muted); }
+.text-error { color: var(--error); }
+.green-text { color: var(--primary); }
+.font-bold { font-weight: 600; }
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.items-center { align-items: center; }
+.gap-3 { gap: 12px; }
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px 0 8px;
+}
+
+.text-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.btn-outline-primary {
+  background: transparent;
+  border: 1.5px solid var(--primary);
+  color: var(--primary);
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-primary:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.settings-list {
+  padding: 0;
+}
+
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.settings-row:hover {
+  background: var(--surface-container-low);
+}
+
+.settings-row:first-child {
+  border-radius: 16px 16px 0 0;
+}
+
+.settings-row:last-child {
+  border-radius: 0 0 16px 16px;
+}
