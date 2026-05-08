@@ -43,7 +43,7 @@ export default function RoleSelectScreen() {
               style={{ fontSize: '36px', fontVariationSettings: "'FILL' 1" }}
             >eco</span>
           </div>
-          <h1 className="font-['Plus_Jakarta_Sans',sans-serif] font-extrabold text-[24px] text-[#0d631b] tracking-[-0.025em] m-0">NeoKrishiTech</h1>
+          <h1 className="font-['Plus_Jakarta_Sans',sans-serif] font-extrabold text-[24px] text-[#0d631b] tracking-[-0.025em] m-0">FarmIt</h1>
           <p className="font-['Be_Vietnam_Pro',sans-serif] text-[14px] text-[#40493d] mt-1 m-0">Empowering Farmers with AI</p>
         </div>
 

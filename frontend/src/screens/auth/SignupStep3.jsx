@@ -84,7 +84,7 @@ export default function SignupStep3() {
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', backgroundColor: '#f2fdf0' }}>
         <CheckCircle2 size={80} color="var(--success)" style={{ marginBottom: '1rem' }} />
         <h1 style={{ fontFamily: 'var(--font-headline)', fontSize: '1.75rem', color: '#0f1f11', marginBottom: '0.5rem' }}>Account Created!</h1>
-        <p style={{ fontFamily: 'var(--font-body)', color: '#40493d', textAlign: 'center' }}>Welcome to NeoKrishiTech.<br/>Redirecting to your dashboard...</p>
+        <p style={{ fontFamily: 'var(--font-body)', color: '#40493d', textAlign: 'center' }}>Welcome to FarmIt.<br/>Redirecting to your dashboard...</p>
       </div>
     );
   }

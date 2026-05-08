@@ -26,7 +26,7 @@ export default function SplashScreen() {
           <Leaf size={80} color="white" />
         </div>
         <div className="text-center relative z-10">
-          <h1 className="text-[28px] font-bold tracking-[-0.025em] text-white drop-shadow-[0_4px_3px_rgba(0,0,0,0.07)] mb-3">NeoKrishiTech</h1>
+          <h1 className="text-[28px] font-bold tracking-[-0.025em] text-white drop-shadow-[0_4px_3px_rgba(0,0,0,0.07)] mb-3">FarmIt</h1>
           <p className="text-sm italic text-[#88d982] font-medium tracking-[0.025em] drop-shadow-[0_1px_2px_rgba(0,0,0,0.1)]">Voice of the Farmer, Power of AI</p>
         </div>
       </div>

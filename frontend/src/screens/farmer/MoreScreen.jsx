@@ -117,7 +117,7 @@ export default function More() {
 
           {/* ── Social Section ──────────────── */}
           <section className="flex flex-col items-center gap-3.5 pb-2">
-            <p className="font-['Be_Vietnam_Pro',sans-serif] text-[12px] text-onSurface-variant m-0">Connect with NeoKrishiTech</p>
+            <p className="font-['Be_Vietnam_Pro',sans-serif] text-[12px] text-onSurface-variant m-0">Connect with FarmIt</p>
             <div className="flex gap-3.5">
               <button className="w-10 h-10 rounded-full border-none bg-surface-container text-primary flex items-center justify-center cursor-pointer transition-all duration-200 hover:bg-primary-container hover:text-white active:scale-[0.92]" aria-label="Share">
                 <span className="material-symbols-outlined text-[20px]">share</span>

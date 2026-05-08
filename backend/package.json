@@ -1,7 +1,7 @@
 {
   "name": "farmit-backend",
   "version": "1.0.0",
-  "description": "FarmIt (NeoKrishiTech) — AI-powered agriculture platform backend",
+  "description": "FarmIt (FarmIt) — AI-powered agriculture platform backend",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
