@@ -1,4 +1,4 @@
-const CACHE_NAME = 'farmit-v1';
+const CACHE_NAME = 'farmit-v2';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -38,6 +38,12 @@ self.addEventListener('fetch', (event) => {
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request)
+        .then((response) => {
+          if (response.status === 404) {
+            return caches.match('/index.html');
+          }
+          return response;
+        })
         .catch(() => caches.match('/index.html'))
     );
     return;
