@@ -43,9 +43,20 @@
 
 html, body { 
   margin: 0; 
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior-y: none;
   font-family: var(--font-body);
   color: var(--on-surface);
   background: #f5f8f5;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 /* ═══════════════════════════════════════════
