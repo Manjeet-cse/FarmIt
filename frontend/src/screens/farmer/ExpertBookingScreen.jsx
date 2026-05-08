@@ -55,7 +55,7 @@ export default function ExpertBookingScreen() {
           </div>
           
           <div className="p-4 sm:px-6 py-4 border-b border-[#dff3dc]/50 flex items-center gap-4">
-            <button className="w-11 h-11 shrink-0 flex items-center justify-center rounded-full bg-[#E8F5E9] text-[#1A1A1A] border-none cursor-pointer transition-colors duration-200 hover:bg-[#D5E8D4]" aria-label={step === 2 ? 'Back' : 'Back'} onClick={() => step === 2 ? setStep(1) : navigate(-1)}>
+            <button className="w-11 h-11 shrink-0 flex items-center justify-center rounded-full bg-[#E8F5E9] text-[#1A1A1A] border-none cursor-pointer transition-colors duration-200 hover:bg-[#D5E8D4]" aria-label="Back" onClick={() => step === 3 ? navigate('/farmer/experts') : step === 2 ? setStep(1) : navigate(-1)}>
               <span className="material-symbols-outlined">arrow_back</span>
             </button>
             <div className="flex items-center gap-3">
@@ -107,7 +107,7 @@ export default function ExpertBookingScreen() {
                 </div>
                 <p className="text-center font-body text-[13px] text-onSurface-variant mt-6">Audio and Video have the same fee</p>
               </div>
-            ) : (
+            ) : step === 2 ? (
               <div className="flex flex-col">
                 {/* Date Selection */}
                 <div className="mb-8">
@@ -186,6 +186,23 @@ export default function ExpertBookingScreen() {
                   </div>
                 </div>
               </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center py-10">
+                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                  <span className="material-symbols-outlined text-[40px] text-primary">check_circle</span>
+                </div>
+                <h3 className="font-headline font-bold text-[1.5rem] text-onSurface mb-2 mt-0">Booking Confirmed!</h3>
+                <p className="font-body text-center text-onSurface-variant mb-6 text-[0.875rem]">
+                  Your consultation with {expert.name} has been successfully scheduled for {dates.find(d => d.date === selectedDate)?.day} {selectedDate}, {selectedTime}.
+                </p>
+                <div className="bg-surface-containerLow rounded-2xl p-4 w-full text-center">
+                  <p className="font-body text-sm font-medium text-onSurface mb-1 mt-0">Meeting Link</p>
+                  <p className="font-body text-[12px] text-primary flex items-center justify-center gap-1 mt-0 mb-0">
+                    <span className="material-symbols-outlined text-[14px]">link</span>
+                    Will be shared 15 mins before
+                  </p>
+                </div>
+              </div>
             )}
           </div>
 
@@ -199,13 +216,20 @@ export default function ExpertBookingScreen() {
                 Next
                 <span className="material-symbols-outlined">arrow_forward</span>
               </button>
-            ) : (
+            ) : step === 2 ? (
               <button 
-                onClick={() => console.log('Confirm Booking')}
+                onClick={() => setStep(3)}
                 className="w-full h-14 rounded-full bg-gradient-to-b from-primary to-primary-container text-onPrimary font-headline font-bold text-base uppercase tracking-[0.05em] flex items-center justify-center gap-2 border-none cursor-pointer shadow-[0_4px_12px_rgba(13,99,27,0.2)] transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
               >
                 Confirm Booking
                 <span className="material-symbols-outlined">check_circle</span>
+              </button>
+            ) : (
+              <button 
+                onClick={() => navigate('/farmer/experts')}
+                className="w-full h-14 rounded-full bg-surface-containerLow text-onSurface font-headline font-bold text-base uppercase tracking-[0.05em] flex items-center justify-center gap-2 border-none cursor-pointer shadow-sm transition-all duration-200 hover:bg-surface-containerHigh active:scale-[0.98]"
+              >
+                Back to Experts
               </button>
             )}
           </div>
