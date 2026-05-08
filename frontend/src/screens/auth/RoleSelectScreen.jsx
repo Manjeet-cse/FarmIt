@@ -2,27 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-const ROLES = [
-  {
-    id: 'farmer',
-    icon: 'agriculture',
-    label: 'Farmer',
-    desc: 'Manage your crops and yields',
-  },
-  {
-    id: 'expert',
-    icon: 'science',
-    label: 'Agri Expert',
-    desc: 'Provide insights and guidance',
-  },
-  {
-    id: 'vendor',
-    icon: 'storefront',
-    label: 'Vendor',
-    desc: 'Sell agricultural products',
-  },
-];
-
 export default function RoleSelectScreen() {
   const navigate = useNavigate();
   const { t } = useTranslation();

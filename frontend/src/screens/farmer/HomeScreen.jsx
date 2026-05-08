@@ -128,7 +128,7 @@ export default function Home() {
                     </div>
                     <div>
                       <div className="flex justify-between text-[11px] mb-1">
-                        <span className="text-onSurface-variant">Growth: 40%</span>
+                        <span className="text-onSurface-variant">{t('home.growth')}: 40%</span>
                       </div>
                       <div className="w-full bg-surface-container h-1.5 rounded-full">
                         <div className="bg-primary h-1.5 rounded-full" style={{ width: '40%' }}></div>
@@ -156,27 +156,27 @@ export default function Home() {
                   <div className="flex items-center gap-2 mt-1">
                     <span className="text-[30px] font-bold">28°C</span>
                     <span className="material-symbols-outlined text-[30px] text-tertiary" style={{ fontVariationSettings: "'FILL' 1" }}>wb_sunny</span>
-                    <span className="text-sm font-medium text-onSurface-variant">• Sunny</span>
+                    <span className="text-sm font-medium text-onSurface-variant">• {t('weather.sunny')}</span>
                   </div>
                 </div>
                 <div className="text-right flex flex-col gap-1">
-                  <p className="text-[10px] font-medium text-onSurface-variant m-0">Humidity: 45%</p>
-                  <p className="text-[10px] font-medium text-onSurface-variant m-0">Wind: 12 km/h</p>
+                  <p className="text-[10px] font-medium text-onSurface-variant m-0">{t('home.humidity')}: 45%</p>
+                  <p className="text-[10px] font-medium text-onSurface-variant m-0">{t('home.wind')}: 12 km/h</p>
                 </div>
               </div>
               
               <div className="pt-4 border-t border-[#d4e8d1]/30">
-                <p className="text-[11px] font-bold text-onSurface mb-2 mt-0">Weather Impact on Your Crops</p>
+                <p className="text-[11px] font-bold text-onSurface mb-2 mt-0">{t('home.weatherImpact')}</p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1 text-[10px] font-bold rounded-full bg-[#006e1c]/10 text-[#006e1c]">Wheat (Safe)</span>
-                  <span className="px-3 py-1 text-[10px] font-bold rounded-full bg-tertiary/10 text-tertiary">Mustard (Risk)</span>
-                  <span className="px-3 py-1 text-[10px] font-bold rounded-full bg-[#ba1a1a]/10 text-error">Spray before 8 AM</span>
+                  <span className="px-3 py-1 text-[10px] font-bold rounded-full bg-[#006e1c]/10 text-[#006e1c]">{t('home.wheatSafe')}</span>
+                  <span className="px-3 py-1 text-[10px] font-bold rounded-full bg-tertiary/10 text-tertiary">{t('home.mustardRisk')}</span>
+                  <span className="px-3 py-1 text-[10px] font-bold rounded-full bg-[#ba1a1a]/10 text-error">{t('home.sprayBefore')}</span>
                 </div>
               </div>
 
               <div className="grid grid-cols-3 gap-2 pt-2">
                 <div className="bg-surface-containerLow rounded-xl p-2 text-center">
-                  <p className="text-[10px] font-medium mb-1 mt-0">Tomorrow</p>
+                  <p className="text-[10px] font-medium mb-1 mt-0">{t('home.tomorrow')}</p>
                   <span className="material-symbols-outlined text-[18px] text-[#006e1c]">partly_cloudy_day</span>
                   <p className="text-xs font-bold mt-1 mb-0">26°</p>
                 </div>
@@ -226,25 +226,25 @@ export default function Home() {
                   <div className="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-active:scale-90 group-hover:scale-105 bg-[#FEF3C7] text-[#D97706]">
                     <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>storefront</span>
                   </div>
-                  <span className="text-[10px] font-bold text-center leading-tight">Mandi Prices</span>
+                  <span className="text-[10px] font-bold text-center leading-tight">{t('home.mandiPrices')}</span>
                 </div>
                 <div className="hidden lg:flex group flex-col items-center gap-2 cursor-pointer transition-transform" onClick={() => navigateTo('/farmer/learning')}>
                   <div className="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-active:scale-90 group-hover:scale-105 bg-[#E0F2FE] text-[#0284C7]">
                     <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>school</span>
                   </div>
-                  <span className="text-[10px] font-bold text-center leading-tight">Learning</span>
+                  <span className="text-[10px] font-bold text-center leading-tight">{t('nav.learning')}</span>
                 </div>
                 <div className="hidden lg:flex group flex-col items-center gap-2 cursor-pointer transition-transform" onClick={() => navigateTo('/farmer/weather')}>
                   <div className="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-active:scale-90 group-hover:scale-105 bg-[#ECFDF5] text-[#059669]">
                     <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>partly_cloudy_day</span>
                   </div>
-                  <span className="text-[10px] font-bold text-center leading-tight">Weather</span>
+                  <span className="text-[10px] font-bold text-center leading-tight">{t('nav.weather')}</span>
                 </div>
                 <div className="hidden lg:flex group flex-col items-center gap-2 cursor-pointer transition-transform" onClick={() => navigateTo('/farmer/ai-assistant')}>
                   <div className="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-active:scale-90 group-hover:scale-105 bg-[#FFF7ED] text-[#EA580C]">
                     <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>smart_toy</span>
                   </div>
-                  <span className="text-[10px] font-bold text-center leading-tight">AI Assistant</span>
+                  <span className="text-[10px] font-bold text-center leading-tight">{t('nav.aiAssistant')}</span>
                 </div>
               </div>
             </section>

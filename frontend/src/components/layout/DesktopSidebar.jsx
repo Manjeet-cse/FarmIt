@@ -1,27 +1,30 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-const NAV_ITEMS = [
-  { label: 'Dashboard', icon: 'dashboard', path: '/farmer/home' },
-  { label: 'Weather', icon: 'partly_cloudy_day', path: '/farmer/weather' },
-  { label: 'Crop Health', icon: 'medical_services', path: '/farmer/diagnosis' },
-  { label: 'Mandi Prices', icon: 'storefront', path: '/farmer/mandi' },
-  { label: 'Marketplace', icon: 'shopping_cart', path: '/farmer/marketplace' },
-  { label: 'Learning Hub', icon: 'school', path: '/farmer/learning' },
-  { label: 'Experts', icon: 'psychology', path: '/farmer/experts' },
-  { label: 'AI Assistant', icon: 'smart_toy', path: '/farmer/ai-assistant' },
-];
-
-const SECONDARY_ITEMS = [
-  { label: 'Govt Schemes', icon: 'account_balance', path: '/farmer/subsidy' },
-  { label: 'My Orders', icon: 'shopping_bag', path: '/farmer/orders' },
-  { label: 'Profile', icon: 'person', path: '/farmer/profile' },
-  { label: 'Settings', icon: 'settings', path: '/farmer/settings' },
-  { label: 'Help', icon: 'help', path: '/farmer/help-support' },
-];
 
 export default function DesktopSidebar({ collapsed = false, onToggle }) {
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
+  const NAV_ITEMS = [
+    { label: t('nav.dashboard'), icon: 'dashboard', path: '/farmer/home' },
+    { label: t('nav.weather'), icon: 'partly_cloudy_day', path: '/farmer/weather' },
+    { label: t('nav.cropHealth'), icon: 'medical_services', path: '/farmer/diagnosis' },
+    { label: t('nav.mandiPrices'), icon: 'storefront', path: '/farmer/mandi' },
+    { label: t('nav.marketplace'), icon: 'shopping_cart', path: '/farmer/marketplace' },
+    { label: t('nav.learningHub'), icon: 'school', path: '/farmer/learning' },
+    { label: t('nav.experts'), icon: 'psychology', path: '/farmer/experts' },
+    { label: t('nav.aiAssistant'), icon: 'smart_toy', path: '/farmer/ai-assistant' },
+  ];
+
+  const SECONDARY_ITEMS = [
+    { label: t('nav.govtSchemes'), icon: 'account_balance', path: '/farmer/subsidy' },
+    { label: t('nav.myOrders'), icon: 'shopping_bag', path: '/farmer/orders' },
+    { label: t('nav.profile'), icon: 'person', path: '/farmer/profile' },
+    { label: t('nav.settings'), icon: 'settings', path: '/farmer/settings' },
+    { label: t('nav.help'), icon: 'help', path: '/farmer/help-support' },
+  ];
 
   const isActive = (path) => {
     if (path === '/farmer/home') {

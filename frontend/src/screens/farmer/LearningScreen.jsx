@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AppTopBar from '../../components/common/AppTopBar';
-import FloatingAIButton from '../../components/ai/FloatingAIButton';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 
 const DashboardView = ({ onVideoSelect, searchQuery, setSearchQuery }) => (
@@ -717,8 +716,6 @@ export default function LearningScreen() {
                 {currentView === 'progress' && <ProgressView onResume={() => { setPreviousView('progress'); setCurrentView('video'); }} />}
                 {currentView === 'community' && <CommunityView />}
             </div>
-
-            <FloatingAIButton />
-                    </div>
+        </div>
     );
 }

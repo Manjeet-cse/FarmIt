@@ -3,6 +3,7 @@ import DesktopSidebar from './DesktopSidebar';
 import TopNavbar from './TopNavbar';
 import BottomTabs from './BottomTabs';
 import { useIsMobile } from '../../hooks/useMediaQuery';
+import FloatingAIButton from '../ai/FloatingAIButton';
 
 /**
  * ResponsiveShell wraps all authenticated (farmer) screens.
@@ -22,6 +23,7 @@ export default function ResponsiveShell({ children }) {
         <div className="shrink-0 z-50 w-full bg-white/92 backdrop-blur-md">
           <BottomTabs />
         </div>
+        <FloatingAIButton />
       </div>
     );
   }
@@ -39,6 +41,7 @@ export default function ResponsiveShell({ children }) {
           {children}
         </main>
       </div>
+      <FloatingAIButton />
     </div>
   );
 }
