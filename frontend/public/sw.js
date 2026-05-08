@@ -1,4 +1,4 @@
-const CACHE_NAME = 'farmit-v2';
+const CACHE_NAME = 'farmit-v3';
 const STATIC_ASSETS = [
   '/',
   '/index.html',

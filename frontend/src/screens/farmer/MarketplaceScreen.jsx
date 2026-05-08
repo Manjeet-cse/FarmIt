@@ -268,7 +268,7 @@ export default function MarketplaceScreen() {
       
       {/* Context-Aware Sticky Checkout Bar */}
       {cartCount > 0 && (
-        <div className="absolute bottom-4 left-0 w-full px-4 z-40">
+        <div className="absolute bottom-2 left-0 w-full px-4 z-40">
           <div className="bg-primary-container text-[#cbffc2] rounded-2xl py-3 px-4 flex items-center justify-between shadow-[0_10px_15px_-3px_rgba(46,125,50,0.2)] backdrop-blur-md" onClick={() => navigate('/farmer/cart')}>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <span className="font-headline font-bold text-lg">₹{cartSubtotal.toLocaleString()}</span>
