@@ -9,8 +9,6 @@ export default function SignupStep1() {
   const [fullName, setFullName] = useState('');
   const [mobile, setMobile] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
 
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
@@ -29,9 +27,6 @@ export default function SignupStep1() {
           error = 'Enter a valid email address';
         }
         break;
-      case 'password':
-        if (!value || value.length < 6) error = 'Password must be at least 6 characters';
-        break;
       default:
         break;
     }
@@ -49,7 +44,6 @@ export default function SignupStep1() {
       case 'fullName': setFullName(value); break;
       case 'mobile': setMobile(value.replace(/\D/g, '').slice(0, 10)); break;
       case 'email': setEmail(value); break;
-      case 'password': setPassword(value); break;
       default: break;
     }
     if (touched[field]) {
@@ -63,21 +57,19 @@ export default function SignupStep1() {
   const isValid = 
     fullName.trim().length >= 3 &&
     /^\d{10}$/.test(mobile) &&
-    (email.trim() === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) &&
-    password.length >= 6;
+    (email.trim() === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isValid) {
-      const formData = { fullName, mobile, email, password };
+      const formData = { fullName, mobile, email };
       navigate('/signup/step2', { state: { formData } });
     } else {
-      setTouched({ fullName: true, mobile: true, email: true, password: true });
+      setTouched({ fullName: true, mobile: true, email: true });
       setErrors({
         fullName: validateField('fullName', fullName),
         mobile: validateField('mobile', mobile),
         email: validateField('email', email),
-        password: validateField('password', password),
       });
     }
   };
@@ -194,25 +186,6 @@ export default function SignupStep1() {
                 )}
               </div>
               {errors.email && <p style={{ color: 'var(--error, #e53e3e)', fontSize: '0.8rem', marginTop: '0.25rem', fontFamily: 'var(--font-body)', marginBottom: 0 }}>{errors.email}</p>}
-            </div>
-
-            {/* Field 4: Password */}
-            <div className="mb-3 flex-shrink-0">
-              <label className="font-label text-[12px] text-[#40493d] mb-1.5 block font-bold">Secure Password</label>
-              <div className="relative flex items-center h-[48px]">
-                <input 
-                  className={`w-full h-full bg-[#daeed6] border-none rounded-[16px] px-4 pr-11 font-body text-[14px] text-[#0f1f11] transition-all duration-200 focus:outline-none focus:shadow-[0_0_0_2px_var(--primary)] focus:bg-[#d4e8d1] placeholder:text-[#707a6c] placeholder:font-medium ${errors.password ? 'border-2 border-[var(--error,#e53e3e)]' : ''}`} 
-                  placeholder="Min 6 characters" 
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => handleChange('password', e.target.value)}
-                  onBlur={(e) => handleBlur('password', e.target.value)}
-                />
-                <button type="button" className="absolute right-4 bg-transparent border-none p-0 cursor-pointer text-[#40493d]" onClick={() => setShowPassword(!showPassword)}>
-                  {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
-                </button>
-              </div>
-              {errors.password && <p style={{ color: 'var(--error, #e53e3e)', fontSize: '0.8rem', marginTop: '0.25rem', fontFamily: 'var(--font-body)', marginBottom: 0 }}>{errors.password}</p>}
             </div>
 
             {/* Submit Button */}

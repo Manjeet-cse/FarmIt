@@ -42,13 +42,9 @@ export default function LoginScreen() {
     if (!/^\d{10}$/.test(phoneNumber)) {
       newErrors.phoneNumber = t('login.validMobile');
     }
-    if (!otpMode) {
-      if (pin.length < 4) {
-        newErrors.pin = t('login.validPin');
-      }
-    } else if (otpSent) {
-      if (!/^\d{6}$/.test(otp)) {
-        newErrors.otp = t('login.validOtp');
+    if (otpSent) {
+      if (!/^\d{4}$/.test(otp)) {
+        newErrors.otp = "Please enter a valid 4-digit OTP";
       }
     }
     setErrors(newErrors);
@@ -61,22 +57,26 @@ export default function LoginScreen() {
 
     if (!validate()) return;
 
-    if (otpMode && !otpSent) {
+    if (!otpSent) {
+      // Simulate sending OTP
       setOtpSent(true);
       return;
     }
 
-    // Real backend login
+    if (otp !== '1234') {
+      setErrors({ otp: 'Invalid OTP. Please use 1234 for testing.' });
+      return;
+    }
+
+    // Real backend login (using phone as identifier, ignoring password)
     setIsSubmitting(true);
     try {
-      const result = await login(phoneNumber, pin);
+      const result = await login(phoneNumber, 'dummy_password_not_used');
       if (result.success) {
         // Navigate based on role
         const role = result.data.role;
-        if (role === 'farmer') {
+        if (role === 'expert') {
           navigate('/farmer/home', { replace: true });
-        } else if (role === 'expert') {
-          navigate('/farmer/home', { replace: true }); // TODO: expert dashboard
         } else {
           navigate('/farmer/home', { replace: true });
         }
@@ -137,6 +137,7 @@ export default function LoginScreen() {
                 placeholder={t('login.enterMobile')} 
                 type="tel"
                 value={phoneNumber}
+                disabled={otpSent}
                 onChange={(e) => {
                   setPhoneNumber(e.target.value.replace(/\D/g, '').slice(0, 10));
                   if (errors.phoneNumber) setErrors({ ...errors, phoneNumber: null });
@@ -150,39 +151,16 @@ export default function LoginScreen() {
             {errors.phoneNumber && <p style={{ color: 'var(--error, #e53e3e)', fontSize: '0.8rem', marginTop: '0.25rem', fontFamily: 'var(--font-body)', marginBottom: 0 }}>{errors.phoneNumber}</p>}
           </div>
 
-          {!otpMode ? (
-            /* Password/PIN Field */
-            <div className="mb-3 flex-shrink-0">
-              <label className="font-label text-[12px] text-[#40493d] mb-1.5 block font-bold">{t('login.passwordPin')}</label>
-              <div className="relative flex items-center h-[48px]">
-                <input 
-                  className={`w-full h-full bg-[#daeed6] border-none rounded-[16px] px-4 font-body text-[14px] text-[#0f1f11] transition-all duration-200 focus:outline-none focus:shadow-[0_0_0_2px_var(--primary)] focus:bg-[#d4e8d1] placeholder:text-[#707a6c] placeholder:font-medium ${errors.pin ? 'border-2 border-[var(--error,#e53e3e)]' : ''}`} 
-                  placeholder={t('login.enterPin')} 
-                  type={showPassword ? 'text' : 'password'}
-                  value={pin}
-                  onChange={(e) => {
-                    setPin(e.target.value);
-                    if (errors.pin) setErrors({ ...errors, pin: null });
-                    setApiError('');
-                  }}
-                />
-                <button type="button" className="absolute right-4 bg-transparent border-none p-0 cursor-pointer text-[#40493d]" onClick={() => setShowPassword(!showPassword)}>
-                  {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
-                </button>
-              </div>
-              {errors.pin && <p style={{ color: 'var(--error, #e53e3e)', fontSize: '0.8rem', marginTop: '0.25rem', fontFamily: 'var(--font-body)', marginBottom: 0 }}>{errors.pin}</p>}
-              <a className="text-[11px] text-[#0d631b] font-label font-bold text-right block mt-1.5 no-underline tracking-wide" href="#" onClick={(e) => { e.preventDefault(); navigate('/forgot-password'); }}>{t('login.forgotPin')}</a>
-            </div>
-          ) : otpSent && (
+          {otpSent && (
             /* OTP Field */
             <div className="mb-3 flex-shrink-0">
               <label className="font-label text-[12px] text-[#40493d] mb-1.5 block font-bold">{t('login.enterOtp')}</label>
               <div className="relative flex items-center h-[48px]">
                 <input 
                   className={`w-full h-full bg-[#daeed6] border-none rounded-[16px] px-4 font-body text-[14px] text-[#0f1f11] transition-all duration-200 focus:outline-none focus:shadow-[0_0_0_2px_var(--primary)] focus:bg-[#d4e8d1] placeholder:text-[#707a6c] placeholder:font-medium ${errors.otp ? 'border-2 border-[var(--error,#e53e3e)]' : ''}`} 
-                  placeholder={t('login.otpPlaceholder')} 
+                  placeholder="Enter 4-digit OTP (e.g. 1234)" 
                   type="text"
-                  maxLength={6}
+                  maxLength={4}
                   value={otp}
                   onChange={(e) => {
                     setOtp(e.target.value.replace(/\D/g, ''));
@@ -206,7 +184,7 @@ export default function LoginScreen() {
                 Logging in...
               </>
             ) : (
-              otpMode && !otpSent ? t('login.sendOtp') : t('login.logIn')
+              !otpSent ? 'Get OTP' : t('login.logIn')
             )}
           </button>
 
@@ -215,15 +193,6 @@ export default function LoginScreen() {
 
           {/* Alternative Login Buttons */}
           <div className="flex flex-col gap-2.5 flex-shrink-0">
-            <button className="w-full h-[48px] rounded-[16px] bg-white text-[#0d631b] font-body text-[13px] font-bold border border-[#daeed6] cursor-pointer flex items-center justify-center gap-2 transition-colors duration-200 hover:bg-[#f0f9f0] shadow-sm" type="button" onClick={() => {
-              setOtpMode(!otpMode);
-              setOtpSent(false);
-              setErrors({});
-              setApiError('');
-            }}>
-              <MessageSquare size={16} strokeWidth={2.5} />
-              {otpMode ? t('login.usePassword') : t('login.otpLogin')}
-            </button>
             <div className="w-full flex justify-center [&>div]:w-full">
               <GoogleLogin
                 onSuccess={handleGoogleSuccess}

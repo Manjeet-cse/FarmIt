@@ -7,7 +7,7 @@ const { OAuth2Client } = require('google-auth-library');
 // @access  Public
 const signup = async (req, res) => {
   try {
-    const { name, email, phone, password, role, location, preferredLanguage } = req.body;
+    const { name, email, phone, role, location, preferredLanguage } = req.body;
 
     // Check if user already exists
     const existingUser = await User.findOne({ $or: [{ email }, { phone }] });
@@ -25,7 +25,6 @@ const signup = async (req, res) => {
       name,
       email,
       phone,
-      password,
       role: role || 'farmer',
       location: location || '',
       preferredLanguage: preferredLanguage || 'en',
@@ -71,13 +70,13 @@ const signup = async (req, res) => {
 // @access  Public
 const login = async (req, res) => {
   try {
-    const { identifier, password } = req.body;
+    const { identifier } = req.body;
 
     // Validate
-    if (!identifier || !password) {
+    if (!identifier) {
       return res.status(400).json({
         success: false,
-        message: 'Please provide email/phone and password',
+        message: 'Please provide phone number or email',
       });
     }
 
@@ -85,21 +84,12 @@ const login = async (req, res) => {
     const isPhone = /^[6-9]\d{9}$/.test(identifier);
     const query = isPhone ? { phone: identifier } : { email: identifier.toLowerCase() };
 
-    // Find user and include password
-    const user = await User.findOne(query).select('+password');
+    // Find user
+    const user = await User.findOne(query);
     if (!user) {
       return res.status(401).json({
         success: false,
-        message: 'Invalid credentials',
-      });
-    }
-
-    // Check password
-    const isMatch = await user.matchPassword(password);
-    if (!isMatch) {
-      return res.status(401).json({
-        success: false,
-        message: 'Invalid credentials',
+        message: 'Account not found. Please sign up.',
       });
     }
 

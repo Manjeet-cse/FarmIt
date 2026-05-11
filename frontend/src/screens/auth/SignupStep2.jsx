@@ -73,7 +73,6 @@ export default function SignupStep2() {
       name: formData.fullName || formData.name || 'Farmer',
       email: formData.email || `${formData.mobile || Date.now()}@farmit.app`,
       phone: formData.mobile || formData.phone || '',
-      password: formData.password || formData.pin || 'password123',
       role: 'farmer',
       location: '', // No longer collecting location in signup
       preferredLanguage: 'en'
