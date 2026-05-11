@@ -15,11 +15,8 @@ const app = express();
 // ── Middleware ────────────────────────────────────
 app.use(cors({
   origin: function(origin, callback) {
-    // Allow requests with no origin (curl, mobile apps)
-    if (!origin) return callback(null, true);
-    // Allow any localhost port in development
-    if (origin.match(/^http:\/\/localhost:\d+$/)) return callback(null, true);
-    callback(new Error('Not allowed by CORS'));
+    // Allow any origin for the MVP prototype
+    return callback(null, true);
   },
   credentials: true,
 }));
