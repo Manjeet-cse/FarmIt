@@ -41,11 +41,15 @@ export default function OnboardingScreen() {
     if (step < SLIDES.length - 1) {
       setStep(step + 1);
     } else {
-      navigate('/role-select');
+      localStorage.setItem('selectedRole', 'farmer');
+      navigate('/login');
     }
   };
 
-  const handleSkip = () => navigate('/role-select');
+  const handleSkip = () => {
+    localStorage.setItem('selectedRole', 'farmer');
+    navigate('/login');
+  };
 
   return (
     <div className="flex flex-col h-[100dvh] bg-white font-['Be_Vietnam_Pro',sans-serif] overflow-y-auto overflow-x-hidden">
