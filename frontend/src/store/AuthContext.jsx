@@ -101,6 +101,16 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
+  const checkUser = useCallback(async (identifier) => {
+    try {
+      const response = await authService.checkUser(identifier);
+      return { success: true, data: response.data };
+    } catch (err) {
+      const message = err.response?.data?.message || 'User not found.';
+      return { success: false, message };
+    }
+  }, []);
+
   const clearError = useCallback(() => setError(null), []);
 
   const value = {
@@ -115,6 +125,7 @@ export function AuthProvider({ children }) {
     refreshUser,
     logout,
     clearError,
+    checkUser,
   };
 
   return (

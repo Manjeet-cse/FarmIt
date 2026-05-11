@@ -294,4 +294,28 @@ const resetPassword = async (req, res) => {
   }
 };
 
-module.exports = { signup, login, getMe, googleLogin, updateProfile, resetPassword };
+// @desc    Check if user exists
+// @route   POST /api/auth/check-user
+// @access  Public
+const checkUser = async (req, res) => {
+  try {
+    const { identifier } = req.body;
+    if (!identifier) {
+      return res.status(400).json({ success: false, message: 'Please provide phone number or email' });
+    }
+    const isPhone = /^[6-9]\d{9}$/.test(identifier);
+    const query = isPhone ? { phone: identifier } : { email: identifier.toLowerCase() };
+    const user = await User.findOne(query);
+    
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'Account not found. Please sign up.' });
+    }
+    
+    return res.status(200).json({ success: true, message: 'User exists' });
+  } catch (error) {
+    console.error('Check user error:', error.message);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
+module.exports = { signup, login, getMe, googleLogin, updateProfile, resetPassword, checkUser };

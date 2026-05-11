@@ -19,6 +19,14 @@ const authService = {
   },
 
   /**
+   * Check if a user exists
+   * @param {string} identifier - Phone number or email
+   */
+  async checkUser(identifier) {
+    return await api.post('/auth/check-user', { identifier });
+  },
+
+  /**
    * Register a new user
    */
   async signup(userData) {

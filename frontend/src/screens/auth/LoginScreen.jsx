@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Leaf, EyeOff, Eye, MessageSquare, ChevronDown, CheckCircle2, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,7 @@ import { GoogleLogin } from '@react-oauth/google';
 export default function LoginScreen() {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { login, googleLogin, loading: authLoading } = useAuth();
+  const { login, googleLogin, checkUser, loading: authLoading } = useAuth();
 
   const [phoneNumber, setPhoneNumber] = useState('');
   const [pin, setPin] = useState('');
@@ -19,6 +19,17 @@ export default function LoginScreen() {
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Auto-fill OTP simulating SMS auto-read
+  useEffect(() => {
+    if (otpSent) {
+      const timer = setTimeout(() => {
+        setOtp('1234');
+        if (errors.otp) setErrors(prev => ({ ...prev, otp: null }));
+      }, 1200);
+      return () => clearTimeout(timer);
+    }
+  }, [otpSent, errors.otp]);
 
   const handleGoogleSuccess = async (credentialResponse) => {
     setApiError('');
@@ -58,6 +69,15 @@ export default function LoginScreen() {
     if (!validate()) return;
 
     if (!otpSent) {
+      setIsSubmitting(true);
+      const result = await checkUser(phoneNumber);
+      setIsSubmitting(false);
+      
+      if (!result.success) {
+        setApiError(result.message);
+        return;
+      }
+      
       // Simulate sending OTP
       setOtpSent(true);
       return;
