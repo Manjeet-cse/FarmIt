@@ -53,10 +53,3 @@
   display: none; /* Removed for a cleaner 'Editorial' look */
 }
 
-/* Hide bottom nav on tablet/desktop — sidebar replaces it */
-@media (min-width: 768px) {
-  .bottom-nav {
-    display: none !important;
-  }
-}
-

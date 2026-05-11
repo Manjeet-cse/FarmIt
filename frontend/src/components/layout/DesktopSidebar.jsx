@@ -50,8 +50,8 @@ export default function DesktopSidebar({ collapsed = false, onToggle }) {
         </div>
         {!collapsed && (
           <div className="flex flex-col overflow-hidden">
-            <span className="font-headline font-bold text-[15px] text-white leading-tight whitespace-nowrap">FarmIt</span>
-            <span className="text-[10px] text-white/50 font-medium tracking-wider uppercase">FarmIt</span>
+            <span className="font-headline font-bold text-[15px] text-white leading-tight whitespace-nowrap">NeokrishiTech</span>
+            <span className="text-[10px] text-white/50 font-medium tracking-wider uppercase">NeokrishiTech</span>
           </div>
         )}
       </div>

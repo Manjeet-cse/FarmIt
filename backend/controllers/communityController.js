@@ -3,7 +3,7 @@ const CommunityPost = require('../models/CommunityPost');
 // @desc    Get all posts
 // @route   GET /api/community/posts
 // @access  Public
-const getPosts = async (req, res, next) => {
+const getPosts = async (req, res) => {
   try {
     const { category, page = 1, limit = 20 } = req.query;
 
@@ -29,14 +29,15 @@ const getPosts = async (req, res, next) => {
       data: posts,
     });
   } catch (error) {
-    next(error);
+    console.error('getPosts error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 
 // @desc    Create post
 // @route   POST /api/community/posts
 // @access  Private
-const createPost = async (req, res, next) => {
+const createPost = async (req, res) => {
   try {
     const { content, image, category } = req.body;
 
@@ -55,14 +56,15 @@ const createPost = async (req, res, next) => {
       data: populatedPost,
     });
   } catch (error) {
-    next(error);
+    console.error('createPost error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 
 // @desc    Like / Unlike a post
 // @route   PUT /api/community/posts/:id/like
 // @access  Private
-const likePost = async (req, res, next) => {
+const likePost = async (req, res) => {
   try {
     const post = await CommunityPost.findById(req.params.id);
 
@@ -89,14 +91,15 @@ const likePost = async (req, res, next) => {
       likesCount: post.likes.length,
     });
   } catch (error) {
-    next(error);
+    console.error('likePost error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 
 // @desc    Add comment to post
 // @route   POST /api/community/posts/:id/comment
 // @access  Private
-const addComment = async (req, res, next) => {
+const addComment = async (req, res) => {
   try {
     const { text } = req.body;
 
@@ -128,7 +131,8 @@ const addComment = async (req, res, next) => {
       data: updatedPost,
     });
   } catch (error) {
-    next(error);
+    console.error('addComment error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 

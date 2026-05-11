@@ -1,14 +1,46 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppTopBar from '../../components/common/AppTopBar';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../store/AuthContext';
+
+const OWM_KEY = 'f43f09c52dec331e339a4a9054e40e4e';
+const CITY = 'Guna';
+const COUNTRY = 'IN';
+
+const mapCondition = (iconCode) => {
+  if (!iconCode) return 'sunny';
+  const main = iconCode.slice(0, 2);
+  const isNight = iconCode.endsWith('n');
+  if (isNight && (main === '01' || main === '02')) return 'clear';
+  switch (main) {
+    case '01': return 'sunny';
+    case '02': case '03': case '04': return 'cloudy';
+    case '09': case '10': case '11': return 'rainy';
+    default: return 'sunny';
+  }
+};
+
+const getMaterialIcon = (cond) => {
+  switch (cond) {
+    case 'sunny': return 'wb_sunny';
+    case 'cloudy': return 'partly_cloudy_day';
+    case 'rainy': return 'rainy';
+    case 'clear': return 'clear_night';
+    default: return 'wb_sunny';
+  }
+};
 
 export default function Home() {
   const navigate = useNavigate();
   const scrollRef = useRef(null);
   const isMobile = useIsMobile();
   const { t } = useTranslation();
+  const { user } = useAuth();
+  
+  const [weather, setWeather] = useState(null);
+  const [forecast, setForecast] = useState(null);
 
   // Restore scroll position when returning from sub-screens
   useEffect(() => {
@@ -18,6 +50,83 @@ export default function Home() {
       sessionStorage.removeItem('home_scroll');
     }
   }, []);
+
+  useEffect(() => {
+    const fetchWeather = async () => {
+      let targetCity = localStorage.getItem('farmit_weather_city');
+      if (!targetCity) {
+        if (user?.location) {
+          const parts = user.location.split(',').map(s => s.trim());
+          targetCity = parts.find(p => p && !/^\d+$/.test(p)) || CITY;
+        } else {
+          targetCity = CITY;
+        }
+      }
+      try {
+        const [curRes, foreRes] = await Promise.all([
+          fetch(`https://api.openweathermap.org/data/2.5/weather?q=${targetCity},${COUNTRY}&appid=${OWM_KEY}&units=metric`),
+          fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${targetCity},${COUNTRY}&appid=${OWM_KEY}&units=metric`)
+        ]);
+        const curData = await curRes.json();
+        const foreData = await foreRes.json();
+        if (curData.cod === 200) setWeather(curData);
+        if (foreData.cod === '200') setForecast(foreData);
+      } catch (err) {
+        console.error('Weather fetch error:', err);
+      }
+    };
+    fetchWeather();
+  }, [user]);
+
+  // Derived weather values
+  const currentTemp = weather ? Math.round(weather.main.temp) : 28;
+  const currentCityName = weather ? weather.name : CITY;
+  const currentHumidity = weather ? weather.main.humidity : 45;
+  const currentWindSpeed = weather ? Math.round(weather.wind.speed * 3.6) : 12;
+  const currentCondition = weather ? mapCondition(weather.weather[0]?.icon) : 'sunny';
+  const currentIcon = getMaterialIcon(currentCondition);
+
+  // Derive next 3 days from forecast
+  const nextDays = (() => {
+    if (!forecast) return [
+      { day: t('home.tomorrow'), temp: 26, icon: 'partly_cloudy_day', color: '#006e1c' },
+      { day: 'Wed', temp: 22, icon: 'cloudy_snowing', color: 'var(--primary)' },
+      { day: 'Thu', temp: 29, icon: 'wb_sunny', color: '#ffb957' }
+    ];
+    
+    const days = {};
+    forecast.list.forEach(item => {
+      const d = new Date((item.dt + forecast.city.timezone) * 1000);
+      const dayName = d.toLocaleDateString('en-IN', { weekday: 'short', timeZone: 'UTC' });
+      if (!days[dayName]) days[dayName] = { temps: [], icons: [] };
+      days[dayName].temps.push(item.main.temp);
+      days[dayName].icons.push(item.weather[0]?.icon);
+    });
+
+    const result = [];
+    let count = 0;
+    const todayStr = new Date().toLocaleDateString('en-IN', { weekday: 'short' });
+    
+    for (const [day, data] of Object.entries(days)) {
+      if (day !== todayStr && count < 3) {
+        const cond = mapCondition(data.icons[Math.floor(data.icons.length / 2)]);
+        const icon = getMaterialIcon(cond);
+        const color = cond === 'rainy' ? '#3B82F6' : cond === 'cloudy' ? '#64748B' : '#F59E0B';
+        result.push({
+          day: count === 0 ? t('home.tomorrow') : day,
+          temp: Math.round(Math.max(...data.temps)),
+          icon,
+          color
+        });
+        count++;
+      }
+    }
+    return result.length > 0 ? result : [
+      { day: t('home.tomorrow'), temp: 26, icon: 'partly_cloudy_day', color: '#006e1c' },
+      { day: 'Wed', temp: 22, icon: 'cloudy_snowing', color: 'var(--primary)' },
+      { day: 'Thu', temp: 29, icon: 'wb_sunny', color: '#ffb957' }
+    ];
+  })();
 
   const navigateTo = (path) => {
     if (scrollRef.current) {
@@ -31,7 +140,7 @@ export default function Home() {
       {/* Top App Bar — Mobile only */}
       {isMobile && (
         <AppTopBar 
-          title="FarmIt" 
+          title="NeokrishiTech" 
           showBack={false} 
           showNotification={true} 
         />
@@ -66,11 +175,11 @@ export default function Home() {
 
             {/* SECTION 1: Your Crops */}
             <section className="full-span">
-              <h2 className="font-headline font-bold text-lg md:text-xl mb-4 text-onSurface mt-0">{t('home.yourCrops')}</h2>
-              <div className="flex md:grid md:grid-cols-2 xl:grid-cols-3 gap-4 overflow-x-auto md:overflow-x-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-4 px-4 md:mx-0 md:px-0 pb-2 md:pb-0">
+              <h2 className="font-headline font-bold text-lg mb-4 text-onSurface mt-0">{t('home.yourCrops')}</h2>
+              <div className="flex gap-4 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-4 px-4 pb-2">
                 {/* Wheat Card */}
-                <div className="min-w-[260px] md:min-w-0 bg-surface-containerLowest rounded-2xl overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.05)] flex flex-col card-hover">
-                  <div className="h-32 md:h-40 bg-[#e5e5e5]">
+                <div className="min-w-[260px] bg-surface-containerLowest rounded-2xl overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.05)] flex flex-col card-hover">
+                  <div className="h-32 bg-[#e5e5e5]">
                     <img 
                       className="w-full h-full object-cover"
                       alt="Wheat field" 
@@ -107,8 +216,8 @@ export default function Home() {
                 </div>
 
                 {/* Mustard Card */}
-                <div className="min-w-[260px] md:min-w-0 bg-surface-containerLowest rounded-2xl overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.05)] flex flex-col border-l-4 border-error/50 card-hover">
-                  <div className="h-32 md:h-40 bg-[#e5e5e5]">
+                <div className="min-w-[260px] bg-surface-containerLowest rounded-2xl overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.05)] flex flex-col border-l-4 border-error/50 card-hover">
+                  <div className="h-32 bg-[#e5e5e5]">
                     <img 
                       className="w-full h-full object-cover"
                       alt="Mustard field" 
@@ -151,17 +260,17 @@ export default function Home() {
                 <div>
                   <div className="flex items-center gap-1 text-onSurface-variant">
                     <span className="material-symbols-outlined text-[14px]">location_on</span>
-                    <span className="text-xs font-semibold">Guna, Madhya Pradesh</span>
+                    <span className="text-xs font-semibold">{currentCityName}, Madhya Pradesh</span>
                   </div>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="text-[30px] font-bold">28°C</span>
-                    <span className="material-symbols-outlined text-[30px] text-tertiary" style={{ fontVariationSettings: "'FILL' 1" }}>wb_sunny</span>
-                    <span className="text-sm font-medium text-onSurface-variant">• {t('weather.sunny')}</span>
+                    <span className="text-[30px] font-bold">{currentTemp}°C</span>
+                    <span className="material-symbols-outlined text-[30px] text-tertiary" style={{ fontVariationSettings: "'FILL' 1" }}>{currentIcon}</span>
+                    <span className="text-sm font-medium text-onSurface-variant capitalize">• {t(`weather.${currentCondition}`, currentCondition)}</span>
                   </div>
                 </div>
                 <div className="text-right flex flex-col gap-1">
-                  <p className="text-[10px] font-medium text-onSurface-variant m-0">{t('home.humidity')}: 45%</p>
-                  <p className="text-[10px] font-medium text-onSurface-variant m-0">{t('home.wind')}: 12 km/h</p>
+                  <p className="text-[10px] font-medium text-onSurface-variant m-0">{t('home.humidity')}: {currentHumidity}%</p>
+                  <p className="text-[10px] font-medium text-onSurface-variant m-0">{t('home.wind')}: {currentWindSpeed} km/h</p>
                 </div>
               </div>
               
@@ -175,28 +284,20 @@ export default function Home() {
               </div>
 
               <div className="grid grid-cols-3 gap-2 pt-2">
-                <div className="bg-surface-containerLow rounded-xl p-2 text-center">
-                  <p className="text-[10px] font-medium mb-1 mt-0">{t('home.tomorrow')}</p>
-                  <span className="material-symbols-outlined text-[18px] text-[#006e1c]">partly_cloudy_day</span>
-                  <p className="text-xs font-bold mt-1 mb-0">26°</p>
-                </div>
-                <div className="bg-surface-containerLow rounded-xl p-2 text-center">
-                  <p className="text-[10px] font-medium mb-1 mt-0">Wed</p>
-                  <span className="material-symbols-outlined text-[18px] text-primary">cloudy_snowing</span>
-                  <p className="text-xs font-bold mt-1 mb-0">22°</p>
-                </div>
-                <div className="bg-surface-containerLow rounded-xl p-2 text-center">
-                  <p className="text-[10px] font-medium mb-1 mt-0">Thu</p>
-                  <span className="material-symbols-outlined text-[18px] text-[#ffb957]">wb_sunny</span>
-                  <p className="text-xs font-bold mt-1 mb-0">29°</p>
-                </div>
+                {nextDays.map((item, i) => (
+                  <div key={i} className="bg-surface-containerLow rounded-xl p-2 text-center">
+                    <p className="text-[10px] font-medium mb-1 mt-0">{item.day}</p>
+                    <span className="material-symbols-outlined text-[18px]" style={{ color: item.color }}>{item.icon}</span>
+                    <p className="text-xs font-bold mt-1 mb-0">{item.temp}°</p>
+                  </div>
+                ))}
               </div>
             </section>
 
             {/* SECTION 3: Quick Actions Grid */}
             <section>
-              <h2 className="font-headline font-bold text-lg md:text-xl mb-4 text-onSurface mt-0">{t('home.quickActions')}</h2>
-              <div className="grid grid-cols-4 md:grid-cols-4 lg:grid-cols-8 gap-4">
+              <h2 className="font-headline font-bold text-lg mb-4 text-onSurface mt-0">{t('home.quickActions')}</h2>
+              <div className="grid grid-cols-4 gap-4">
                 <div className="group flex flex-col items-center gap-2 cursor-pointer transition-transform" onClick={() => navigateTo('/farmer/diagnosis')}>
                   <div className="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-active:scale-90 group-hover:scale-105 bg-[#006e1c]/10 text-[#006e1c]">
                     <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>medical_services</span>

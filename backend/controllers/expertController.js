@@ -4,7 +4,7 @@ const ExpertBooking = require('../models/ExpertBooking');
 // @desc    Get all experts
 // @route   GET /api/experts
 // @access  Public
-const getExperts = async (req, res, next) => {
+const getExperts = async (req, res) => {
   try {
     const experts = await User.find({ role: 'expert' }).select('-password');
 
@@ -14,14 +14,15 @@ const getExperts = async (req, res, next) => {
       data: experts,
     });
   } catch (error) {
-    next(error);
+    console.error('getExperts error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 
 // @desc    Get user's bookings
 // @route   GET /api/bookings
 // @access  Private
-const getBookings = async (req, res, next) => {
+const getBookings = async (req, res) => {
   try {
     const bookings = await ExpertBooking.find({ farmerId: req.user.id })
       .sort('-createdAt')
@@ -33,14 +34,15 @@ const getBookings = async (req, res, next) => {
       data: bookings,
     });
   } catch (error) {
-    next(error);
+    console.error('getBookings error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 
 // @desc    Create expert booking
 // @route   POST /api/bookings
 // @access  Private
-const createBooking = async (req, res, next) => {
+const createBooking = async (req, res) => {
   try {
     const { expertId, bookingType, bookingDate, bookingTime, topic, duration } = req.body;
 
@@ -66,14 +68,15 @@ const createBooking = async (req, res, next) => {
       data: booking,
     });
   } catch (error) {
-    next(error);
+    console.error('createBooking error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 
 // @desc    Update booking status
 // @route   PUT /api/bookings/:id
 // @access  Private
-const updateBooking = async (req, res, next) => {
+const updateBooking = async (req, res) => {
   try {
     const { status, paymentStatus } = req.body;
 
@@ -98,7 +101,8 @@ const updateBooking = async (req, res, next) => {
 
     res.status(200).json({ success: true, data: booking });
   } catch (error) {
-    next(error);
+    console.error('updateBooking error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 

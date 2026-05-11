@@ -3,7 +3,7 @@ const Product = require('../models/Product');
 // @desc    Get all products (with search & filter)
 // @route   GET /api/products
 // @access  Public
-const getProducts = async (req, res, next) => {
+const getProducts = async (req, res) => {
   try {
     const { category, search, sort, page = 1, limit = 20 } = req.query;
 
@@ -44,14 +44,15 @@ const getProducts = async (req, res, next) => {
       data: products,
     });
   } catch (error) {
-    next(error);
+    console.error('getProducts error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 
 // @desc    Get single product
 // @route   GET /api/products/:id
 // @access  Public
-const getProduct = async (req, res, next) => {
+const getProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id).populate('seller', 'name location');
 
@@ -61,14 +62,15 @@ const getProduct = async (req, res, next) => {
 
     res.status(200).json({ success: true, data: product });
   } catch (error) {
-    next(error);
+    console.error('getProduct error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 
 // @desc    Create product (vendor only)
 // @route   POST /api/products
 // @access  Private (vendor)
-const createProduct = async (req, res, next) => {
+const createProduct = async (req, res) => {
   try {
     req.body.seller = req.user.id;
 
@@ -80,7 +82,8 @@ const createProduct = async (req, res, next) => {
       data: product,
     });
   } catch (error) {
-    next(error);
+    console.error('createProduct error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 

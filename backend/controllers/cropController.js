@@ -3,7 +3,7 @@ const Crop = require('../models/Crop');
 // @desc    Get all crops for logged-in farmer
 // @route   GET /api/crops
 // @access  Private
-const getCrops = async (req, res, next) => {
+const getCrops = async (req, res) => {
   try {
     const crops = await Crop.find({ farmerId: req.user.id }).sort('-createdAt');
 
@@ -13,14 +13,15 @@ const getCrops = async (req, res, next) => {
       data: crops,
     });
   } catch (error) {
-    next(error);
+    console.error('getCrops error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 
 // @desc    Get single crop
 // @route   GET /api/crops/:id
 // @access  Private
-const getCrop = async (req, res, next) => {
+const getCrop = async (req, res) => {
   try {
     const crop = await Crop.findById(req.params.id);
 
@@ -35,14 +36,15 @@ const getCrop = async (req, res, next) => {
 
     res.status(200).json({ success: true, data: crop });
   } catch (error) {
-    next(error);
+    console.error('getCrop error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 
 // @desc    Add new crop
 // @route   POST /api/crops
 // @access  Private
-const addCrop = async (req, res, next) => {
+const addCrop = async (req, res) => {
   try {
     req.body.farmerId = req.user.id;
 
@@ -54,14 +56,15 @@ const addCrop = async (req, res, next) => {
       data: crop,
     });
   } catch (error) {
-    next(error);
+    console.error('addCrop error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 
 // @desc    Update crop
 // @route   PUT /api/crops/:id
 // @access  Private
-const updateCrop = async (req, res, next) => {
+const updateCrop = async (req, res) => {
   try {
     let crop = await Crop.findById(req.params.id);
 
@@ -80,14 +83,15 @@ const updateCrop = async (req, res, next) => {
 
     res.status(200).json({ success: true, data: crop });
   } catch (error) {
-    next(error);
+    console.error('updateCrop error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 
 // @desc    Delete crop
 // @route   DELETE /api/crops/:id
 // @access  Private
-const deleteCrop = async (req, res, next) => {
+const deleteCrop = async (req, res) => {
   try {
     const crop = await Crop.findById(req.params.id);
 
@@ -103,7 +107,8 @@ const deleteCrop = async (req, res, next) => {
 
     res.status(200).json({ success: true, message: 'Crop deleted' });
   } catch (error) {
-    next(error);
+    console.error('deleteCrop error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 

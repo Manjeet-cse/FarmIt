@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Leaf, User, Smartphone, Mail, MapPin, LocateFixed, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, Leaf, User, Smartphone, Mail, ArrowRight, CheckCircle2, Lock, EyeOff, Eye } from 'lucide-react';
 
 export default function SignupStep1() {
   const navigate = useNavigate();
@@ -9,11 +9,8 @@ export default function SignupStep1() {
   const [fullName, setFullName] = useState('');
   const [mobile, setMobile] = useState('');
   const [email, setEmail] = useState('');
-  const [pincode, setPincode] = useState('');
-  const [village, setVillage] = useState('');
-  const [activeCrops, setActiveCrops] = useState([]);
-  const [landSize, setLandSize] = useState('');
-  const [landUnit, setLandUnit] = useState('Bigha');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
@@ -28,19 +25,12 @@ export default function SignupStep1() {
         if (!/^\d{10}$/.test(value)) error = 'Enter a valid 10-digit mobile number';
         break;
       case 'email':
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) error = 'Enter a valid email address';
+        if (value && value.trim() !== '' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          error = 'Enter a valid email address';
+        }
         break;
-      case 'pincode':
-        if (!/^\d{6}$/.test(value)) error = 'Enter a valid 6-digit pincode';
-        break;
-      case 'village':
-        if (!value || value.trim().length === 0) error = 'Enter your village name';
-        break;
-      case 'landSize':
-        if (!value) error = 'Enter land size';
-        break;
-      case 'activeCrops':
-        if (activeCrops.length === 0) error = 'Select at least one crop';
+      case 'password':
+        if (!value || value.length < 6) error = 'Password must be at least 6 characters';
         break;
       default:
         break;
@@ -59,70 +49,42 @@ export default function SignupStep1() {
       case 'fullName': setFullName(value); break;
       case 'mobile': setMobile(value.replace(/\D/g, '').slice(0, 10)); break;
       case 'email': setEmail(value); break;
-      case 'pincode': setPincode(value.replace(/\D/g, '').slice(0, 6)); break;
-      case 'village': setVillage(value); break;
-      case 'landSize': setLandSize(value); break;
-      case 'landUnit': setLandUnit(value); break;
+      case 'password': setPassword(value); break;
+      default: break;
     }
     if (touched[field]) {
       let validationValue = value;
       if (field === 'mobile') validationValue = value.replace(/\D/g, '').slice(0, 10);
-      if (field === 'pincode') validationValue = value.replace(/\D/g, '').slice(0, 6);
       const error = validateField(field, validationValue);
       setErrors(prev => ({ ...prev, [field]: error }));
     }
   };
 
-  const toggleCrop = (cropKey) => {
-    let newCrops = [...activeCrops];
-    if (newCrops.includes(cropKey)) {
-      newCrops = newCrops.filter(c => c !== cropKey);
-    } else {
-      newCrops.push(cropKey);
-    }
-    setActiveCrops(newCrops);
-    if (touched.activeCrops) {
-      setErrors(prev => ({ ...prev, activeCrops: newCrops.length === 0 ? 'Select at least one crop' : '' }));
-    }
-  };
-
-  // Re-validate landSize if either changes
-  const handleLandSizeBlur = () => {
-    setTouched({ ...touched, landSize: true });
-    setErrors(prev => ({ ...prev, landSize: validateField('landSize') }));
-  };
-
   const isValid = 
     fullName.trim().length >= 3 &&
     /^\d{10}$/.test(mobile) &&
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
-    /^\d{6}$/.test(pincode) &&
-    village.trim().length > 0 &&
-    activeCrops.length > 0 &&
-    landSize;
+    (email.trim() === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) &&
+    password.length >= 6;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isValid) {
-      const formData = { fullName, mobile, email, pincode, village, activeCrops, landSize, landUnit };
+      const formData = { fullName, mobile, email, password };
       navigate('/signup/step2', { state: { formData } });
     } else {
-      // Force all touched
-      setTouched({ fullName: true, mobile: true, email: true, pincode: true, village: true, landSize: true, activeCrops: true });
+      setTouched({ fullName: true, mobile: true, email: true, password: true });
       setErrors({
         fullName: validateField('fullName', fullName),
         mobile: validateField('mobile', mobile),
         email: validateField('email', email),
-        pincode: validateField('pincode', pincode),
-        village: validateField('village', village),
-        landSize: validateField('landSize', landSize),
-        activeCrops: validateField('activeCrops'),
+        password: validateField('password', password),
       });
     }
   };
 
   return (
-    <div className="bg-surface h-[100dvh] relative flex flex-col overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <>
+      <div className="bg-surface h-[100dvh] relative flex flex-col overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       
       {/* Top Header Section */}
       <div className="relative h-48 bg-gradient-to-b from-primary to-primary-container rounded-b-[40px] p-6 flex flex-col justify-between overflow-hidden shadow-[0_8px_32px_rgba(15,31,17,0.12)] z-10 shrink-0">
@@ -145,38 +107,38 @@ export default function SignupStep1() {
       </div>
 
       {/* Main Form Content */}
-      <div className="flex-1 p-6 pt-6 pb-4 relative z-0">
-        <div className="bg-white rounded-3xl p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05)] border border-[#d4e8d1]">
+      <div className="flex-1 bg-white rounded-t-[32px] z-20 pt-5 px-6 pb-6 -mt-6 flex flex-col shadow-[0_-4px_24px_rgba(15,31,17,0.06)] overflow-y-auto">
           
-          {/* Progress Bar */}
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex flex-col items-center w-1/3 z-10">
-              <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-primary text-onPrimary shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)]">1</div>
-              <span className="font-label text-[10px] font-semibold text-primary mt-1 uppercase tracking-[0.05em]">Step 1</span>
-            </div>
-            <div className="h-[2px] bg-[#d4e8d1] flex-1 -mt-5 -mx-4"><div className="h-full bg-[rgba(13,99,27,0.2)]" style={{ width: '50%' }}></div></div>
-            
-            <div className="flex flex-col items-center w-1/3 z-10">
-              <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-[#d4e8d1] text-[#40493d]">2</div>
-              <span className="font-label text-[10px] font-medium text-[#40493d] mt-1 uppercase tracking-[0.05em]">Step 2</span>
-            </div>
-            <div className="h-[2px] bg-[#d4e8d1] flex-1 -mt-5 -mx-4"></div>
-            
-            <div className="flex flex-col items-center w-1/3 z-10">
-              <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-[#d4e8d1] text-[#40493d]">3</div>
-              <span className="font-label text-[10px] font-medium text-[#40493d] mt-1 uppercase tracking-[0.05em]">Step 3</span>
+          {/* Progress Bar - Sleek 2 Steps */}
+          <div className="flex items-center justify-center mb-8 px-8">
+            <div className="flex items-center w-full max-w-[200px] justify-between relative">
+              {/* Connecting Line */}
+              <div className="absolute top-1/2 left-0 w-full h-[2px] -translate-y-1/2 bg-[#d4e8d1] z-0">
+                <div className="h-full bg-primary transition-all duration-500 w-[50%]"></div>
+              </div>
+              
+              {/* Step 1 */}
+              <div className="flex flex-col items-center z-10 relative">
+                <div className="w-7 h-7 rounded-full flex items-center justify-center font-bold text-[12px] bg-primary text-white shadow-[0_2px_8px_rgba(13,99,27,0.3)] ring-4 ring-white">1</div>
+                <span className="font-label text-[10px] font-bold text-primary mt-2 uppercase tracking-wider absolute top-8 whitespace-nowrap">Details</span>
+              </div>
+              
+              {/* Step 2 */}
+              <div className="flex flex-col items-center z-10 relative">
+                <div className="w-7 h-7 rounded-full flex items-center justify-center font-bold text-[12px] bg-white text-[#8fa389] border border-[#d4e8d1] ring-4 ring-white transition-colors duration-300">2</div>
+                <span className="font-label text-[10px] font-medium text-[#8fa389] mt-2 uppercase tracking-wider absolute top-8 whitespace-nowrap">OTP</span>
+              </div>
             </div>
           </div>
 
           <form className="flex flex-col gap-5" onSubmit={handleSubmit} noValidate>
             
             {/* Field 1: Full Name */}
-            <div className="flex flex-col gap-1.5" style={{ marginBottom: errors.fullName ? '0.5rem' : '0' }}>
-              <label className="font-label text-sm font-semibold text-[#40493d] ml-1 flex justify-between items-center">Full Name</label>
-              <div className="relative flex gap-2">
-                <div className="absolute top-0 bottom-0 left-0 pl-4 flex items-center pointer-events-none text-[#707a6c]"><User size={20} /></div>
+            <div className="mb-3 flex-shrink-0">
+              <label className="font-label text-[12px] text-[#40493d] mb-1.5 block font-bold">Full Name</label>
+              <div className="relative flex items-center h-[48px]">
                 <input 
-                  className={`w-full h-[52px] bg-white border border-[#bfcaba] rounded-2xl px-4 pl-12 font-body text-[#0f1f11] transition-all duration-200 focus:outline-none focus:shadow-[0_0_0_2px_var(--primary)] focus:border-transparent placeholder-[#40493d] ${errors.fullName ? 'border-2 border-[var(--error,#e53e3e)]' : ''}`} 
+                  className={`w-full h-full bg-[#daeed6] border-none rounded-[16px] px-4 font-body text-[14px] text-[#0f1f11] transition-all duration-200 focus:outline-none focus:shadow-[0_0_0_2px_var(--primary)] focus:bg-[#d4e8d1] placeholder:text-[#707a6c] placeholder:font-medium ${errors.fullName ? 'border-2 border-[var(--error,#e53e3e)]' : ''}`} 
                   placeholder="Enter your full name" 
                   type="text" 
                   value={fullName}
@@ -184,173 +146,86 @@ export default function SignupStep1() {
                   onBlur={(e) => handleBlur('fullName', e.target.value)}
                 />
                 {!errors.fullName && touched.fullName && fullName.trim().length >= 3 && (
-                  <CheckCircle2 size={20} color="var(--success)" style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)' }} />
+                  <CheckCircle2 size={18} color="var(--success)" className="absolute right-4 text-[#40493d] cursor-pointer" />
                 )}
               </div>
-              {errors.fullName && <p style={{ color: 'var(--error, #e53e3e)', fontSize: '0.875rem', marginTop: '0.25rem', fontFamily: 'var(--font-body)' }}>{errors.fullName}</p>}
+              {errors.fullName && <p style={{ color: 'var(--error, #e53e3e)', fontSize: '0.8rem', marginTop: '0.25rem', fontFamily: 'var(--font-body)', marginBottom: 0 }}>{errors.fullName}</p>}
             </div>
 
             {/* Field 2: Mobile Number */}
-            <div className="flex flex-col gap-1.5" style={{ marginBottom: errors.mobile ? '0.5rem' : '0' }}>
-              <label className="font-label text-sm font-semibold text-[#40493d] ml-1 flex justify-between items-center">Mobile Number</label>
-              <div className="relative flex gap-2">
-                <div className="h-[52px] w-20 bg-white rounded-2xl flex items-center justify-center font-body text-[#0f1f11] border border-[#bfcaba] shadow-[0_1px_2px_rgba(0,0,0,0.05)]">+91</div>
-                <div style={{ position: 'relative', flex: 1 }}>
-                  <div className="absolute top-0 bottom-0 left-0 pl-4 flex items-center pointer-events-none text-[#707a6c]"><Smartphone size={20} /></div>
-                  <input 
-                    className={`w-full h-[52px] bg-white border border-[#bfcaba] rounded-2xl px-4 pl-12 font-body text-[#0f1f11] transition-all duration-200 focus:outline-none focus:shadow-[0_0_0_2px_var(--primary)] focus:border-transparent placeholder-[#40493d] ${errors.mobile ? 'border-2 border-[var(--error,#e53e3e)]' : ''}`} 
-                    placeholder="10-digit mobile number" 
-                    type="tel" 
-                    value={mobile}
-                    onChange={(e) => handleChange('mobile', e.target.value)}
-                    onBlur={(e) => handleBlur('mobile', e.target.value)}
-                  />
-                  {!errors.mobile && touched.mobile && mobile.length === 10 && (
-                    <CheckCircle2 size={20} color="var(--success)" style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)' }} />
-                  )}
+            <div className="mb-3 flex-shrink-0">
+              <label className="font-label text-[12px] text-[#40493d] mb-1.5 block font-bold">Mobile Number</label>
+              <div className="relative flex items-center h-[48px]">
+                <div className="absolute left-4 z-10 text-[#0f1f11] font-semibold flex items-center gap-1 font-body">
+                  <span className="text-[14px]">+91</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#40493d] mt-0.5"><path d="m6 9 6 6 6-6"/></svg>
                 </div>
+                <input 
+                  className={`w-full h-full bg-[#daeed6] border-none rounded-[16px] px-4 pl-[72px] font-body text-[14px] text-[#0f1f11] transition-all duration-200 focus:outline-none focus:shadow-[0_0_0_2px_var(--primary)] focus:bg-[#d4e8d1] placeholder:text-[#707a6c] placeholder:font-medium ${errors.mobile ? 'border-2 border-[var(--error,#e53e3e)]' : ''}`} 
+                  placeholder="Enter 10-digit number" 
+                  type="tel" 
+                  value={mobile}
+                  onChange={(e) => handleChange('mobile', e.target.value)}
+                  onBlur={(e) => handleBlur('mobile', e.target.value)}
+                />
+                {!errors.mobile && touched.mobile && mobile.length === 10 && (
+                  <CheckCircle2 size={18} color="var(--success)" className="absolute right-4 text-[#40493d] cursor-pointer" />
+                )}
               </div>
-              {errors.mobile && <p style={{ color: 'var(--error, #e53e3e)', fontSize: '0.875rem', marginTop: '0.25rem', fontFamily: 'var(--font-body)' }}>{errors.mobile}</p>}
+              {errors.mobile && <p style={{ color: 'var(--error, #e53e3e)', fontSize: '0.8rem', marginTop: '0.25rem', fontFamily: 'var(--font-body)', marginBottom: 0 }}>{errors.mobile}</p>}
             </div>
 
-            {/* Field 3: Email */}
-            <div className="flex flex-col gap-1.5" style={{ marginBottom: errors.email ? '0.5rem' : '0' }}>
-              <label className="font-label text-sm font-semibold text-[#40493d] ml-1 flex justify-between items-center">Email</label>
-              <div className="relative flex gap-2">
-                <div className="absolute top-0 bottom-0 left-0 pl-4 flex items-center pointer-events-none text-[#707a6c]"><Mail size={20} /></div>
+            {/* Field 3: Email (Optional) */}
+            <div className="mb-3 flex-shrink-0">
+              <label className="font-label text-[12px] text-[#40493d] mb-1.5 block font-bold flex justify-between items-center">
+                Email Address <span className="text-[10px] font-medium text-[#8fa389] normal-case bg-[#e5f9e2] px-2 py-0.5 rounded-full">Optional</span>
+              </label>
+              <div className="relative flex items-center h-[48px]">
                 <input 
-                  className={`w-full h-[52px] bg-white border border-[#bfcaba] rounded-2xl px-4 pl-12 font-body text-[#0f1f11] transition-all duration-200 focus:outline-none focus:shadow-[0_0_0_2px_var(--primary)] focus:border-transparent placeholder-[#40493d] ${errors.email ? 'border-2 border-[var(--error,#e53e3e)]' : ''}`} 
-                  placeholder="name@email.com" 
+                  className={`w-full h-full bg-[#daeed6] border-none rounded-[16px] px-4 font-body text-[14px] text-[#0f1f11] transition-all duration-200 focus:outline-none focus:shadow-[0_0_0_2px_var(--primary)] focus:bg-[#d4e8d1] placeholder:text-[#707a6c] placeholder:font-medium ${errors.email ? 'border-2 border-[var(--error,#e53e3e)]' : ''}`} 
+                  placeholder="name@example.com" 
                   type="email" 
                   value={email}
                   onChange={(e) => handleChange('email', e.target.value)}
                   onBlur={(e) => handleBlur('email', e.target.value)}
                 />
                 {!errors.email && touched.email && email.includes('@') && (
-                  <CheckCircle2 size={20} color="var(--success)" style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)' }} />
+                  <CheckCircle2 size={18} color="var(--success)" className="absolute right-4 text-[#40493d] cursor-pointer" />
                 )}
               </div>
-              {errors.email && <p style={{ color: 'var(--error, #e53e3e)', fontSize: '0.875rem', marginTop: '0.25rem', fontFamily: 'var(--font-body)' }}>{errors.email}</p>}
+              {errors.email && <p style={{ color: 'var(--error, #e53e3e)', fontSize: '0.8rem', marginTop: '0.25rem', fontFamily: 'var(--font-body)', marginBottom: 0 }}>{errors.email}</p>}
             </div>
 
-            {/* Field 4: Pincode */}
-            <div className="flex flex-col gap-1.5" style={{ marginBottom: errors.pincode ? '0.5rem' : '0' }}>
-              <label className="font-label text-sm font-semibold text-[#40493d] ml-1 flex justify-between items-center">Pincode</label>
-              <div style={{ position: 'relative' }}>
-                <div className="absolute top-0 bottom-0 left-0 pl-4 flex items-center pointer-events-none text-[#707a6c]"><LocateFixed size={20} /></div>
+            {/* Field 4: Password */}
+            <div className="mb-3 flex-shrink-0">
+              <label className="font-label text-[12px] text-[#40493d] mb-1.5 block font-bold">Secure Password</label>
+              <div className="relative flex items-center h-[48px]">
                 <input 
-                  className={`w-full h-[52px] bg-white border border-[#bfcaba] rounded-2xl px-4 pl-12 font-body text-[#0f1f11] transition-all duration-200 focus:outline-none focus:shadow-[0_0_0_2px_var(--primary)] focus:border-transparent placeholder-[#40493d] ${errors.pincode ? 'border-2 border-[var(--error,#e53e3e)]' : ''}`} 
-                  placeholder="Enter 6-digit pincode" 
-                  type="number" 
-                  maxLength={6}
-                  value={pincode}
-                  onChange={(e) => handleChange('pincode', e.target.value)}
-                  onBlur={(e) => handleBlur('pincode', e.target.value)}
+                  className={`w-full h-full bg-[#daeed6] border-none rounded-[16px] px-4 pr-11 font-body text-[14px] text-[#0f1f11] transition-all duration-200 focus:outline-none focus:shadow-[0_0_0_2px_var(--primary)] focus:bg-[#d4e8d1] placeholder:text-[#707a6c] placeholder:font-medium ${errors.password ? 'border-2 border-[var(--error,#e53e3e)]' : ''}`} 
+                  placeholder="Min 6 characters" 
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => handleChange('password', e.target.value)}
+                  onBlur={(e) => handleBlur('password', e.target.value)}
                 />
-              </div>
-              {errors.pincode && <p style={{ color: 'var(--error, #e53e3e)', fontSize: '0.875rem', marginTop: '0.25rem', fontFamily: 'var(--font-body)' }}>{errors.pincode}</p>}
-            </div>
-
-            {/* Field 5: Village */}
-            <div className="flex flex-col gap-1.5" style={{ marginBottom: errors.village ? '0.5rem' : '0' }}>
-              <label className="font-label text-sm font-semibold text-[#40493d] ml-1 flex justify-between items-center">Your Village</label>
-              <div style={{ position: 'relative' }}>
-                <div className="absolute top-0 bottom-0 left-0 pl-4 flex items-center pointer-events-none text-[#707a6c]"><MapPin size={20} /></div>
-                <input 
-                  className={`w-full h-[52px] bg-white border border-[#bfcaba] rounded-2xl px-4 pl-12 pr-12 font-body text-[#0f1f11] transition-all duration-200 focus:outline-none focus:shadow-[0_0_0_2px_var(--primary)] focus:border-transparent placeholder-[#40493d] ${errors.village ? 'border-2 border-[var(--error,#e53e3e)]' : ''}`} 
-                  placeholder="Search village" 
-                  type="text" 
-                  value={village}
-                  onChange={(e) => handleChange('village', e.target.value)}
-                  onBlur={(e) => handleBlur('village', e.target.value)}
-                />
-                <button type="button" className="absolute top-0 bottom-0 right-0 pr-4 flex items-center text-primary cursor-pointer bg-transparent border-none">
-                  <LocateFixed size={20} />
+                <button type="button" className="absolute right-4 bg-transparent border-none p-0 cursor-pointer text-[#40493d]" onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
                 </button>
               </div>
-              {errors.village && <p style={{ color: 'var(--error, #e53e3e)', fontSize: '0.875rem', marginTop: '0.25rem', fontFamily: 'var(--font-body)' }}>{errors.village}</p>}
+              {errors.password && <p style={{ color: 'var(--error, #e53e3e)', fontSize: '0.8rem', marginTop: '0.25rem', fontFamily: 'var(--font-body)', marginBottom: 0 }}>{errors.password}</p>}
             </div>
 
-            {/* Field 5: Primary Crop */}
-            <div className="flex flex-col gap-1.5" style={{ marginBottom: errors.activeCrops ? '0.5rem' : '0' }}>
-              <label className="font-label text-sm font-semibold text-[#40493d] ml-1 flex justify-between items-center">
-                Your Crops
-                <span className="text-xs font-normal text-[#707a6c]">Select multiple</span>
-              </label>
-              <div className="flex overflow-x-auto gap-3 pb-2 -mx-6 px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                {[
-                  { key: 'wheat', emoji: '🌾', label: 'Wheat' },
-                  { key: 'rice', emoji: '🚜', label: 'Rice' },
-                  { key: 'cotton', emoji: '🌱', label: 'Cotton' },
-                  { key: 'sugarcane', emoji: '🎋', label: 'Sugarcane' },
-                ].map(crop => {
-                  const isActive = activeCrops.includes(crop.key);
-                  return (
-                    <button 
-                      key={crop.key}
-                      type="button" 
-                      className={`shrink-0 h-10 px-4 rounded-full font-label text-sm font-medium flex items-center gap-2 transition-all duration-200 cursor-pointer ${isActive ? 'bg-primary-container text-[#cbffc2] border-primary-container' : 'bg-white text-[#0f1f11] border border-[#bfcaba] hover:bg-[#e5f9e2]'} ${errors.activeCrops ? 'border-2 border-[var(--error,#e53e3e)]' : ''}`} 
-                      onClick={() => toggleCrop(crop.key)}
-                    >
-                      {crop.emoji} {crop.label}
-                    </button>
-                  );
-                })}
-              </div>
-              {errors.activeCrops && <p style={{ color: 'var(--error, #e53e3e)', fontSize: '0.875rem', marginTop: '0.25rem', fontFamily: 'var(--font-body)' }}>{errors.activeCrops}</p>}
-            </div>
-
-            {/* Field 6: Land Size */}
-            <div className="flex flex-col gap-1.5">
-              <label className="font-label text-sm font-semibold text-[#40493d] ml-1 flex justify-between items-center">Total Land Size</label>
-              <div className="relative flex items-center">
-                <input 
-                  className={`w-full h-[52px] bg-white border border-[#bfcaba] rounded-2xl px-4 pr-[140px] font-body text-[#0f1f11] transition-all duration-200 focus:outline-none focus:shadow-[0_0_0_2px_var(--primary)] focus:border-transparent placeholder-[#40493d] text-lg font-medium ${errors.landSize ? 'border-2 border-[var(--error,#e53e3e)]' : ''}`} 
-                  placeholder="0" 
-                  type="number"
-                  min="0"
-                  value={landSize}
-                  onChange={(e) => {
-                    handleChange('landSize', e.target.value);
-                  }}
-                  onBlur={(e) => handleBlur('landSize', e.target.value)}
-                />
-                
-                <div className="absolute right-1.5 top-1.5 bottom-1.5 flex bg-[#f0f9f0] rounded-xl border border-[#d4e8d1] p-1 overflow-hidden w-[120px] shadow-sm">
-                  <button
-                    type="button"
-                    className={`flex-1 rounded-lg text-[11px] font-label font-bold transition-all duration-200 border-none cursor-pointer ${landUnit === 'Bigha' ? 'bg-primary text-onPrimary shadow-md' : 'text-[#707a6c] bg-transparent hover:bg-[rgba(13,99,27,0.05)]'}`}
-                    onClick={() => setLandUnit('Bigha')}
-                  >
-                    Bigha
-                  </button>
-                  <button
-                    type="button"
-                    className={`flex-1 rounded-lg text-[11px] font-label font-bold transition-all duration-200 border-none cursor-pointer ${landUnit === 'Acres' ? 'bg-primary text-onPrimary shadow-md' : 'text-[#707a6c] bg-transparent hover:bg-[rgba(13,99,27,0.05)]'}`}
-                    onClick={() => setLandUnit('Acres')}
-                  >
-                    Acres
-                  </button>
-                </div>
-              </div>
-              {errors.landSize && <p style={{ color: 'var(--error, #e53e3e)', fontSize: '0.875rem', marginTop: '0.25rem', fontFamily: 'var(--font-body)' }}>{errors.landSize}</p>}
-            </div>
-
+            {/* Submit Button */}
+            <button 
+              className="w-full h-[48px] flex-shrink-0 rounded-[16px] bg-[#1b6d24] text-white font-body text-[14px] font-bold tracking-wide border-none cursor-pointer mt-4 shadow-[0_4px_12px_-2px_rgba(27,109,36,0.3)] transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-2 hover:bg-[#155a1d] disabled:opacity-60 disabled:cursor-not-allowed" 
+              onClick={handleSubmit}
+              disabled={!isValid && Object.keys(touched).length > 0}
+            >
+              Send OTP
+            </button>
           </form>
         </div>
-      </div>
-
-      <div className="px-6 pb-6 pt-2 z-20 shrink-0 w-full">
-        <button 
-          className="w-full h-[56px] rounded-full bg-gradient-to-b from-primary to-primary-container text-onPrimary font-label text-base font-bold uppercase tracking-[0.05em] flex items-center justify-center gap-2 shadow-[0_8px_24px_rgba(13,99,27,0.25)] border-none cursor-pointer transition-all duration-200 active:scale-[0.95]" 
-          onClick={handleSubmit}
-          disabled={!isValid && Object.keys(touched).length > 0}
-          style={{ opacity: (!isValid && Object.keys(touched).length > 0) ? 0.6 : 1 }}
-        >
-          Continue <ArrowRight size={18} />
-        </button>
-      </div>
-
     </div>
+    </>
   );
 }

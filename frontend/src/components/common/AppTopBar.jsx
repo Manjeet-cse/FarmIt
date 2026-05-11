@@ -182,7 +182,7 @@ export default function AppTopBar({
               </nav>
             </div>
             <div className="p-5 text-center border-t border-[#f0f0f0]">
-              <p className="m-0 text-[12px] text-[#999]">FarmIt v1.0.0</p>
+              <p className="m-0 text-[12px] text-[#999]">NeokrishiTech v1.0.0</p>
             </div>
           </div>
         </div>

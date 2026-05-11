@@ -39,7 +39,7 @@ export default function TopNavbar() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const pageTitle = ROUTE_TITLES[location.pathname] || 'FarmIt';
+  const pageTitle = ROUTE_TITLES[location.pathname] || 'NeokrishiTech';
 
   return (
     <header className="hidden md:flex items-center h-16 px-6 bg-white/80 backdrop-blur-xl border-b border-[#d4e8d1]/40 sticky top-0 z-40 gap-4 shrink-0">

@@ -9,6 +9,7 @@ import MandiScreen from '../screens/farmer/MandiScreen';
 import MarketplaceScreen from '../screens/farmer/MarketplaceScreen';
 import MoreScreen from '../screens/farmer/MoreScreen';
 import ProfileScreen from '../screens/farmer/ProfileScreen';
+import EditProfileScreen from '../screens/farmer/EditProfileScreen';
 import WeatherScreen from '../screens/farmer/WeatherScreen';
 import LearningScreen from '../screens/farmer/LearningScreen';
 import SubsidyScreen from '../screens/farmer/SubsidyScreen';
@@ -35,6 +36,7 @@ export default function FarmerTabs() {
         
         {/* Secondary farmer screens */}
         <Route path="profile" element={<ProfileScreen />} />
+        <Route path="edit-profile" element={<EditProfileScreen />} />
         <Route path="weather" element={<WeatherScreen />} />
         <Route path="learning" element={<LearningScreen />} />
         <Route path="subsidy" element={<SubsidyScreen />} />

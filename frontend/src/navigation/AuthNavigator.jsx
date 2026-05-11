@@ -6,7 +6,7 @@ import RoleSelectScreen from '../screens/auth/RoleSelectScreen';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignupStep1 from '../screens/auth/SignupStep1';
 import SignupStep2 from '../screens/auth/SignupStep2';
-import SignupStep3 from '../screens/auth/SignupStep3';
+import ForgotPasswordScreen from '../screens/auth/ForgotPasswordScreen';
 
 export default function AuthNavigator() {
   return (
@@ -16,9 +16,9 @@ export default function AuthNavigator() {
       <Route path="/onboarding" element={<OnboardingScreen />} />
       <Route path="/role-select" element={<RoleSelectScreen />} />
       <Route path="/login" element={<LoginScreen />} />
+      <Route path="/forgot-password" element={<ForgotPasswordScreen />} />
       <Route path="/signup/step1" element={<SignupStep1 />} />
       <Route path="/signup/step2" element={<SignupStep2 />} />
-      <Route path="/signup/step3" element={<SignupStep3 />} />
     </Routes>
   );
 }

@@ -14,7 +14,13 @@ const app = express();
 
 // ── Middleware ────────────────────────────────────
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3000'],
+  origin: function(origin, callback) {
+    // Allow requests with no origin (curl, mobile apps)
+    if (!origin) return callback(null, true);
+    // Allow any localhost port in development
+    if (origin.match(/^http:\/\/localhost:\d+$/)) return callback(null, true);
+    callback(new Error('Not allowed by CORS'));
+  },
   credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));

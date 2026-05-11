@@ -50,13 +50,22 @@ html, body {
   overscroll-behavior-y: none;
   font-family: var(--font-body);
   color: var(--on-surface);
-  background: #f5f8f5;
+  /* Premium desktop background */
+  background: linear-gradient(135deg, #0f1f11 0%, #1a331c 100%);
 }
 
 #root {
+  max-width: 430px;
   width: 100%;
-  height: 100%;
-  overflow: hidden;
+  height: 100dvh;
+  margin: 0 auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #f5f8f5;
+  position: relative;
+  /* Crucial Fix: Trap fixed elements inside this container */
+  transform: translateZ(0); 
+  box-shadow: 0 0 50px rgba(0,0,0,0.5);
 }
 
 /* ═══════════════════════════════════════════
@@ -124,17 +133,6 @@ input {
   background: linear-gradient(135deg, #e5f9e2 0%, #ebffe7 50%, #dff3dc 100%);
 }
 
-@media (min-width: 768px) {
-  .auth-container > div {
-    max-width: 420px;
-    width: 100%;
-    border-radius: 24px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
-    background: white;
-    min-height: auto;
-  }
-}
-
 /* ═══════════════════════════════════════════
    SCREEN LAYOUT SYSTEM (used by screens)
    ═══════════════════════════════════════════ */
@@ -153,14 +151,6 @@ input {
   width: 100%;
 }
 
-/* Hide mobile app bar on desktop — TopNavbar replaces it */
-@media (min-width: 768px) {
-  .screen-topbar,
-  .mobile-only-topbar {
-    display: none;
-  }
-}
-
 .screen-body {
   flex: 1;
   overflow-y: auto;
@@ -174,20 +164,6 @@ input {
   padding: 0 16px 16px;
 }
 
-@media (min-width: 768px) {
-  .screen-content {
-    padding: 0 24px 24px;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-}
-
-@media (min-width: 1280px) {
-  .screen-content {
-    padding: 0 32px 32px;
-  }
-}
-
 /* ═══════════════════════════════════════════
    RESPONSIVE CARD SYSTEM
    ═══════════════════════════════════════════ */
@@ -197,24 +173,6 @@ input {
   border-radius: 16px;
   padding: 16px;
   margin-bottom: 12px;
-}
-
-@media (min-width: 768px) {
-  .card {
-    border-radius: 20px;
-    padding: 20px;
-  }
-}
-
-/* Card hover effect for desktop */
-@media (min-width: 768px) {
-  .card-hover {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  .card-hover:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(15, 31, 17, 0.08);
-  }
 }
 
 /* Glass card utility */
@@ -235,43 +193,11 @@ input {
   grid-template-columns: 1fr;
 }
 
-@media (min-width: 768px) {
-  .responsive-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .responsive-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (min-width: 1280px) {
-  .responsive-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-  }
-}
-
 /* Dashboard 2-column layout for desktop */
 .dashboard-grid {
   display: flex;
   flex-direction: column;
   gap: 24px;
-}
-
-@media (min-width: 1024px) {
-  .dashboard-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    align-items: start;
-  }
-  .dashboard-grid > .full-span {
-    grid-column: 1 / -1;
-  }
 }
 
 /* ═══════════════════════════════════════════
@@ -281,20 +207,6 @@ input {
 .page-content {
   padding: 20px 16px 100px;
   width: 100%;
-}
-
-@media (min-width: 768px) {
-  .page-content {
-    padding: 24px 28px 40px;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-}
-
-@media (min-width: 1280px) {
-  .page-content {
-    padding: 28px 40px 40px;
-  }
 }
 
 /* ═══════════════════════════════════════════

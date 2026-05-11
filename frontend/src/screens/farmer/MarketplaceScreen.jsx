@@ -215,7 +215,7 @@ export default function MarketplaceScreen() {
                 <p className="text-onSurface-variant text-sm m-0">Try adjusting your search or filters.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5 mb-[80px] md:mb-0">
+              <div className="grid grid-cols-2 gap-4 mb-[80px]">
                 {filteredProducts.map(product => (
                   <article key={product.id} className="bg-surface-containerLowest rounded-2xl p-3 flex flex-col gap-3 shadow-[0_4px_24px_rgba(15,31,17,0.03)] relative overflow-hidden card-hover">
                     {product.tags && product.tags.length > 0 && (

@@ -1,6 +1,9 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import AppTopBar from '../../components/common/AppTopBar';
 import { useIsMobile } from '../../hooks/useMediaQuery';
+import { createDebouncedSearch } from '../../services/locationService';
+
+const OWM_KEY = 'f43f09c52dec331e339a4a9054e40e4e';
 
 const MOCK_CROPS = [
   { id: 1, name: 'Wheat', variety: 'Grade A • Bulk', category: 'Rabi', price: '2,250', unit: '/Qtl', trend: 'up', change: '₹15 (0.6%)', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCNtiXvY2hvHrB0H116DC92rppfahtv5qVNnE_u-zc5QtN_gbGe2EvO2DAhiih1NcnBh5Up8xUiF4UVIq-vklIHFlCenlNZt4Ogp-MJRh2zE-qcuiemWIdvmy0tXGKiBdfn6J9QzfnQ1cIif4pEwHfTZU_wrQxmcYRGYLr8_Vr1ooCSWZp2e_98tejJtInu5kphHo2OYaqeIsi3hnC2SyJ7RaHD-jihCz16Ynga_y9nvdxovSn5LRWE2V9Ff_XKVBu2OUlUusbB9C0' },
@@ -79,6 +82,32 @@ export default function MandiScreen() {
   const [selectedCrop, setSelectedCrop] = useState(null);
   const [selectedPointIndex, setSelectedPointIndex] = useState(6); // Default to today
   const [activeGrade, setActiveGrade] = useState('medium');
+  const [mandiLocation, setMandiLocation] = useState(localStorage.getItem('farmit_mandi_city') || 'Guna');
+  const [showMandiSearch, setShowMandiSearch] = useState(false);
+  const [mandiSearchQuery, setMandiSearchQuery] = useState('');
+  const [mandiSuggestions, setMandiSuggestions] = useState([]);
+  const debounceRef = useRef(null);
+  const locationTimerRef = useRef(null);
+  const debouncedLocationSearch = useRef(createDebouncedSearch(locationTimerRef, 400)).current;
+
+  const handleMandiSearchInput = (value) => {
+    setMandiSearchQuery(value);
+    if (value.trim().length < 2) {
+      setMandiSuggestions([]);
+      return;
+    }
+    debouncedLocationSearch(value, (results) => {
+      setMandiSuggestions(results);
+    });
+  };
+
+  const selectMandiLocation = (city) => {
+    setMandiLocation(city);
+    localStorage.setItem('farmit_mandi_city', city);
+    setMandiSearchQuery('');
+    setMandiSuggestions([]);
+    setShowMandiSearch(false);
+  };
 
   useEffect(() => {
     if (selectedCrop) {
@@ -514,14 +543,73 @@ export default function MandiScreen() {
             
             {/* Location & Status Sub-bar */}
             <div className="flex justify-between items-center py-2 mb-4">
-              <div className="flex items-center gap-2 color-primary text-primary cursor-pointer">
-                <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>
-                  location_on
-                </span>
-                <span className="font-headline font-bold text-lg">Guna Mandi</span>
-                <span className="material-symbols-outlined text-[20px]">
-                  expand_more
-                </span>
+              <div className="flex flex-col gap-2">
+                {!showMandiSearch ? (
+                  <div 
+                    className="flex items-center gap-2 color-primary text-primary cursor-pointer hover:bg-primary/5 px-2 py-1 -ml-2 rounded-lg transition-colors w-max"
+                    onClick={() => { setShowMandiSearch(true); setMandiSearchQuery(''); }}
+                  >
+                    <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>
+                      location_on
+                    </span>
+                    <span className="font-headline font-bold text-lg capitalize">{mandiLocation} Mandi</span>
+                    <span className="material-symbols-outlined text-[20px]">
+                      expand_more
+                    </span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <div className="relative">
+                      <input
+                        autoFocus
+                        className="h-9 border border-outline rounded-lg px-3 text-[13px] font-body text-onSurface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 w-40 transition-all"
+                        placeholder="Enter city..."
+                        value={mandiSearchQuery}
+                        onChange={(e) => handleMandiSearchInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && mandiSearchQuery.trim()) {
+                            selectMandiLocation(mandiSearchQuery.trim());
+                          }
+                        }}
+                      />
+                      {mandiSuggestions.length > 0 && (
+                        <div className="absolute left-0 right-0 top-10 bg-white rounded-lg shadow-lg border border-[#e0e0e0] z-50 overflow-hidden w-60">
+                          {mandiSuggestions.map((item, idx) => (
+                            <button
+                              key={idx}
+                              className="w-full px-3 py-2 flex items-center gap-2 text-left bg-transparent border-none cursor-pointer hover:bg-surface-container transition-colors font-body text-[12px] text-onSurface border-b border-outline-variant last:border-b-0"
+                              onClick={() => selectMandiLocation(item.name)}
+                            >
+                              <span className="material-symbols-outlined text-[14px] text-primary">location_on</span>
+                              <div className="flex flex-col">
+                                <span className="font-bold">{item.name}</span>
+                                {item.state && <span className="text-[10px] text-onSurface-variant">{item.state}</span>}
+                              </div>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    <button 
+                      className="h-9 px-3 bg-primary text-white text-[12px] font-bold rounded-lg border-none cursor-pointer hover:bg-[#15541c]"
+                      onClick={() => {
+                        if (mandiSearchQuery.trim()) {
+                          selectMandiLocation(mandiSearchQuery.trim());
+                        } else {
+                          setShowMandiSearch(false);
+                        }
+                      }}
+                    >
+                      Set
+                    </button>
+                    <button 
+                      className="h-9 px-2 bg-transparent text-onSurface-variant rounded-lg border-none cursor-pointer hover:bg-surface-container"
+                      onClick={() => setShowMandiSearch(false)}
+                    >
+                      <span className="material-symbols-outlined text-[18px]">close</span>
+                    </button>
+                  </div>
+                )}
               </div>
               <div className="flex items-center gap-1 text-onSurface-variant text-[13px] font-body">
                 <span className="material-symbols-outlined text-[16px]">

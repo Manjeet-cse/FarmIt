@@ -1,15 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AppTopBar from '../../components/common/AppTopBar';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../store/AuthContext';
+import cropService from '../../services/cropService';
 
 export default function ProfileScreen() {
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+  const { logout } = useAuth();
   const [priceAlerts, setPriceAlerts] = useState(true);
   const [weatherAlerts, setWeatherAlerts] = useState(false);
   const [showLangSheet, setShowLangSheet] = useState(false);
   const [currentLang, setCurrentLang] = useState(i18n.language || 'en');
+
+  // Hardcoded Data
+  const user = {
+    name: 'Manjeet Lodha',
+    location: 'Guna, Madhya Pradesh',
+    profileImage: '/images/manjeet_profile.webp',
+    totalLandArea: 12,
+    irrigationType: 'Drip & Sprinkler',
+    soilType: 'Black Cotton Soil'
+  };
+
+  const crops = [
+    {
+      _id: '1',
+      cropName: 'Wheat (Sujata)',
+      acreage: 5,
+      cropStage: 'Vegetative Stage',
+      healthStatus: 'Healthy',
+      image: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?fit=crop&w=200&h=200'
+    },
+    {
+      _id: '2',
+      cropName: 'Mustard (Pusa)',
+      acreage: 3,
+      cropStage: 'Flowering',
+      healthStatus: 'Needs Attention',
+      image: 'https://images.unsplash.com/photo-1590682680695-43b964a3ae17?fit=crop&w=200&h=200'
+    }
+  ];
+  const loadingCrops = false;
 
   const languages = [
     { code: 'hi', native: 'हिंदी', label: 'Hindi' },
@@ -33,23 +68,31 @@ export default function ProfileScreen() {
 
           {/* Header: Profile Info */}
           <section className="flex flex-col items-center text-center px-6 relative mt-4">
-            <div className="absolute top-0 right-6">
-              <button className="text-onSurface-variant hover:text-primary transition-colors p-2 flex items-center justify-center bg-transparent border-none cursor-pointer">
-                <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: "'FILL' 0" }}>edit</span>
+            <div className="absolute -top-2 right-2">
+              <button 
+                onClick={() => navigate('/farmer/edit-profile')}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-orange-100 text-orange-600 hover:bg-orange-200 transition-colors border-none cursor-pointer font-label font-semibold text-sm shadow-sm"
+              >
+                <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: "'FILL' 0" }}>edit</span>
+                Edit Profile
               </button>
             </div>
-            <div className="mb-4 w-28 h-28 rounded-full overflow-hidden shadow-sm mx-auto relative">
-              <img
-                alt="Profile"
-                className="w-full h-full object-cover object-[center_20%] scale-150"
-                src="/images/manjeet_profile.webp"
-              />
+            <div className="mb-4 w-28 h-28 rounded-full overflow-hidden shadow-sm mx-auto relative bg-surface-containerHigh flex items-center justify-center">
+              {user?.profileImage ? (
+                <img
+                  alt="Profile"
+                  className="w-full h-full object-cover object-[center_20%] scale-150"
+                  src={user.profileImage}
+                />
+              ) : (
+                <span className="material-symbols-outlined text-6xl text-primary opacity-50">person</span>
+              )}
             </div>
-            <h2 className="font-headline font-bold text-3xl text-onSurface mb-2 mt-0">Manjeet Lodha</h2>
+            <h2 className="font-headline font-bold text-3xl text-onSurface mb-2 mt-0">{user?.name || 'Farmer'}</h2>
 
             <div className="flex items-center justify-center gap-1.5 text-onSurface-variant font-body text-base">
               <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 0" }}>location_on</span>
-              <span>Guna, Madhya Pradesh</span>
+              <span>{user?.location || 'Set your location'}</span>
             </div>
           </section>
 
@@ -57,15 +100,15 @@ export default function ProfileScreen() {
           <section className="flex gap-4 px-6">
             <div className="flex-1 bg-surface-containerLow rounded-2xl p-4 flex flex-col items-center justify-center">
               <p className="font-body text-xs text-onSurface-variant mb-1 uppercase tracking-wide m-0">{t('profile.totalCrops')}</p>
-              <p className="font-headline font-bold text-2xl text-onSurface m-0">4</p>
+              <p className="font-headline font-bold text-2xl text-onSurface m-0">{crops.length}</p>
             </div>
             <div className="flex-1 bg-surface-containerLow rounded-2xl p-4 flex flex-col items-center justify-center">
               <p className="font-body text-xs text-onSurface-variant mb-1 uppercase tracking-wide m-0">{t('profile.active')}</p>
-              <p className="font-headline font-bold text-2xl text-onSurface m-0">2</p>
+              <p className="font-headline font-bold text-2xl text-onSurface m-0">{crops.filter(c => c.healthStatus === 'Healthy').length}</p>
             </div>
             <div className="flex-1 bg-surface-containerLow rounded-2xl p-4 flex flex-col items-center justify-center border border-outline-variant/30">
               <p className="font-body text-xs text-onSurface-variant mb-1 uppercase tracking-wide m-0">{t('profile.recent')}</p>
-              <p className="font-headline font-bold text-lg text-onSurface truncate w-full text-center m-0">Mustard</p>
+              <p className="font-headline font-bold text-lg text-onSurface truncate w-full text-center m-0">{crops[0]?.cropName || '—'}</p>
             </div>
           </section>
 
@@ -73,63 +116,44 @@ export default function ProfileScreen() {
           <section className="flex flex-col px-6">
             <div className="flex justify-between items-end mb-4">
               <h3 className="font-headline font-bold text-2xl text-onSurface m-0">{t('profile.myCrops')}</h3>
-              <button className="flex items-center gap-1 text-primary hover:text-primary-container font-label font-semibold text-sm transition-colors bg-transparent border-none cursor-pointer p-0">
-                <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 0" }}>add</span>
-                {t('profile.addCrop')}
-              </button>
             </div>
             <div className="flex flex-col border-t border-outline-variant/20">
-              {/* Crop Item 1 */}
-              <div className="py-5 flex gap-4 border-b border-outline-variant/20 relative group">
-                <img
-                  alt="Wheat Field"
-                  className="w-24 h-24 rounded-xl object-cover bg-surface-container"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuC15dhUgteuLPkntzyfAKpKCUrj-ZHud86VPm6NCV8d3dHdAaCFTEzSgxrKJuC3QuQVYdRRAn1CR9j5etaWrzbPfkqJAr2VqvWt8vXyhhAXoXGhuezNGjfmnrzBjqR7LC0mWFdK4GK5kjjykDolrY8PjAqsnvjgU9g_v4tI2_aZsIg9mxhNsTNRyyxQ3rAj9cEr6fA4lWASc-X-LYhy4O1Wnz2OAPPW2O8vcu5APhbxnm18UT10vEKoOlba2qOolMDdG7DeorHaEEw"
-                />
-                <div className="flex-1 flex flex-col justify-center">
-                  <div className="flex justify-between items-start mb-1">
-                    <h4 className="font-headline font-bold text-lg text-onSurface leading-tight m-0">Wheat</h4>
-                    <button className="text-onSurface-variant hover:text-primary transition-colors bg-transparent border-none cursor-pointer p-0"><span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 0" }}>edit</span></button>
-                  </div>
-                  <p className="font-body text-sm text-onSurface-variant mb-2 m-0">2.5 Acres</p>
-                  <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2">
-                      <span className="material-symbols-outlined text-onSurface-variant text-[16px]" style={{ fontVariationSettings: "'FILL' 0" }}>timeline</span>
-                      <span className="font-body text-sm text-onSurface-variant">Growing stage</span>
-                    </div>
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-containerHigh w-fit">
-                      <span className="w-2 h-2 rounded-full bg-primary"></span>
-                      <span className="font-body text-xs font-semibold text-onSurface">Normal</span>
-                    </div>
-                  </div>
+              {loadingCrops ? (
+                <div className="py-5 text-center text-onSurface-variant font-body">Loading crops...</div>
+              ) : crops.length === 0 ? (
+                <div className="py-8 text-center flex flex-col items-center gap-3">
+                  <span className="material-symbols-outlined text-4xl text-outline">grass</span>
+                  <p className="font-body text-onSurface-variant m-0">No crops added yet.</p>
                 </div>
-              </div>
-
-              {/* Crop Item 2 */}
-              <div className="py-5 flex gap-4 border-b border-outline-variant/20 relative group">
-                <img
-                  alt="Mustard Field"
-                  className="w-24 h-24 rounded-xl object-cover bg-surface-container"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuClIqHkGaZvSuMFWc5XnDHLyxTmM4NNewu0wh7PjDv-WWy0qsPhMSok9NkFtOSv6UwRW3SIW6aM_SFNAepwSrE9vRHjH4NxX7_VfCRRdeo7ivE9eUvTIpjxIN2BNeKnz-n6a6vh4_i0qHlCMlgJAzx7APm0uiNMwGAyJfLouZpp82P7ovSU68qTfrR8ntDnInl3miVwpvYFyD_NlK0CXJsBbiivxE91LmWmY-hZ02-wia7DrmfhYtBIX2-Y0YJ6RvP4VqosbbbfnoA"
-                />
-                <div className="flex-1 flex flex-col justify-center">
-                  <div className="flex justify-between items-start mb-1">
-                    <h4 className="font-headline font-bold text-lg text-onSurface leading-tight m-0">Mustard</h4>
-                    <button className="text-onSurface-variant hover:text-primary transition-colors bg-transparent border-none cursor-pointer p-0"><span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 0" }}>edit</span></button>
-                  </div>
-                  <p className="font-body text-sm text-onSurface-variant mb-2 m-0">1.0 Acre</p>
-                  <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2">
-                      <span className="material-symbols-outlined text-onSurface-variant text-[16px]" style={{ fontVariationSettings: "'FILL' 0" }}>nest_eco_leaf</span>
-                      <span className="font-body text-sm text-onSurface-variant">Sowing stage</span>
+              ) : (
+                crops.map((crop) => (
+                  <div key={crop._id} className="py-5 flex gap-4 border-b border-outline-variant/20 relative group">
+                    <div className="w-24 h-24 rounded-xl bg-surface-container flex items-center justify-center shrink-0 overflow-hidden">
+                      {crop.image ? (
+                        <img src={crop.image} alt={crop.cropName} className="w-full h-full object-cover" />
+                      ) : (
+                        <span className="material-symbols-outlined text-4xl text-primary opacity-50">eco</span>
+                      )}
                     </div>
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-error-container w-fit">
-                      <span className="w-2 h-2 rounded-full bg-error"></span>
-                      <span className="font-body text-xs font-semibold text-onErrorContainer">Needs Attention</span>
+                    <div className="flex-1 flex flex-col justify-center">
+                      <div className="flex justify-between items-start mb-1">
+                        <h4 className="font-headline font-bold text-lg text-onSurface leading-tight m-0">{crop.cropName}</h4>
+                      </div>
+                      <p className="font-body text-sm text-onSurface-variant mb-2 m-0">{crop.acreage} Acres</p>
+                      <div className="flex flex-col gap-2">
+                        <div className="flex items-center gap-2">
+                          <span className="material-symbols-outlined text-onSurface-variant text-[16px]" style={{ fontVariationSettings: "'FILL' 0" }}>timeline</span>
+                          <span className="font-body text-sm text-onSurface-variant">{crop.cropStage}</span>
+                        </div>
+                        <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md w-fit ${crop.healthStatus === 'Healthy' ? 'bg-surface-containerHigh' : 'bg-error-container'}`}>
+                          <span className={`w-2 h-2 rounded-full ${crop.healthStatus === 'Healthy' ? 'bg-primary' : 'bg-error'}`}></span>
+                          <span className={`font-body text-xs font-semibold ${crop.healthStatus === 'Healthy' ? 'text-onSurface' : 'text-onErrorContainer'}`}>{crop.healthStatus}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                ))
+              )}
             </div>
           </section>
 
@@ -139,15 +163,15 @@ export default function ProfileScreen() {
             <div className="flex flex-col divide-y divide-outline-variant/20 border-y border-outline-variant/20">
               <div className="flex justify-between items-center py-4">
                 <span className="font-body text-base text-onSurface-variant">{t('profile.totalLand')}</span>
-                <span className="font-headline font-semibold text-lg text-onSurface">3.5 Acres</span>
+                <span className="font-headline font-semibold text-lg text-onSurface">{user?.totalLandArea || 0} Acres</span>
               </div>
               <div className="flex justify-between items-center py-4">
                 <span className="font-body text-base text-onSurface-variant">{t('profile.irrigation')}</span>
-                <span className="font-headline font-semibold text-lg text-onSurface text-right max-w-[200px] truncate">Canal & Borewell</span>
+                <span className="font-headline font-semibold text-lg text-onSurface text-right max-w-[200px] truncate">{user?.irrigationType || 'Not Set'}</span>
               </div>
               <div className="flex justify-between items-center py-4">
                 <span className="font-body text-base text-onSurface-variant">{t('profile.soilType')}</span>
-                <span className="font-headline font-semibold text-lg text-onSurface">Alluvial Loam</span>
+                <span className="font-headline font-semibold text-lg text-onSurface">{user?.soilType || 'Not Set'}</span>
               </div>
             </div>
           </section>
@@ -186,6 +210,15 @@ export default function ProfileScreen() {
               </div>
             </div>
           </section>
+
+          {/* Logout Button */}
+          <button
+            onClick={() => { logout(); navigate('/login', { replace: true }); }}
+            className="w-full mt-4 mb-6 h-14 rounded-2xl bg-[#ba1a1a]/10 text-[#ba1a1a] font-headline font-bold text-base flex items-center justify-center gap-2.5 border-2 border-[#ba1a1a]/20 cursor-pointer transition-all duration-200 hover:bg-[#ba1a1a]/15 active:scale-[0.98]"
+          >
+            <span className="material-symbols-outlined text-[22px]">logout</span>
+            Logout
+          </button>
 
         </main>
       </div>
@@ -247,6 +280,7 @@ export default function ProfileScreen() {
           </div>
         </>
       )}
+
     </div>
   );
 }

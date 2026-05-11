@@ -3,7 +3,7 @@ const Order = require('../models/Order');
 // @desc    Place new order
 // @route   POST /api/orders
 // @access  Private
-const createOrder = async (req, res, next) => {
+const createOrder = async (req, res) => {
   try {
     const { items, totalAmount, deliveryFee, deliveryAddress, paymentMethod } = req.body;
 
@@ -27,14 +27,15 @@ const createOrder = async (req, res, next) => {
       data: order,
     });
   } catch (error) {
-    next(error);
+    console.error('createOrder error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 
 // @desc    Get user's orders
 // @route   GET /api/orders
 // @access  Private
-const getOrders = async (req, res, next) => {
+const getOrders = async (req, res) => {
   try {
     const orders = await Order.find({ userId: req.user.id })
       .sort('-createdAt')
@@ -46,14 +47,15 @@ const getOrders = async (req, res, next) => {
       data: orders,
     });
   } catch (error) {
-    next(error);
+    console.error('getOrders error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 
 // @desc    Get single order
 // @route   GET /api/orders/:id
 // @access  Private
-const getOrder = async (req, res, next) => {
+const getOrder = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id).populate('items.product', 'productName image price');
 
@@ -67,14 +69,15 @@ const getOrder = async (req, res, next) => {
 
     res.status(200).json({ success: true, data: order });
   } catch (error) {
-    next(error);
+    console.error('getOrder error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 
 // @desc    Update order status
 // @route   PUT /api/orders/:id/status
 // @access  Private
-const updateOrderStatus = async (req, res, next) => {
+const updateOrderStatus = async (req, res) => {
   try {
     const { orderStatus, paymentStatus } = req.body;
 
@@ -91,7 +94,8 @@ const updateOrderStatus = async (req, res, next) => {
 
     res.status(200).json({ success: true, data: order });
   } catch (error) {
-    next(error);
+    console.error('updateOrderStatus error:', error.message);
+    res.status(500).json({ success: false, message: error.message || 'Server error' });
   }
 };
 
