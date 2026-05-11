@@ -2,17 +2,25 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Leaf } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../store/AuthContext';
 
 export default function SplashScreen() {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { isAuthenticated, user, loading } = useAuth();
 
   useEffect(() => {
+    if (loading) return; // Wait until auth state is loaded
+
     const timer = setTimeout(() => {
-      navigate('/language');
+      if (isAuthenticated) {
+        navigate('/farmer/home');
+      } else {
+        navigate('/language');
+      }
     }, 2000);
     return () => clearTimeout(timer);
-  }, [navigate]);
+  }, [navigate, isAuthenticated, loading]);
 
   return (
     <div className="flex flex-col items-center justify-center h-[100dvh] w-full bg-[#2e7d32] text-white relative overflow-hidden">
