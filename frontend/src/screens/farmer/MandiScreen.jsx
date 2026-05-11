@@ -654,7 +654,7 @@ export default function MandiScreen() {
             </div>
 
             {/* Crop Prices List Section */}
-            <div className="flex flex-col md:grid md:grid-cols-2 xl:grid-cols-3 gap-4 mb-6">
+            <div className="flex flex-col gap-4 mb-6">
               
               {filteredCrops.length === 0 ? (
                 <div className="text-center py-10 px-5 text-onSurface-variant font-body text-[15px]">
