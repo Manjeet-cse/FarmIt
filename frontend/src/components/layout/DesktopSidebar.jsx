@@ -47,11 +47,11 @@ export default function DesktopSidebar({ collapsed = false, onToggle }) {
       <div className={`flex items-center gap-3 px-5 h-20 shrink-0 border-b border-white/10 ${collapsed ? 'justify-center px-0' : 'py-3'}`}>
         {collapsed ? (
           <div className="w-10 h-10 rounded-xl bg-white overflow-hidden flex items-center justify-center shrink-0 shadow-lg shadow-green-900/30 p-1">
-            <img src="/images/logo.jpg" alt="Logo" className="w-full h-full object-contain" />
+            <img src="/images/logo.png" alt="Logo" className="w-full h-full object-contain" />
           </div>
         ) : (
           <div className="w-full h-full bg-white rounded-xl flex items-center justify-center px-3 py-1 overflow-hidden shadow-lg shadow-green-900/30">
-            <img src="/images/logo.jpg" alt="NeoKrishiTech Logo" className="h-full object-contain" />
+            <img src="/images/logo.png" alt="NeoKrishiTech Logo" className="h-full object-contain" />
           </div>
         )}
       </div>

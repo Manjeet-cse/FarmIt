@@ -117,7 +117,7 @@ export default function LoginScreen() {
       <div className="w-full min-h-[220px] bg-gradient-to-b from-[#d4e8d1] to-[#e5f9e2] rounded-b-[40px] relative flex flex-col items-center justify-center py-4 px-6 z-10 shrink-0">
         <div className="absolute -bottom-5 left-0 w-full h-[60%] opacity-15 bg-[url('https://lh3.googleusercontent.com/aida-public/AB6AXuAhO1kO_LDHOwL7iJBjc6EoZCMRMWHujzweWOeRcOJotV3wyQu1tbxDNQtevmlc23sEXm_rmxacAz_X_nFQXhptuRvCdAik0LgriJShHLSC3_-4mU4JxMXepsVWE7xfxWL6YB_gZi2mIPtnXEN7h5E4J6EmUx_iVfpcxA0SHLsp51rps4QxKP3pdxNrwRAaC_Fv5hpNI0dIHZRdX0WCbMoYsNH6Wvsx6uYjQ1uTsjOTjOMsQ7w3N3dTJoWom7fZaLnNrXozm5fWmig')] bg-cover bg-bottom z-0 mix-blend-multiply" data-alt="silhouette of wheat stalks against a light green background, subtle agricultural texture"></div>
         <div className="z-10 mt-1 flex items-center justify-center">
-          <img src="/images/logo.jpg" alt="NeoKrishiTech" className="h-[72px] object-contain mix-blend-multiply rounded-xl" />
+          <img src="/images/logo.png" alt="NeoKrishiTech" className="h-[72px] object-contain mix-blend-multiply rounded-xl" />
         </div>
         <div className="bg-primary text-onPrimary py-1 px-4 rounded-full font-label text-[11px] font-semibold uppercase tracking-[0.05em] mt-2 z-10">{t('login.kisanLogin')}</div>
       </div>

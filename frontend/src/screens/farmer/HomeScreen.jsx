@@ -408,7 +408,7 @@ export default function Home() {
               </div>
               <div className="flex flex-col">
                 <div className="flex justify-between items-center py-3 border-t border-[#d4e8d1]/30 first:border-t-0">
-                  <span className="text-xs font-medium">🌾 Wheat Lok-1</span>
+                  <span className="text-xs font-medium">🌾 Wheat</span>
                   <div className="flex items-center gap-1 text-xs font-bold text-[#006e1c]">
                     <span>↑ 0.6%</span>
                     <span className="material-symbols-outlined text-[12px]">trending_up</span>
