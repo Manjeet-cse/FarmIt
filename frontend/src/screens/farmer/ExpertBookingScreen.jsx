@@ -15,6 +15,7 @@ export default function ExpertBookingScreen() {
   const [consultationType, setConsultationType] = useState(location.state?.consultationType || 'audio');
   const [selectedDate, setSelectedDate] = useState('13');
   const [selectedTime, setSelectedTime] = useState('10:30 AM');
+  const [note, setNote] = useState('');
 
   const dates = [
     { day: 'Mon', date: '12', disabled: true },
@@ -135,7 +136,29 @@ export default function ExpertBookingScreen() {
                     ))}
                   </div>
                 </div>
-                <div className="bg-surface rounded-2xl p-5 mt-8">
+
+                {/* Additional Details Section */}
+                <div className="mt-8">
+                  <h3 className="font-headline font-semibold text-base text-onSurface mb-4 flex items-center gap-2 m-0">
+                    <span className="material-symbols-outlined text-[20px] text-primary">description</span>
+                    Add Details (Optional)
+                  </h3>
+                  
+                  <textarea 
+                    value={note}
+                    onChange={(e) => setNote(e.target.value)}
+                    placeholder="Describe your farm issue, symptoms, or add any notes..."
+                    className="w-full bg-surface-containerLow border-none rounded-2xl p-4 font-body text-[0.875rem] text-onSurface placeholder:text-onSurface-variant/60 resize-none outline-none focus:ring-2 focus:ring-primary/20 transition-all mb-3 shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]"
+                    rows="3"
+                  ></textarea>
+
+                  <button className="w-full h-12 rounded-2xl border-2 border-dashed border-[#bfcaba] bg-surface flex items-center justify-center gap-2 text-primary font-medium text-[0.875rem] transition-colors hover:bg-primary/5 cursor-pointer">
+                    <span className="material-symbols-outlined text-[20px]">add_photo_alternate</span>
+                    Upload Report or Images
+                  </button>
+                </div>
+
+                <div className="bg-surface rounded-2xl p-5 mt-8 shadow-[0_2px_12px_rgba(0,0,0,0.03)] border border-[#bfcaba]/20">
                   <h4 className="font-headline font-semibold text-[0.875rem] text-onSurface mb-3 m-0">{t('booking.bookingSummary')}</h4>
                   <div className="flex justify-between items-center mb-2">
                     <span className="font-body text-[0.875rem] text-onSurface-variant">{t('booking.consultationType')}</span>
