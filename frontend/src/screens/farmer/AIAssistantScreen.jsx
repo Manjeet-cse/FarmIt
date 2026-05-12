@@ -148,7 +148,7 @@ export default function AIAssistantScreen() {
       </main>
 
       {/* ── Bottom Input Area ───────────────────── */}
-      <div className="shrink-0 bg-white px-4 pt-2 pb-5 shadow-[0_-8px_32px_rgba(15,31,17,0.04)] z-20 relative">
+      <div className="shrink-0 bg-white px-4 pt-2 pb-0 shadow-[0_-8px_32px_rgba(15,31,17,0.04)] z-20 relative">
         <div className="absolute top-0 left-0 w-full h-4 -translate-y-full bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
 
         {/* Mode Pills */}
@@ -172,7 +172,7 @@ export default function AIAssistantScreen() {
         </div>
 
         {/* Input Row */}
-        <div className="flex items-end gap-3">
+        <div className="flex items-end gap-3 pb-1">
           <div className="flex-1 flex items-center bg-[#daeed6] rounded-[28px] p-1 min-h-[56px] shadow-[0_2px_12px_rgba(15,31,17,0.04)]">
             <button className="w-10 h-10 rounded-full border-none bg-transparent flex items-center justify-center text-[#40493d] cursor-pointer shrink-0 transition-all duration-200 hover:text-[#0d631b] hover:bg-[#d4e8d1] ml-1">
               <span className="material-symbols-outlined">attach_file</span>
@@ -203,10 +203,6 @@ export default function AIAssistantScreen() {
             </span>
           </button>
         </div>
-
-        <p className="mt-2.5 mb-0 text-[10px] text-center text-[rgba(64,73,61,0.6)]">
-          NeoKrishi AI can make mistakes. Verify important information.
-        </p>
       </div>
     </div>
   );
