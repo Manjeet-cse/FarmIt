@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Leaf } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../store/AuthContext';
 
@@ -31,13 +30,11 @@ export default function SplashScreen() {
         }
       `}</style>
       <div className="flex-1 flex flex-col items-center justify-center z-10 w-full px-6">
-        <div className="mb-8 p-6 bg-[#0d631b] rounded-full shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-2px_rgba(0,0,0,0.05)] border border-[rgba(136,217,130,0.2)] backdrop-blur-md relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
-          <Leaf size={80} color="white" />
+        <div className="mb-8 w-40 h-40 rounded-full shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-2px_rgba(0,0,0,0.05)] border-4 border-white backdrop-blur-md relative overflow-hidden bg-white flex items-center justify-center">
+          <img src="/images/logo.jpg" alt="NeoKrishiTech Logo" className="w-full h-full object-cover" />
         </div>
         <div className="text-center relative z-10">
-          <h1 className="text-[28px] font-bold tracking-[-0.025em] text-white drop-shadow-[0_4px_3px_rgba(0,0,0,0.07)] mb-3">NeokrishiTech</h1>
-          <p className="text-sm italic text-[#88d982] font-medium tracking-[0.025em] drop-shadow-[0_1px_2px_rgba(0,0,0,0.1)]">{t('splash.tagline')}</p>
+          <p className="text-sm italic text-[#88d982] font-medium tracking-[0.025em] drop-shadow-[0_1px_2px_rgba(0,0,0,0.1)] mt-2">{t('splash.tagline')}</p>
         </div>
       </div>
       

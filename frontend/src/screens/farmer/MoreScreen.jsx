@@ -77,7 +77,7 @@ export default function More() {
           {/* ── Explore Grid ────────────────── */}
           <section className="flex flex-col gap-3.5">
             <h3 className="font-['Be_Vietnam_Pro',sans-serif] font-semibold text-[11px] tracking-[0.1em] uppercase text-onSurface-variant px-0.5 m-0">{t('more.exploreNeoKrishi')}</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 gap-3">
               {GRID_ITEMS.map(({ icon, label, iconClass, route }) => (
                 <button
                   key={label}

@@ -44,14 +44,14 @@ export default function DesktopSidebar({ collapsed = false, onToggle }) {
       `}
     >
       {/* Brand Header */}
-      <div className={`flex items-center gap-3 px-5 h-16 shrink-0 border-b border-white/10 ${collapsed ? 'justify-center px-0' : ''}`}>
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#4CAF50] to-[#2E7D32] flex items-center justify-center shrink-0 shadow-lg shadow-green-900/30">
-          <span className="material-symbols-outlined text-white text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>eco</span>
-        </div>
-        {!collapsed && (
-          <div className="flex flex-col overflow-hidden">
-            <span className="font-headline font-bold text-[15px] text-white leading-tight whitespace-nowrap">NeokrishiTech</span>
-            <span className="text-[10px] text-white/50 font-medium tracking-wider uppercase">NeokrishiTech</span>
+      <div className={`flex items-center gap-3 px-5 h-20 shrink-0 border-b border-white/10 ${collapsed ? 'justify-center px-0' : 'py-3'}`}>
+        {collapsed ? (
+          <div className="w-10 h-10 rounded-xl bg-white overflow-hidden flex items-center justify-center shrink-0 shadow-lg shadow-green-900/30 p-1">
+            <img src="/images/logo.jpg" alt="Logo" className="w-full h-full object-contain" />
+          </div>
+        ) : (
+          <div className="w-full h-full bg-white rounded-xl flex items-center justify-center px-3 py-1 overflow-hidden shadow-lg shadow-green-900/30">
+            <img src="/images/logo.jpg" alt="NeoKrishiTech Logo" className="h-full object-contain" />
           </div>
         )}
       </div>

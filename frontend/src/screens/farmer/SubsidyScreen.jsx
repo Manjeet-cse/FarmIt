@@ -226,7 +226,7 @@ export default function SubsidyScreen() {
           </div>
 
           {/* Scheme Cards */}
-          <div className="flex flex-col md:grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+          <div className="flex flex-col gap-4">
             {visibleSchemes.map((scheme) => (
               <SchemeCard
                 key={scheme.id}

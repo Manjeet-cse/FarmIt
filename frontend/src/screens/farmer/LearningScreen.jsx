@@ -114,7 +114,7 @@ const DashboardView = ({ onVideoSelect, searchQuery, setSearchQuery }) => (
 
         <section>
             <h2 className="font-headline text-[1.25rem] font-bold text-onSurface mb-4 m-0">Explore Categories</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 gap-3">
                 <div className="bg-surface-containerLowest border border-[#bfcaba]/10 p-4 rounded-2xl shadow-[0_2px_12px_rgba(15,31,17,0.02)] flex items-center gap-3 active:scale-95 transition-transform cursor-pointer">
                     <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
                         <span className="material-symbols-outlined text-xl">psychiatry</span>
@@ -144,7 +144,7 @@ const DashboardView = ({ onVideoSelect, searchQuery, setSearchQuery }) => (
 
         <section>
             <h2 className="font-headline text-[1.25rem] font-bold text-onSurface mb-3 m-0">Quick Learning</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3.5">
+            <div className="grid grid-cols-2 gap-3.5">
                 <div onClick={() => onVideoSelect('soil-testing')} className="flex flex-col gap-2 group cursor-pointer">
                     <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-surface-variant">
                         <img alt="Soil" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqha6P6UAUKzZaUOkaVlH4V_ddBVYss6WcjdnhO8kS5KcqvMjP9qezCPZsnU4eVduU6QJ_wMXsri9LN5qPkfpH-eL6M8nbTsqX6EtUNhllkQ-2cUVVCbZ0OAIVF5bfHKz69MGiHs7QmKofpbpkRwInKEM6zoy4ehkRgXlzAq4FI-4fthbC4SUp9kKXdWA8WdRnlydR_kLk7JYEGZrfY97an5XEZWhfrYztl5krJqXLMZ06pBBdZ7F-latUeln4zf03UyrfhIjc_PA" />
@@ -357,7 +357,7 @@ const ProgressView = ({ onResume }) => (
         </section>
 
         {/* 2 & 3. CARDS SECTION */}
-        <section className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <section className="grid grid-cols-2 gap-3">
             {/* TOTAL LEARNING CARD */}
             <div className="col-span-2 bg-surface-containerHigh rounded-xl px-4 py-3 relative overflow-hidden group border border-[#bfcaba]/20 shadow-[0_2px_12px_rgba(15,31,17,0.02)]">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-10 -mt-10 blur-xl"></div>

@@ -494,7 +494,7 @@ export default function Weather() {
             </section>
 
             {/* DETAILED METRICS GRID */}
-            <section className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+            <section className="grid grid-cols-2 gap-3">
               {[
                 { label: 'Humidity', value: `${humidity}%`, icon: Droplets, color: 'text-blue-500' },
                 { label: 'Wind', value: `${windSpeed} km/h`, icon: Wind, color: 'text-teal-500' },
