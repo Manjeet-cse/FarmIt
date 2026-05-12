@@ -130,10 +130,10 @@ export default function MandiScreen() {
     const tData = generateTrendData(selectedCrop);
     const rawMin = Math.min(...tData.map(d => d[activeGrade]));
     const rawMax = Math.max(...tData.map(d => d[activeGrade]));
-    // 5-10% padding for clear visualization
-    const padding = (rawMax - rawMin) * 0.1 || rawMax * 0.05;
+    // Extra padding on top so text labels don't clip
+    const padding = (rawMax - rawMin) * 0.15 || rawMax * 0.05;
     const minP = Math.max(0, rawMin - padding);
-    const maxP = rawMax + padding;
+    const maxP = rawMax + padding * 2;
     return {
       trendData: tData,
       todayData: tData[6],
@@ -146,8 +146,8 @@ export default function MandiScreen() {
 
   const getPathY = (val) => {
     if (!range) return 50;
-    // Map value to 5-95% to ensure dots don't clip bounds
-    return 100 - ((val - minPrice) / range) * 90 - 5;
+    // Map value perfectly to 0-100% bounds
+    return 100 - ((val - minPrice) / range) * 100;
   };
 
   let points = [];
@@ -211,192 +211,143 @@ export default function MandiScreen() {
             <div className="px-4 pb-24 flex flex-col gap-5 pt-3">
               {/* 7-DAY PRICE GRAPH CARD */}
               <section className="bg-white rounded-2xl p-4 shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-[#E5E5E5]">
-                <div className="flex justify-between items-center mb-1">
-                  <h3 className="font-bold text-[17px] text-[#1A1A1A] flex items-center gap-1.5 m-0">
-                    7-Day Trend <span className="material-symbols-outlined text-[14px] text-[#888888]">info</span>
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="font-bold text-[18px] text-[#1A1A1A] flex items-center gap-1.5 m-0">
+                    7-Day Trend <span className="material-symbols-outlined text-[16px] text-[#888888] cursor-pointer">info</span>
                   </h3>
-                  <div className="flex gap-1 text-[11px] font-bold">
-                    <button className="px-2.5 py-1 rounded bg-[#E8F5E9] text-[#1B5E20] border-none">7D</button>
-                    <button className="px-2 py-1 rounded bg-transparent text-[#666666] border-none">1M</button>
-                    <button className="px-2 py-1 rounded bg-transparent text-[#666666] border-none">3M</button>
-                    <button className="px-2 py-1 rounded bg-transparent text-[#666666] border-none">1Y</button>
-                    <button className="px-2 py-1 rounded bg-transparent text-[#666666] border-none">ALL</button>
+                  <div className="flex bg-[#F5F5F5] rounded-lg p-0.5 text-[11px] font-bold">
+                    <button className="px-3 py-1.5 rounded-md bg-white text-[#1B5E20] shadow-sm border-none">7D</button>
+                    <button className="px-3 py-1.5 rounded-md bg-transparent text-[#666666] border-none cursor-pointer">1M</button>
+                    <button className="px-3 py-1.5 rounded-md bg-transparent text-[#666666] border-none cursor-pointer">3M</button>
+                    <button className="px-3 py-1.5 rounded-md bg-transparent text-[#666666] border-none cursor-pointer">1Y</button>
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-1.5 mb-5 text-[12px] text-[#666666] capitalize">
-                  <span className="w-2 h-2 rounded-full bg-[#1B5E20]"></span> {activeGrade} Grade Price
+                <div className="flex items-center gap-2 mb-6 text-[13px] font-medium text-[#444444] capitalize">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#1B5E20]"></span> {activeGrade} Grade Price
                 </div>
 
-                <div className="relative h-44 w-full pb-6 pr-12">
-                  {/* Chart Area */}
-                  <div className="relative w-full h-full">
-                    {/* Interactive Tooltip Overlay */}
-                    {selectedPointIndex !== null && trendData && trendData[selectedPointIndex] && (
-                      <div 
-                        className="absolute z-20 flex flex-col items-center pointer-events-none transition-all duration-300"
-                        style={{ 
-                          left: `${(selectedPointIndex/6)*100}%`, 
-                          top: `${getPathY(trendData[selectedPointIndex][activeGrade])}%`,
-                          transform: 'translate(-50%, -100%)',
-                          marginTop: '-8px'
-                        }}
-                      >
-                        <div className="bg-[#113813] text-white px-3 py-1.5 rounded-lg shadow-lg flex flex-col min-w-[90px] items-center">
-                          <span className="text-[10px] text-white/90 mb-0.5">{trendData[selectedPointIndex].day === 'Today' ? `Today, ${trendData[selectedPointIndex].date}` : `${trendData[selectedPointIndex].day}, ${trendData[selectedPointIndex].date}`}</span>
-                          <span className="text-[16px] font-bold text-[#4CAF50]">₹{trendData[selectedPointIndex][activeGrade].toLocaleString('en-IN')}</span>
-                          <span className="text-[9px] text-white/70 mt-0.5 capitalize">{activeGrade} Grade</span>
-                        </div>
-                        <div className="w-0 h-0 border-l-[6px] border-r-[6px] border-t-[6px] border-transparent border-t-[#113813]"></div>
-                      </div>
-                    )}
+                <div className="relative h-48 w-full pb-6 pr-10">
+                  {/* Grid Lines Overlay */}
+                  <div className="absolute inset-0 bottom-6 right-10 flex flex-col justify-between pointer-events-none z-0">
+                    {[0, 1, 2, 3, 4, 5].map((i) => (
+                      <div key={i} className="w-full h-px border-b border-dashed border-[#E5E5E5]"></div>
+                    ))}
+                  </div>
 
+                  {/* Chart Area */}
+                  <div className="absolute inset-0 bottom-6 right-10 z-10">
                     <svg className="absolute inset-0 w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 100">
                       <defs>
                         <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#4CAF50" stopOpacity="0.1"/>
+                          <stop offset="0%" stopColor="#4CAF50" stopOpacity="0.15"/>
                           <stop offset="100%" stopColor="#4CAF50" stopOpacity="0.0"/>
                         </linearGradient>
                       </defs>
                       
                       {/* Gradient Fill */}
                       {gradientPathD && (
-                        <path 
-                          d={gradientPathD}
-                          fill="url(#chartGradient)"
-                          className="transition-all duration-300"
-                        />
+                        <path d={gradientPathD} fill="url(#chartGradient)" className="transition-all duration-300" />
                       )}
 
                       {/* Smooth Curve */}
                       {pathD && (
-                        <path d={pathD} fill="none" stroke="#1B5E20" strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" className="transition-all duration-300" />
+                        <path d={pathD} fill="none" stroke="#2E7D32" strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" className="transition-all duration-300" />
                       )}
-                      
-                      {/* Vertical Guide Line */}
-                      {selectedPointIndex !== null && (
-                        <line 
-                          x1={(selectedPointIndex/6)*100} 
-                          y1={getPathY(trendData[selectedPointIndex][activeGrade])} 
-                          x2={(selectedPointIndex/6)*100} 
-                          y2="100" 
-                          stroke="#BDBDBD" 
-                          strokeWidth="1"
-                          strokeDasharray="4 4"
-                          className="transition-all duration-300 pointer-events-none"
-                        />
-                      )}
-
-                      {/* End Point (Today) Tag */}
-                      {points && points.length > 0 && selectedPointIndex !== 6 && (
-                        <g className="pointer-events-none transition-all duration-300">
-                          <circle cx={points[6].x} cy={points[6].y} r="3" fill="white" stroke="#1B5E20" strokeWidth="2" />
-                        </g>
-                      )}
-
-                      {/* Selected Point Highlight */}
-                      {points.map((p, i) => {
-                        const isSelected = i === selectedPointIndex;
-                        if (!isSelected) return null;
-                        return (
-                          <g key={`pt-${i}`} className="pointer-events-none transition-all duration-300">
-                            <circle cx={p.x} cy={p.y} r="6" fill="#1B5E20" opacity="0.2" />
-                            <circle cx={p.x} cy={p.y} r="3" fill="white" stroke="#1B5E20" strokeWidth="2" />
-                          </g>
-                        );
-                      })}
-
-                      {/* Invisible Interactive Hit Areas */}
-                      {points.map((p, i) => (
-                        <rect 
-                          key={`hit-${i}`}
-                          x={Math.max(0, p.x - 8)} 
-                          y="0" 
-                          width="16" 
-                          height="100" 
-                          fill="transparent" 
-                          className="cursor-pointer"
-                          onClick={() => setSelectedPointIndex(i)}
-                        />
-                      ))}
                     </svg>
 
-                    {/* Today Value Tag on line end */}
-                    {points && points.length > 0 && (
+                    {/* HTML Overlay Points & Labels */}
+                    {points.map((p, i) => (
                       <div 
-                        className="absolute right-[-48px] bg-[#1B5E20] text-white text-[10px] font-bold px-1.5 py-0.5 rounded pointer-events-none"
-                        style={{ 
-                          top: `${points[6].y}%`,
-                          transform: 'translateY(-50%)'
-                        }}
+                        key={`pt-${i}`} 
+                        className="absolute flex flex-col items-center justify-end z-20" 
+                        style={{ left: `${p.x}%`, top: `${p.y}%`, width: '1px', height: '1px', overflow: 'visible' }}
                       >
-                        ₹{todayData[activeGrade].toLocaleString('en-IN')}
+                        {/* Price Tag Above Point */}
+                        <span className={`absolute bottom-[10px] text-[9px] sm:text-[10px] font-bold whitespace-nowrap transition-colors ${i === 6 ? 'text-[#1B5E20]' : 'text-[#555555]'}`}>
+                          ₹{trendData[i][activeGrade].toLocaleString('en-IN')}
+                        </span>
+                        
+                        {/* Interactive Invisible Area for Tooltip/Selection if needed */}
+                        <div 
+                          className="absolute w-8 h-8 -ml-4 -mt-4 bg-transparent cursor-pointer"
+                          onClick={() => setSelectedPointIndex(i)}
+                        ></div>
+
+                        {/* Point Circle */}
+                        <div className={`absolute w-2.5 h-2.5 -ml-[5px] -mt-[5px] bg-white border-2 rounded-full transition-colors pointer-events-none ${i === 6 ? 'border-[#1B5E20] ring-2 ring-[#1B5E20]/20' : 'border-[#2E7D32]'}`}></div>
                       </div>
-                    )}
+                    ))}
                   </div>
 
                   {/* Y-Axis Labels (Right Aligned) */}
-                  <div className="absolute right-0 top-0 bottom-6 w-10 flex flex-col justify-between text-[10px] text-[#666666] font-medium items-end pointer-events-none">
+                  <div className="absolute right-0 top-0 bottom-6 w-9 flex flex-col justify-between text-[9px] sm:text-[10px] text-[#666666] font-medium items-end pointer-events-none translate-y-1.5">
                     <span>₹{maxPrice.toLocaleString('en-IN')}</span>
-                    <span>₹{Math.round(minPrice + (range*2)/3).toLocaleString('en-IN')}</span>
-                    <span>₹{Math.round(minPrice + range/3).toLocaleString('en-IN')}</span>
+                    <span>₹{Math.round(minPrice + (range*0.8)).toLocaleString('en-IN')}</span>
+                    <span>₹{Math.round(minPrice + (range*0.6)).toLocaleString('en-IN')}</span>
+                    <span>₹{Math.round(minPrice + (range*0.4)).toLocaleString('en-IN')}</span>
+                    <span>₹{Math.round(minPrice + (range*0.2)).toLocaleString('en-IN')}</span>
                     <span>₹{minPrice.toLocaleString('en-IN')}</span>
                   </div>
                   
                   {/* X-Axis Labels */}
-                  <div className="absolute left-0 right-12 bottom-0 h-6 flex justify-between items-end text-[10px] text-[#666666] font-medium pointer-events-none">
-                    {trendData.map((d, i) => (
-                      <span key={i} className={`text-center ${i === 6 ? 'text-[#1B5E20] font-bold' : ''}`}>
-                        {i === 6 ? 'Today' : `${d.date}`}
-                      </span>
-                    ))}
+                  <div className="absolute left-0 right-10 bottom-0 h-6 flex justify-between items-end text-[9px] sm:text-[10px] text-[#666666] font-medium pointer-events-none">
+                    {trendData.map((d, i) => {
+                      const shortDate = d.date.split(' '); // "May 6" -> ["May", "6"]
+                      const displayDate = shortDate.length === 2 ? `${shortDate[0]} ${shortDate[1]}` : d.date;
+                      return (
+                        <span key={i} className={`text-center whitespace-nowrap ${i === 6 ? 'text-[#1B5E20] font-bold' : ''}`}>
+                          {displayDate}
+                        </span>
+                      );
+                    })}
                   </div>
                 </div>
 
-                {/* Grade Toggle Option */}
-                <div className="flex bg-[#F5F5F5] rounded-xl p-1 mt-6 mb-2">
+                {/* Grade Segmented Control */}
+                <div className="flex bg-[#F5F7F5] rounded-xl p-1 mt-6 mb-4 border border-[#E8ECE8]">
                   <button 
-                    className={`flex-1 py-2 rounded-lg text-[13px] font-bold border-none cursor-pointer transition-all ${activeGrade === 'low' ? 'bg-white shadow-[0_2px_4px_rgba(0,0,0,0.05)] text-[#1A1A1A]' : 'bg-transparent text-[#666666]'}`}
+                    className={`flex-1 py-2.5 rounded-lg text-[13px] font-bold border-none cursor-pointer transition-all ${activeGrade === 'low' ? 'bg-white shadow-[0_2px_8px_rgba(0,0,0,0.06)] text-[#1A1A1A]' : 'bg-transparent text-[#666666]'}`}
                     onClick={() => setActiveGrade('low')}
                   >
                     Low
                   </button>
                   <button 
-                    className={`flex-1 py-2 rounded-lg text-[13px] font-bold border-none cursor-pointer transition-all ${activeGrade === 'medium' ? 'bg-white shadow-[0_2px_4px_rgba(0,0,0,0.05)] text-[#1B5E20]' : 'bg-transparent text-[#666666]'}`}
+                    className={`flex-1 py-2.5 rounded-lg text-[13px] font-bold border-none cursor-pointer transition-all ${activeGrade === 'medium' ? 'bg-white shadow-[0_2px_8px_rgba(0,0,0,0.06)] text-[#1B5E20]' : 'bg-transparent text-[#666666]'}`}
                     onClick={() => setActiveGrade('medium')}
                   >
                     Medium
                   </button>
                   <button 
-                    className={`flex-1 py-2 rounded-lg text-[13px] font-bold border-none cursor-pointer transition-all ${activeGrade === 'premium' ? 'bg-white shadow-[0_2px_4px_rgba(0,0,0,0.05)] text-[#1B5E20]' : 'bg-transparent text-[#666666]'}`}
+                    className={`flex-1 py-2.5 rounded-lg text-[13px] font-bold border-none cursor-pointer transition-all ${activeGrade === 'premium' ? 'bg-white shadow-[0_2px_8px_rgba(0,0,0,0.06)] text-[#1A1A1A]' : 'bg-transparent text-[#666666]'}`}
                     onClick={() => setActiveGrade('premium')}
                   >
                     Premium
                   </button>
                 </div>
 
-                {/* Inline Stats Box */}
-                <div className="mt-2 bg-[#F6FAF6] rounded-xl p-3 flex divide-x divide-[#E5E5E5]/60">
-                  <div className="flex-1 px-2 flex flex-col items-center text-center">
-                    <span className="text-[11px] text-[#666666] mb-0.5">Today's Price</span>
-                    <span className="text-[18px] font-bold text-[#1B5E20]">₹{todayData[activeGrade].toLocaleString('en-IN')}</span>
-                    <span className="text-[9px] text-[#666666] mt-0.5 flex flex-col items-center">
+                {/* Summary Cards Row */}
+                <div className="mt-2 bg-[#F8FAF8] rounded-xl p-3 sm:p-4 flex divide-x divide-[#E8ECE8] border border-[#E8ECE8]">
+                  <div className="flex-1 px-1 sm:px-2 flex flex-col items-center text-center">
+                    <span className="text-[10px] sm:text-[11px] text-[#666666] mb-1 font-medium">Today's Price</span>
+                    <span className="text-[18px] sm:text-[20px] font-bold text-[#1B5E20]">₹{todayData[activeGrade].toLocaleString('en-IN')}</span>
+                    <span className="text-[9px] sm:text-[10px] text-[#666666] mt-1 flex flex-col items-center">
                       vs Yesterday
-                      <span className={`flex items-center mt-0.5 ${todayData[activeGrade] >= yesterdayData[activeGrade] ? 'text-[#4CAF50]' : 'text-red-500'}`}>
-                        <span className="material-symbols-outlined text-[10px]">arrow_outward</span> 
+                      <span className={`flex items-center mt-0.5 font-bold ${todayData[activeGrade] >= yesterdayData[activeGrade] ? 'text-[#2E7D32]' : 'text-red-500'}`}>
+                        <span className="material-symbols-outlined text-[12px] font-bold mr-0.5">{todayData[activeGrade] >= yesterdayData[activeGrade] ? 'arrow_outward' : 'south_east'}</span> 
                         ₹{Math.abs(todayData[activeGrade] - yesterdayData[activeGrade])} ({(((todayData[activeGrade] - yesterdayData[activeGrade]) / yesterdayData[activeGrade]) * 100).toFixed(2)}%)
                       </span>
                     </span>
                   </div>
-                  <div className="flex-1 px-2 flex flex-col items-center text-center justify-center">
-                    <span className="text-[11px] text-[#666666] mb-0.5">7-Day High</span>
-                    <span className="text-[18px] font-bold text-[#1A1A1A]">₹{maxPrice.toLocaleString('en-IN')}</span>
-                    <span className="text-[10px] text-[#666666] mt-1">on {trendData.reduce((prev, curr) => (prev[activeGrade] > curr[activeGrade]) ? prev : curr).date}</span>
+                  <div className="flex-1 px-1 sm:px-2 flex flex-col items-center text-center justify-center">
+                    <span className="text-[10px] sm:text-[11px] text-[#666666] mb-1 font-medium">7-Day High</span>
+                    <span className="text-[18px] sm:text-[20px] font-bold text-[#1A1A1A]">₹{maxPrice.toLocaleString('en-IN')}</span>
+                    <span className="text-[9px] sm:text-[10px] text-[#666666] mt-1.5 font-medium">on {trendData.reduce((prev, curr) => (prev[activeGrade] > curr[activeGrade]) ? prev : curr).date}</span>
                   </div>
-                  <div className="flex-1 px-2 flex flex-col items-center text-center justify-center">
-                    <span className="text-[11px] text-[#666666] mb-0.5">7-Day Low</span>
-                    <span className="text-[18px] font-bold text-[#1A1A1A]">₹{minPrice.toLocaleString('en-IN')}</span>
-                    <span className="text-[10px] text-[#666666] mt-1">on {trendData.reduce((prev, curr) => (prev[activeGrade] < curr[activeGrade]) ? prev : curr).date}</span>
+                  <div className="flex-1 px-1 sm:px-2 flex flex-col items-center text-center justify-center">
+                    <span className="text-[10px] sm:text-[11px] text-[#666666] mb-1 font-medium">7-Day Low</span>
+                    <span className="text-[18px] sm:text-[20px] font-bold text-[#1A1A1A]">₹{minPrice.toLocaleString('en-IN')}</span>
+                    <span className="text-[9px] sm:text-[10px] text-[#666666] mt-1.5 font-medium">on {trendData.reduce((prev, curr) => (prev[activeGrade] < curr[activeGrade]) ? prev : curr).date}</span>
                   </div>
                 </div>
               </section>
