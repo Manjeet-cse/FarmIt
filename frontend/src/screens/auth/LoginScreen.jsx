@@ -75,6 +75,11 @@ export default function LoginScreen() {
       
       if (!result.success) {
         setApiError(result.message);
+        if (result.message.toLowerCase().includes('not found')) {
+          setTimeout(() => {
+            navigate('/signup/step1');
+          }, 2500); // Redirect after 2.5 seconds
+        }
         return;
       }
       
@@ -130,12 +135,18 @@ export default function LoginScreen() {
         {apiError && (
           <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-2xl mb-4 text-[13px] font-body flex items-start gap-2">
             <span className="material-symbols-outlined text-[18px] mt-0.5 shrink-0">error</span>
-            <div>
+            <div className="w-full">
               <span>{apiError}</span>
-              {apiError.includes('Invalid') && (
-                <span className="block mt-1 text-[12px]">
-                  New user? <a href="#" className="text-[#0d631b] font-bold no-underline" onClick={(e) => { e.preventDefault(); navigate('/signup/step1'); }}>Sign Up here</a>
-                </span>
+              {(apiError.toLowerCase().includes('not found') || apiError.toLowerCase().includes('invalid')) && (
+                <div className="mt-2 bg-red-100 p-2 rounded-lg border border-red-200 flex justify-between items-center">
+                  <span className="text-[12px] font-medium text-red-800">Please create a new account</span>
+                  <button 
+                    onClick={(e) => { e.preventDefault(); navigate('/signup/step1'); }}
+                    className="bg-[#1b6d24] text-white text-[12px] px-3 py-1.5 rounded-lg font-bold hover:bg-[#155a1d] transition-colors"
+                  >
+                    Sign Up Now
+                  </button>
+                </div>
               )}
             </div>
           </div>
