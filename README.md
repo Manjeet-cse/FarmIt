@@ -353,8 +353,8 @@ For any architectural decisions or schema changes, discuss in the team group bef
 
 | Name | Role |
 |---|---|
-| Priyanshu | Founder / Full-Stack Developer |
-| *(your teammate)* | *(role)* |
+| Manjeet Lodha | Founder / Developer |
+| Priyanshu Sharma | Developer |
 
 ---
 
