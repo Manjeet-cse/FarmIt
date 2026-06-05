@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, FlatList, ActivityIndicator, SafeAreaView, RefreshControl } from 'react-native';
+import { StyleSheet, Text, View, FlatList, ActivityIndicator, RefreshControl } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface MandiRecord {
   state: string;
@@ -19,7 +20,7 @@ export default function MandiScreen() {
 
   // Your computer's LAN IP (from the Expo Metro URL: exp://192.168.0.104:8081)
   // Must be on the same WiFi network as the phone
-  const BACKEND_URL = 'http://192.168.0.102:5000/api/mandi';
+  const BACKEND_URL = 'http://192.168.0.101:5001/api/mandi';
 
   const fetchMandiPrices = async () => {
     try {
