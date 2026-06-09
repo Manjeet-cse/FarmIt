@@ -20,7 +20,7 @@ export default function WeatherWidget() {
   const LAT = '28.6139';
   const LON = '77.2090';
   // Use your local IP if testing on a real mobile device
-  const BACKEND_URL = `http://192.168.0.101:5001/api/weather?lat=${LAT}&lon=${LON}`;
+  const BACKEND_URL = `http://192.168.0.103:5001/api/weather?lat=${LAT}&lon=${LON}`;
 
   useEffect(() => {
     fetch(BACKEND_URL)

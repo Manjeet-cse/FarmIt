@@ -83,7 +83,7 @@ export default function OtpScreen() {
       setOtp(Array(OTP_LENGTH).fill(''));
       inputs.current[0]?.focus();
     } else if (data.session) {
-      router.replace('/mandi');
+      router.replace('/');
     }
   };
 

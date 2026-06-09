@@ -1,9 +1,10 @@
 // src/app/(main)/index.tsx
 import React from 'react';
-import { StyleSheet, Text, ScrollView, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, ScrollView, View, TouchableOpacity, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import WeatherWidget from '../../components/WeatherWidget'; // 🌤️ Import Weather Widget
 import { supabase } from '../../../supabase';
+import { router } from 'expo-router';
 
 export default function FarmersDashboard() {
   return (
@@ -27,6 +28,10 @@ export default function FarmersDashboard() {
           </Text>
         </View>
 
+        <TouchableOpacity onPress={() => router.push('/(main)/profile')} style={styles.logoutButton}>
+          <Text>Profile</Text>
+        </TouchableOpacity>
+
         {/* 🛑 Temporary Logout Button for Testing */}
         <TouchableOpacity 
           style={styles.logoutButton}
@@ -35,6 +40,34 @@ export default function FarmersDashboard() {
           }}
         >
           <Text style={styles.logoutText}>LOG OUT</Text>
+        </TouchableOpacity>
+
+        {/* 🗑️ Temporary Delete Account Button for Testing Onboarding */}
+        <TouchableOpacity 
+          style={styles.deleteButton}
+          onPress={() => {
+            Alert.alert(
+              "Delete Account",
+              "Are you sure you want to delete your FarmIt profile? This will let you test the onboarding flow again.",
+              [
+                { text: "Cancel", style: "cancel" },
+                { 
+                  text: "Delete", 
+                  style: "destructive",
+                  onPress: async () => {
+                    const { data: { user } } = await supabase.auth.getUser();
+                    if (user) {
+                      await supabase.from('farmers').delete().eq('id', user.id);
+                      await supabase.from('crops').delete().eq('farmer_id', user.id);
+                      await supabase.auth.signOut();
+                    }
+                  }
+                }
+              ]
+            );
+          }}
+        >
+          <Text style={styles.deleteText}>DELETE ACCOUNT</Text>
         </TouchableOpacity>
 
       </ScrollView>
@@ -53,4 +86,6 @@ const styles = StyleSheet.create({
   cardBody: { fontSize: 14, color: '#64748b', lineHeight: 20 },
   logoutButton: { backgroundColor: '#ef4444', marginHorizontal: 16, marginTop: 10, padding: 16, borderRadius: 12, alignItems: 'center' },
   logoutText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
+  deleteButton: { backgroundColor: '#fff', borderWidth: 2, borderColor: '#ef4444', marginHorizontal: 16, marginTop: 10, padding: 16, borderRadius: 12, alignItems: 'center' },
+  deleteText: { color: '#ef4444', fontWeight: 'bold', fontSize: 16 },
 });
