@@ -1,6 +1,7 @@
 // src/components/WeatherWidget.tsx
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 interface WeatherData {
   location: string;
@@ -34,8 +35,8 @@ export default function WeatherWidget() {
 
   if (loading) {
     return (
-      <View style={styles.cardCenter}>
-        <ActivityIndicator size="small" color="#0284c7" />
+      <View style={[styles.cardCenter, styles.weatherCard]}>
+        <ActivityIndicator size="small" color="#047857" />
       </View>
     );
   }
@@ -44,31 +45,30 @@ export default function WeatherWidget() {
 
   return (
     <View style={styles.weatherCard}>
-      <View style={styles.rowBetween}>
-        <View>
-          <Text style={styles.greeting}>Welcome Back! 👋</Text>
-          <Text style={styles.location}>📍 {weather.location}</Text>
+      <View style={styles.topSection}>
+        <View style={styles.leftCol}>
+          <View style={styles.locationRow}>
+            <Ionicons name="location-outline" size={14} color="#475569" />
+            <Text style={styles.location}>{weather.location}</Text>
+          </View>
+          <View style={styles.tempRow}>
+            <Text style={styles.temperature}>{weather.temp}°C</Text>
+            <Ionicons name="sunny" size={24} color="#f59e0b" style={styles.weatherIcon} />
+            <Text style={styles.conditionText}>• {weather.condition}</Text>
+          </View>
         </View>
-        <Text style={styles.temperature}>{weather.temp}°C</Text>
+        <View style={styles.rightCol}>
+          <Text style={styles.statText}>Humidity: {weather.humidity}%</Text>
+          <Text style={styles.statText}>Wind: {weather.wind_speed} km/h</Text>
+        </View>
       </View>
 
-      <View style={styles.badgeContainer}>
-        <Text style={styles.conditionBadge}>🌤️ {weather.condition}</Text>
-        <Text style={styles.descText}>{weather.description}</Text>
-      </View>
-
-      <View style={styles.statsRow}>
-        <View style={styles.statBox}>
-          <Text style={styles.statLabel}>HUMIDITY</Text>
-          <Text style={styles.statValue}>{weather.humidity}%</Text>
-        </View>
-        <View style={styles.statBox}>
-          <Text style={styles.statLabel}>WIND</Text>
-          <Text style={styles.statValue}>{weather.wind_speed} m/s</Text>
-        </View>
-        <View style={styles.statBox}>
-          <Text style={styles.statLabel}>FEELS LIKE</Text>
-          <Text style={styles.statValue}>{weather.feels_like}°C</Text>
+      {/* Placeholder for missing backend features */}
+      <View style={styles.comingSoonSection}>
+        <Text style={styles.impactTitle}>Weather Impact on Your Crops</Text>
+        <View style={styles.comingSoonBox}>
+           <Ionicons name="time-outline" size={20} color="#64748b" />
+           <Text style={styles.comingSoonText}>Crop weather impact & 3-day forecast coming soon!</Text>
         </View>
       </View>
     </View>
@@ -76,17 +76,87 @@ export default function WeatherWidget() {
 }
 
 const styles = StyleSheet.create({
-  cardCenter: { height: 140, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff', borderRadius: 16, margin: 16 },
-  weatherCard: { backgroundColor: '#0284c7', padding: 20, borderRadius: 16, margin: 16, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 4, elevation: 3 },
-  rowBetween: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  greeting: { fontSize: 14, color: '#e0f2fe', fontWeight: '500' },
-  location: { fontSize: 16, color: '#fff', fontWeight: 'bold', marginTop: 2 },
-  temperature: { fontSize: 32, fontWeight: 'bold', color: '#fff' },
-  badgeContainer: { flexDirection: 'row', alignItems: 'center', marginTop: 8, gap: 8 },
-  conditionBadge: { backgroundColor: 'rgba(255,255,255,0.2)', color: '#fff', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 20, fontSize: 12, fontWeight: '600', overflow: 'hidden' },
-  descText: { color: '#e0f2fe', fontSize: 13, textTransform: 'capitalize' },
-  statsRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 18, paddingTop: 14, borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.15)' },
-  statBox: { alignItems: 'center', flex: 1 },
-  statLabel: { fontSize: 10, color: '#bae6fd', fontWeight: '600', marginBottom: 2 },
-  statValue: { fontSize: 14, fontWeight: 'bold', color: '#fff' },
+  cardCenter: { height: 140, justifyContent: 'center', alignItems: 'center' },
+  weatherCard: { 
+    backgroundColor: '#fff', 
+    padding: 16, 
+    borderRadius: 16, 
+    marginHorizontal: 16, 
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: '#e2e8f0',
+  },
+  topSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  leftCol: {
+    flex: 1,
+  },
+  locationRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  location: {
+    fontSize: 13,
+    color: '#334155',
+    fontWeight: '600',
+    marginLeft: 4,
+  },
+  tempRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  temperature: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#0f172a',
+  },
+  weatherIcon: {
+    marginLeft: 8,
+    marginRight: 4,
+  },
+  conditionText: {
+    fontSize: 14,
+    color: '#0f172a',
+    fontWeight: '600',
+  },
+  rightCol: {
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    marginTop: 2,
+  },
+  statText: {
+    fontSize: 12,
+    color: '#334155',
+    fontWeight: '500',
+    marginBottom: 6,
+  },
+  comingSoonSection: {
+    marginTop: 16,
+    paddingTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#f1f5f9',
+  },
+  impactTitle: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#0f172a',
+    marginBottom: 12,
+  },
+  comingSoonBox: {
+    backgroundColor: '#f8fafc',
+    padding: 12,
+    borderRadius: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  comingSoonText: {
+    fontSize: 13,
+    color: '#64748b',
+    flex: 1,
+  }
 });
