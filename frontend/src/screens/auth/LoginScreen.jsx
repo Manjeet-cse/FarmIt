@@ -8,7 +8,7 @@ import { GoogleLogin } from '@react-oauth/google';
 export default function LoginScreen() {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { login, googleLogin, checkUser, loading: authLoading } = useAuth();
+  const { login, googleLogin, checkUser, bypassLogin, loading: authLoading } = useAuth();
 
   const [phoneNumber, setPhoneNumber] = useState('');
   const [pin, setPin] = useState('');
@@ -53,11 +53,6 @@ export default function LoginScreen() {
     if (!/^\d{10}$/.test(phoneNumber)) {
       newErrors.phoneNumber = t('login.validMobile');
     }
-    if (otpSent) {
-      if (!/^\d{4}$/.test(otp)) {
-        newErrors.otp = "Please enter a valid 4-digit OTP";
-      }
-    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -68,51 +63,13 @@ export default function LoginScreen() {
 
     if (!validate()) return;
 
-    if (!otpSent) {
-      setIsSubmitting(true);
-      const result = await checkUser(phoneNumber);
-      setIsSubmitting(false);
-      
-      if (!result.success) {
-        setApiError(result.message);
-        if (result.message.toLowerCase().includes('not found')) {
-          setTimeout(() => {
-            navigate('/signup/step1');
-          }, 2500); // Redirect after 2.5 seconds
-        }
-        return;
-      }
-      
-      // Simulate sending OTP
-      setOtpSent(true);
-      return;
-    }
-
-    if (otp !== '1234') {
-      setErrors({ otp: 'Invalid OTP. Please use 1234 for testing.' });
-      return;
-    }
-
-    // Real backend login (using phone as identifier, ignoring password)
+    // ── DEV BYPASS: Any 10-digit number directly logs in to Dashboard ──
     setIsSubmitting(true);
-    try {
-      const result = await login(phoneNumber, 'dummy_password_not_used');
-      if (result.success) {
-        // Navigate based on role
-        const role = result.data.role;
-        if (role === 'expert') {
-          navigate('/farmer/home', { replace: true });
-        } else {
-          navigate('/farmer/home', { replace: true });
-        }
-      } else {
-        setApiError(result.message);
-      }
-    } catch (err) {
-      setApiError('Something went wrong. Please try again.');
-    } finally {
+    bypassLogin(phoneNumber);
+    setTimeout(() => {
       setIsSubmitting(false);
-    }
+      navigate('/farmer/home', { replace: true });
+    }, 250);
   };
 
   return (
@@ -214,7 +171,7 @@ export default function LoginScreen() {
                 Logging in...
               </>
             ) : (
-              !otpSent ? 'Get OTP' : t('login.logIn')
+              t('login.logIn', 'Login to Dashboard')
             )}
           </button>
 

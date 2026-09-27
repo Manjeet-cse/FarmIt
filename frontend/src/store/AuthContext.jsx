@@ -37,6 +37,23 @@ export function AuthProvider({ children }) {
   }, []);
   // ── END DEV BYPASS ──
 
+  const bypassLogin = useCallback((phone = '9876543210') => {
+    const bypassUser = {
+      _id: 'dev-' + phone,
+      name: 'Manjeet Lodha',
+      phone: phone,
+      role: 'farmer',
+      location: 'Guna, Madhya Pradesh',
+      token: 'dev-bypass-token',
+      profileImage: '/images/manjeet_profile.webp',
+    };
+    localStorage.setItem('farmit_user', JSON.stringify(bypassUser));
+    localStorage.setItem('role', 'farmer');
+    setUser(bypassUser);
+    setError(null);
+    return { success: true, data: bypassUser };
+  }, []);
+
   const login = useCallback(async (identifier, password) => {
     setError(null);
     setLoading(true);
@@ -146,6 +163,7 @@ export function AuthProvider({ children }) {
     logout,
     clearError,
     checkUser,
+    bypassLogin,
   };
 
   return (
