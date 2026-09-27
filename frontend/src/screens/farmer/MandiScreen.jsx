@@ -7,7 +7,7 @@ const OWM_KEY = 'f43f09c52dec331e339a4a9054e40e4e';
 
 const MOCK_CROPS = [
   { id: 1, name: 'Wheat', variety: 'Grade A • Bulk', category: 'Rabi', price: '2,250', unit: '/Qtl', trend: 'up', change: '₹15 (0.6%)', image: '/images/crops/wheat.png' },
-  { id: 2, name: 'Mustard', variety: 'Black • Premium', category: 'Rabi', price: '5,100', unit: '/Qtl', trend: 'up', change: '₹45 (0.8%)', image: '/mustard_seeds.webp' },
+  { id: 2, name: 'Mustard', variety: 'Black • Premium', category: 'Rabi', price: '5,100', unit: '/Qtl', trend: 'up', change: '₹45 (0.8%)', image: '/images/crops/mustard_seeds.webp' },
   { id: 3, name: 'Basmati Rice', variety: '1121 • Raw', category: 'Kharif', price: '4,800', unit: '/Qtl', trend: 'up', change: '₹120 (2.5%)', image: '/images/crops/rice.png' },
   { id: 4, name: 'Onion', variety: 'Red • Medium', category: 'Vegetables', price: '1,850', unit: '/Qtl', trend: 'neutral', change: 'Unchanged', image: '/images/crops/onion.png' },
   { id: 5, name: 'Tomato', variety: 'Hybrid • Grade A', category: 'Vegetables', price: '2,100', unit: '/Qtl', trend: 'up', change: '₹200 (10.5%)', image: '/images/crops/tomato.png' },

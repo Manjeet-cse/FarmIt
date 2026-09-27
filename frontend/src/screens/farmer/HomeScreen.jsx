@@ -226,7 +226,7 @@ export default function Home() {
                     <img 
                       className="w-full h-full object-cover"
                       alt="Mustard field" 
-                      src="/mustard_field.webp"
+                      src="/images/crops/mustard_field.webp"
                     />
                   </div>
                   <div className="p-4 flex flex-col gap-3 flex-1">
@@ -263,7 +263,7 @@ export default function Home() {
                     <img 
                       className="w-full h-full object-cover"
                       alt="Chickpea field" 
-                      src="/chickpea_field.webp"
+                      src="/images/crops/chickpea_field.webp"
                     />
                   </div>
                   <div className="p-4 flex flex-col gap-3 flex-1">
