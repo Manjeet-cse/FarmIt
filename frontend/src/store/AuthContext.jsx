@@ -8,14 +8,34 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // ── DEV BYPASS: Auto-login with dummy user (comment this block to restore real auth) ──
+  const DUMMY_USER = {
+    _id: 'dev-bypass-001',
+    name: 'Manjeet Lodha',
+    phone: '9876543210',
+    role: 'farmer',
+    location: 'Guna, Madhya Pradesh',
+    token: 'dev-bypass-token',
+    profileImage: '/images/manjeet_profile.webp',
+  };
+
   // Load user from localStorage on app start
   useEffect(() => {
+    // ── BYPASS: Always log in with dummy user for dev/demo ──
+    setUser(DUMMY_USER);
+    localStorage.setItem('farmit_user', JSON.stringify(DUMMY_USER));
+    localStorage.setItem('role', 'farmer');
+    setLoading(false);
+
+    /* ── REAL AUTH (commented out for bypass) ──
     const storedUser = authService.getStoredUser();
     if (storedUser) {
       setUser(storedUser);
     }
     setLoading(false);
+    */
   }, []);
+  // ── END DEV BYPASS ──
 
   const login = useCallback(async (identifier, password) => {
     setError(null);
