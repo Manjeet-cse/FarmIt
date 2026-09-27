@@ -182,12 +182,12 @@ export default function SubsidyScreen() {
   }
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-surface">
+    <div className="flex flex-col h-full overflow-hidden bg-surface-light">
 
       {isMobile && <AppTopBar title="Govt. Scheme Guide" showBack={true} />}
 
       {/* ── Scrollable Body ─────────────────── */}
-      <div className="flex-1 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden bg-[#F6FAF6]">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden bg-surface-light">
         <div className="page-content flex flex-col gap-5">
 
           {/* Alert Banner */}
@@ -226,7 +226,7 @@ export default function SubsidyScreen() {
           </div>
 
           {/* Scheme Cards */}
-          <div className="flex flex-col gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {visibleSchemes.map((scheme) => (
               <SchemeCard
                 key={scheme.id}
@@ -248,7 +248,7 @@ export default function SubsidyScreen() {
 /* ─── Scheme Card Sub-component ──────────────────────────────────────── */
 function SchemeCard({ scheme, onView, onApply }) {
   return (
-    <article className="bg-white rounded-2xl border border-[#E5E5E5] shadow-[0_2px_8px_rgba(0,0,0,0.03)] overflow-hidden">
+    <article className="bg-white rounded-2xl border border-[#E5E5E5] shadow-[0_2px_8px_rgba(0,0,0,0.03)] overflow-hidden flex flex-col h-full">
       <div className="p-5 flex flex-col h-full">
 
         {/* Header row: ministry + badge */}
@@ -305,7 +305,7 @@ function SchemeDetailView({ scheme, onBack, onApply }) {
   ];
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-[#F6FAF6]">
+    <div className="flex flex-col h-full overflow-hidden bg-surface-light">
       {/* Top Bar */}
       <header className="px-4 py-4 flex items-center gap-4 bg-primary text-white sticky top-0 z-50 shadow-md">
         <button onClick={onBack} className="flex items-center justify-center bg-transparent border-none p-1 cursor-pointer text-white transition-opacity hover:opacity-80">
@@ -445,7 +445,7 @@ function HowToApplyView({ scheme, onBack }) {
   ];
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-[#F6FAF6]">
+    <div className="flex flex-col h-full overflow-hidden bg-surface-light">
       {/* Top Bar */}
       <header className="px-4 py-4 flex items-center gap-4 bg-primary text-white sticky top-0 z-50 shadow-md">
         <button onClick={onBack} className="flex items-center justify-center bg-transparent border-none p-1 cursor-pointer text-white transition-opacity hover:opacity-80">

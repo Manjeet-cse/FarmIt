@@ -60,11 +60,11 @@ export default function ProfileScreen() {
   const currentLangNative = languages.find(l => l.code === currentLang)?.native || 'English';
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-surface-containerLowest relative">
+    <div className="flex flex-col h-full overflow-hidden bg-surface-light relative">
       {isMobile && <AppTopBar title={t('profile.title')} showProfile={false} />}
 
       <div className="flex-1 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <main className="pt-4 pb-32 md:pb-8 flex flex-col gap-8 bg-surface-containerLowest max-w-3xl md:mx-auto">
+        <main className="pt-4 pb-32 md:pb-8 flex flex-col gap-8 bg-surface-light max-w-3xl md:mx-auto">
 
           {/* Header: Profile Info */}
           <section className="flex flex-col items-center text-center px-6 relative mt-4">
@@ -117,44 +117,44 @@ export default function ProfileScreen() {
             <div className="flex justify-between items-end mb-4">
               <h3 className="font-headline font-bold text-2xl text-onSurface m-0">{t('profile.myCrops')}</h3>
             </div>
-            <div className="flex flex-col border-t border-outline-variant/20">
-              {loadingCrops ? (
-                <div className="py-5 text-center text-onSurface-variant font-body">Loading crops...</div>
-              ) : crops.length === 0 ? (
-                <div className="py-8 text-center flex flex-col items-center gap-3">
-                  <span className="material-symbols-outlined text-4xl text-outline">grass</span>
-                  <p className="font-body text-onSurface-variant m-0">No crops added yet.</p>
-                </div>
-              ) : (
-                crops.map((crop) => (
-                  <div key={crop._id} className="py-5 flex gap-4 border-b border-outline-variant/20 relative group">
-                    <div className="w-24 h-24 rounded-xl bg-surface-container flex items-center justify-center shrink-0 overflow-hidden">
+            {loadingCrops ? (
+              <div className="py-5 text-center text-onSurface-variant font-body">Loading crops...</div>
+            ) : crops.length === 0 ? (
+              <div className="py-8 text-center flex flex-col items-center gap-3 border-t border-outline-variant/20">
+                <span className="material-symbols-outlined text-4xl text-outline">grass</span>
+                <p className="font-body text-onSurface-variant m-0">No crops added yet.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {crops.map((crop) => (
+                  <div key={crop._id} className="p-4 rounded-2xl bg-surface-containerLow/60 border border-outline-variant/20 flex gap-4 items-center relative group hover:shadow-sm transition-all">
+                    <div className="w-20 h-20 rounded-xl bg-surface-container flex items-center justify-center shrink-0 overflow-hidden">
                       {crop.image ? (
                         <img src={crop.image} alt={crop.cropName} className="w-full h-full object-cover" />
                       ) : (
                         <span className="material-symbols-outlined text-4xl text-primary opacity-50">eco</span>
                       )}
                     </div>
-                    <div className="flex-1 flex flex-col justify-center">
-                      <div className="flex justify-between items-start mb-1">
-                        <h4 className="font-headline font-bold text-lg text-onSurface leading-tight m-0">{crop.cropName}</h4>
+                    <div className="flex-1 min-w-0 flex flex-col justify-center">
+                      <div className="flex justify-between items-start mb-0.5">
+                        <h4 className="font-headline font-bold text-base text-onSurface leading-tight m-0 truncate">{crop.cropName}</h4>
                       </div>
-                      <p className="font-body text-sm text-onSurface-variant mb-2 m-0">{crop.acreage} Acres</p>
-                      <div className="flex flex-col gap-2">
-                        <div className="flex items-center gap-2">
-                          <span className="material-symbols-outlined text-onSurface-variant text-[16px]" style={{ fontVariationSettings: "'FILL' 0" }}>timeline</span>
-                          <span className="font-body text-sm text-onSurface-variant">{crop.cropStage}</span>
+                      <p className="font-body text-xs text-onSurface-variant mb-1.5 m-0">{crop.acreage} Acres</p>
+                      <div className="flex flex-col gap-1.5">
+                        <div className="flex items-center gap-1.5">
+                          <span className="material-symbols-outlined text-onSurface-variant text-[15px]" style={{ fontVariationSettings: "'FILL' 0" }}>timeline</span>
+                          <span className="font-body text-xs text-onSurface-variant truncate">{crop.cropStage}</span>
                         </div>
-                        <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md w-fit ${crop.healthStatus === 'Healthy' ? 'bg-surface-containerHigh' : 'bg-error-container'}`}>
-                          <span className={`w-2 h-2 rounded-full ${crop.healthStatus === 'Healthy' ? 'bg-primary' : 'bg-error'}`}></span>
-                          <span className={`font-body text-xs font-semibold ${crop.healthStatus === 'Healthy' ? 'text-onSurface' : 'text-onErrorContainer'}`}>{crop.healthStatus}</span>
+                        <div className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md w-fit ${crop.healthStatus === 'Healthy' ? 'bg-surface-containerHigh' : 'bg-error-container'}`}>
+                          <span className={`w-1.5 h-1.5 rounded-full ${crop.healthStatus === 'Healthy' ? 'bg-primary' : 'bg-error'}`}></span>
+                          <span className={`font-body text-[11px] font-semibold ${crop.healthStatus === 'Healthy' ? 'text-onSurface' : 'text-onErrorContainer'}`}>{crop.healthStatus}</span>
                         </div>
                       </div>
                     </div>
                   </div>
-                ))
-              )}
-            </div>
+                ))}
+              </div>
+            )}
           </section>
 
           {/* Farm Details Section */}
