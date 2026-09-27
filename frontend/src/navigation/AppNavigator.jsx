@@ -9,7 +9,6 @@ export default function AppNavigator() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/*" element={<AuthNavigator />} />
         <Route path="/farmer/*" element={
           <ProtectedRoute>
             <FarmerTabs />
@@ -25,6 +24,7 @@ export default function AppNavigator() {
             <VendorTabs />
           </ProtectedRoute>
         } />
+        <Route path="/*" element={<AuthNavigator />} />
       </Routes>
     </BrowserRouter>
   );

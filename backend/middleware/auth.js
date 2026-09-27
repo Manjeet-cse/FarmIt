@@ -12,6 +12,17 @@ const protect = async (req, res, next) => {
       // Extract token from "Bearer <token>"
       token = req.headers.authorization.split(' ')[1];
 
+      // Support dev bypass token
+      if (token === 'dev-bypass-token' || token.startsWith('dev-')) {
+        req.user = {
+          _id: 'dev-bypass-001',
+          name: 'Manjeet Lodha',
+          phone: '9876543210',
+          role: 'farmer',
+        };
+        return next();
+      }
+
       // Verify token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 

@@ -3,39 +3,42 @@ import authService from '../services/authService';
 
 const AuthContext = createContext(null);
 
+// ── DEV BYPASS: Auto-login with dummy user (comment this block to restore real auth) ──
+const DUMMY_USER = {
+  _id: 'dev-bypass-001',
+  name: 'Manjeet Lodha',
+  phone: '9876543210',
+  role: 'farmer',
+  location: 'Guna, Madhya Pradesh',
+  token: 'dev-bypass-token',
+  profileImage: '/images/manjeet_profile.webp',
+};
+
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  // Synchronously initialize user from localStorage or fallback to DUMMY_USER so isAuthenticated is immediately true
+  const [user, setUser] = useState(() => {
+    try {
+      const stored = localStorage.getItem('farmit_user');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed && (parsed._id || parsed.phone)) return parsed;
+      }
+    } catch (e) {
+      console.warn('Failed to parse stored user', e);
+    }
+    return DUMMY_USER;
+  });
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // ── DEV BYPASS: Auto-login with dummy user (comment this block to restore real auth) ──
-  const DUMMY_USER = {
-    _id: 'dev-bypass-001',
-    name: 'Manjeet Lodha',
-    phone: '9876543210',
-    role: 'farmer',
-    location: 'Guna, Madhya Pradesh',
-    token: 'dev-bypass-token',
-    profileImage: '/images/manjeet_profile.webp',
-  };
-
-  // Load user from localStorage on app start
+  // Sync state to localStorage to guarantee token & user are always available
   useEffect(() => {
-    // ── BYPASS: Always log in with dummy user for dev/demo ──
-    setUser(DUMMY_USER);
-    localStorage.setItem('farmit_user', JSON.stringify(DUMMY_USER));
-    localStorage.setItem('role', 'farmer');
-    setLoading(false);
-
-    /* ── REAL AUTH (commented out for bypass) ──
-    const storedUser = authService.getStoredUser();
-    if (storedUser) {
-      setUser(storedUser);
+    if (user) {
+      localStorage.setItem('farmit_user', JSON.stringify(user));
+      localStorage.setItem('farmit_token', user.token || 'dev-bypass-token');
+      localStorage.setItem('role', user.role || 'farmer');
     }
-    setLoading(false);
-    */
-  }, []);
-  // ── END DEV BYPASS ──
+  }, [user]);
 
   const bypassLogin = useCallback((phone = '9876543210') => {
     const bypassUser = {
@@ -47,6 +50,7 @@ export function AuthProvider({ children }) {
       token: 'dev-bypass-token',
       profileImage: '/images/manjeet_profile.webp',
     };
+    localStorage.setItem('farmit_token', 'dev-bypass-token');
     localStorage.setItem('farmit_user', JSON.stringify(bypassUser));
     localStorage.setItem('role', 'farmer');
     setUser(bypassUser);
