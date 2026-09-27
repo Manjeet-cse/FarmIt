@@ -30,8 +30,8 @@ export default function SplashScreen() {
         }
       `}</style>
       <div className="flex-1 flex flex-col items-center justify-center z-10 w-full px-6">
-        <div className="mb-8 w-40 h-40 rounded-full shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-2px_rgba(0,0,0,0.05)] border-4 border-white backdrop-blur-md relative overflow-hidden bg-white flex items-center justify-center">
-          <img src="/images/logo.png" alt="NeoKrishiTech Logo" className="w-full h-full object-cover" />
+        <div className="mb-8 w-40 h-40 rounded-full shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-2px_rgba(0,0,0,0.05)] border-4 border-white backdrop-blur-md relative overflow-hidden bg-white flex items-center justify-center p-3">
+          <img src="/images/logo-icon.png" alt="NeoKrishiTech Logo" className="w-full h-full object-contain" />
         </div>
         <div className="text-center relative z-10">
           <p className="text-sm italic text-[#88d982] font-medium tracking-[0.025em] drop-shadow-[0_1px_2px_rgba(0,0,0,0.1)] mt-2">{t('splash.tagline')}</p>
