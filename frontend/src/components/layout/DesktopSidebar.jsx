@@ -40,39 +40,30 @@ export default function DesktopSidebar({ collapsed = false, onToggle }) {
         bg-[#0A1F0D] text-white
         transition-all duration-300 ease-in-out z-50
         ${collapsed ? 'w-[72px]' : 'w-[260px]'}
-        shrink-0 overflow-hidden
+        shrink-0 relative overflow-visible group/sidebar
       `}
     >
-      {/* Brand Header */}
-      <div className={`flex items-center gap-3 px-5 h-20 shrink-0 border-b border-white/10 ${collapsed ? 'justify-center px-0' : 'py-3'}`}>
-        {collapsed ? (
-          <div className="w-10 h-10 rounded-xl bg-white overflow-hidden flex items-center justify-center shrink-0 shadow-lg shadow-green-900/30 p-1">
-            <img src="/images/logo.png" alt="Logo" className="w-full h-full object-contain" />
-          </div>
-        ) : (
-          <div className="w-full h-full bg-white rounded-xl flex items-center justify-center px-3 py-1 overflow-hidden shadow-lg shadow-green-900/30">
-            <img src="/images/logo.png" alt="NeoKrishiTech Logo" className="h-full object-contain" />
-          </div>
-        )}
-      </div>
+      {/* Invisible hover bridge along right border so approaching the edge also reveals the toggle */}
+      <div className="hidden md:block absolute -right-3 top-0 bottom-0 w-6 z-40 pointer-events-auto" />
 
-      {/* Toggle Button */}
-      <button
-        onClick={onToggle}
-        className={`
-          hidden lg:flex items-center justify-center
-          w-7 h-7 rounded-full bg-white/10 hover:bg-white/20
-          text-white/70 hover:text-white
-          transition-all duration-200
-          absolute top-4 -right-3.5 z-50
-          border border-white/10 shadow-md
-          cursor-pointer
-        `}
-      >
-        <span className="material-symbols-outlined text-[16px]">
-          {collapsed ? 'chevron_right' : 'chevron_left'}
-        </span>
-      </button>
+      {/* Internal Content Container - clips labels/logos neatly when collapsed */}
+      <div className="flex flex-col h-full w-full overflow-hidden select-none">
+        {/* Brand Header */}
+        <div className={`flex items-center gap-3 px-5 h-20 shrink-0 border-b border-white/10 ${collapsed ? 'justify-center px-0' : 'py-3'}`}>
+          {collapsed ? (
+            <button
+              onClick={onToggle}
+              title="Expand sidebar"
+              className="w-11 h-11 rounded-xl bg-white/10 border border-white/15 overflow-hidden flex items-center justify-center shrink-0 shadow-sm p-1.5 hover:bg-white/20 transition-all cursor-pointer group/logo"
+            >
+              <img src="/images/logo-icon.png" alt="Logo" className="w-full h-full object-contain group-hover/logo:scale-105 transition-transform" />
+            </button>
+          ) : (
+            <div className="w-full h-full flex items-center px-1 overflow-hidden">
+              <img src="/images/logo-white.png" alt="NeoKrishiTech Logo" className="h-11 max-w-full object-contain" />
+            </div>
+          )}
+        </div>
 
       {/* Primary Navigation */}
       <nav className="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -166,6 +157,35 @@ export default function DesktopSidebar({ collapsed = false, onToggle }) {
           )}
         </div>
       </div>
+      </div>
+
+      {/* Toggle Arrow Button - Positioned exactly on the right border line, unclipped */}
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+        title={collapsed ? "Expand sidebar (Click)" : "Collapse sidebar (Click)"}
+        className={`
+          hidden md:flex items-center justify-center
+          w-7 h-7 rounded-full
+          bg-[#0C2411] hover:bg-[#164720]
+          text-[#88d982] hover:text-white
+          border-[1.5px] border-[#2e7d32] hover:border-[#4caf50]
+          shadow-[0_4px_12px_rgba(0,0,0,0.5),0_0_8px_rgba(46,125,50,0.35)]
+          hover:shadow-[0_0_16px_rgba(76,175,80,0.7),0_4px_14px_rgba(0,0,0,0.4)]
+          hover:scale-115 active:scale-95
+          cursor-pointer
+          absolute top-[26px] -right-3.5 z-50
+          transition-all duration-200 ease-out
+          opacity-0 translate-x-1 pointer-events-none
+          group-hover/sidebar:opacity-100 group-hover/sidebar:translate-x-0 group-hover/sidebar:pointer-events-auto
+          hover:!opacity-100 hover:!pointer-events-auto
+        `}
+      >
+        <span className="material-symbols-outlined text-[17px] font-bold select-none leading-none">
+          {collapsed ? 'chevron_right' : 'chevron_left'}
+        </span>
+      </button>
     </aside>
   );
 }
