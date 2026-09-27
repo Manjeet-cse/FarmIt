@@ -11,7 +11,7 @@ export default function OrderSuccessScreen() {
   const formattedDate = deliveryDate.toLocaleDateString('en-IN', { weekday: 'short', month: 'short', day: 'numeric' });
 
   return (
-    <div className="bg-surface flex flex-col justify-between p-6 h-full">
+    <div className="bg-surface-light flex flex-col justify-between p-6 h-full">
       <style>{`
         @keyframes popIn {
           0% { transform: scale(0); }

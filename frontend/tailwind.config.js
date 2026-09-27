@@ -18,7 +18,7 @@ export default {
           container: '#cbffc2',
         },
         surface: {
-          DEFAULT: '#ebffe7',
+          DEFAULT: '#F1F8F1',
           light: '#F1F8F1',
           containerLow: '#e5f9e2',
           container: '#dff3dc',

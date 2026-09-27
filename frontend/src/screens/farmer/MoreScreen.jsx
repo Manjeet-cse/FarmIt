@@ -38,7 +38,7 @@ export default function More() {
   };
 
   return (
-    <div className="flex flex-col h-full w-full relative bg-surface overflow-hidden">
+    <div className="flex flex-col h-full w-full relative bg-surface-light overflow-hidden">
 
       {/* ── Blurred background ───────────────── */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#c8e6c9] via-[#a5d6a7] to-[#81c784] z-0" aria-hidden="true" />

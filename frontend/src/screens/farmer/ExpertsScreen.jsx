@@ -235,8 +235,8 @@ export default function ExpertsScreen() {
           </section>
 
           {/* Expert Cards List */}
-          <section className="flex flex-col gap-6">
-            <h2 className="font-headline font-bold text-2xl text-onSurface mb-2 mt-0">Available Experts</h2>
+          <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <h2 className="font-headline font-bold text-2xl text-onSurface mb-2 mt-0 col-span-full">Available Experts</h2>
             
             {filteredExperts.length > 0 ? filteredExperts.map(expert => (
               <ExpertCard key={expert.id} expert={expert} />

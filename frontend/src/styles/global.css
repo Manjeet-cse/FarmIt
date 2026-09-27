@@ -11,7 +11,7 @@
   --on-primary: #ffffff;
   --on-primary-container: #cbffc2;
   --primary-fixed-dim: #88d982;
-  --surface: #ebffe7;
+  --surface: #F1F8F1;
   --surface-light: #F1F8F1;
   --surface-container-low: #e5f9e2;
   --surface-container: #dff3dc;
@@ -61,11 +61,24 @@ html, body {
   margin: 0 auto;
   overflow-x: hidden;
   overflow-y: auto;
-  background: #f5f8f5;
+  background: #F1F8F1;
   position: relative;
   /* Crucial Fix: Trap fixed elements inside this container */
   transform: translateZ(0); 
   box-shadow: 0 0 50px rgba(0,0,0,0.5);
+}
+
+/* ── Tablet / Desktop: Remove the 480px phone shell ── */
+@media (min-width: 768px) {
+  #root {
+    max-width: 100%;
+    margin: 0;
+    box-shadow: none;
+    background: #F1F8F1;
+    /* Remove transform so position:fixed children are not trapped inside the 480px box */
+    transform: none;
+    overflow: hidden;
+  }
 }
 
 /* ═══════════════════════════════════════════
@@ -193,11 +206,29 @@ input {
   grid-template-columns: 1fr;
 }
 
-/* Dashboard 2-column layout for desktop */
+/* Dashboard 2-column layout for desktop & tablet */
 .dashboard-grid {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: stretch;
+  }
+  .dashboard-grid .full-span {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dashboard-grid {
+    gap: 24px;
+  }
 }
 
 /* ═══════════════════════════════════════════
@@ -207,6 +238,15 @@ input {
 .page-content {
   padding: 20px 16px 100px;
   width: 100%;
+}
+
+/* Tablet/Desktop: No BottomTabs to clear — reduce bottom padding */
+@media (min-width: 768px) {
+  .page-content {
+    padding: 32px 32px 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
 }
 
 /* ═══════════════════════════════════════════

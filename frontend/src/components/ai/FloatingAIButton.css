@@ -11,6 +11,15 @@
   transition: all 0.3s ease;
 }
 
+/* Desktop: no BottomTabs — use fixed positioning at viewport edge */
+@media (min-width: 768px) {
+  .floating-ai-wrapper {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+  }
+}
+
 .floating-ai-wrapper:hover {
   transform: translateY(-4px);
 }

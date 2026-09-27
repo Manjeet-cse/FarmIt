@@ -103,7 +103,7 @@ export default function EditProfileScreen() {
   };
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-surface-containerLowest relative">
+    <div className="flex flex-col h-full overflow-hidden bg-surface-light relative">
       {isMobile && (
         <AppTopBar 
           title="Edit Profile" 

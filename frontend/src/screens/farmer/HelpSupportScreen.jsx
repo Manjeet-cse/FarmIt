@@ -5,7 +5,7 @@ import { useIsMobile } from '../../hooks/useMediaQuery';
 export default function HelpSupportScreen() {
   const isMobile = useIsMobile();
   return (
-    <div className="flex flex-col h-full bg-surface-containerLowest">
+    <div className="flex flex-col h-full bg-surface-light">
       {isMobile && <AppTopBar title="Help & Support" />}
       <div className="flex-1 overflow-y-auto p-4 flex flex-col items-center justify-center">
         <span className="material-symbols-outlined text-6xl text-outline-variant mb-4">help</span>

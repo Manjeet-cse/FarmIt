@@ -110,7 +110,7 @@ export default function MarketplaceScreen() {
   }, [searchQuery, activeCategory, verifiedOnly, brandFilter, sortBy]);
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-surface relative">
+    <div className="flex flex-col h-full overflow-hidden bg-surface-light relative">
       
       {isMobile && (
         <AppTopBar 
@@ -215,7 +215,7 @@ export default function MarketplaceScreen() {
                 <p className="text-onSurface-variant text-sm m-0">Try adjusting your search or filters.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-2 gap-4 mb-[80px]">
+              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mb-[80px] md:mb-10">
                 {filteredProducts.map(product => (
                   <article key={product.id} className="bg-surface-containerLowest rounded-2xl p-3 flex flex-col gap-3 shadow-[0_4px_24px_rgba(15,31,17,0.03)] relative overflow-hidden card-hover">
                     {product.tags && product.tags.length > 0 && (
@@ -264,23 +264,54 @@ export default function MarketplaceScreen() {
         </main>
       </div>
 
-      {/* Floating Elements Area */}
-      
-      {/* Context-Aware Sticky Checkout Bar */}
+      {/* ── Floating Cart Pill ── */}
       {cartCount > 0 && (
-        <div className="absolute bottom-2 left-0 w-full px-4 z-40">
-          <div className="bg-primary-container text-[#cbffc2] rounded-2xl py-3 px-4 flex items-center justify-between shadow-[0_10px_15px_-3px_rgba(46,125,50,0.2)] backdrop-blur-md" onClick={() => navigate('/farmer/cart')}>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <span className="font-headline font-bold text-lg">₹{cartSubtotal.toLocaleString()}</span>
-              <span className="text-sm opacity-80 font-body">{cartCount} item{cartCount > 1 ? 's' : ''} in cart</span>
-            </div>
-            <button className="bg-[#cbffc2] text-primary-container font-headline font-bold text-sm py-2 px-6 rounded-full uppercase tracking-wider flex items-center gap-2 border-none cursor-pointer transition-opacity hover:opacity-90">
-              View Cart
-              <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-            </button>
+        <button
+          onClick={() => navigate('/farmer/cart')}
+          className="cart-pill-btn absolute right-4 z-40 flex items-center gap-2.5 pl-3 pr-4 py-2.5 rounded-full border-none cursor-pointer
+            bg-[#1b5e20] shadow-[0_8px_28px_rgba(27,94,32,0.45)]
+            hover:shadow-[0_10px_32px_rgba(27,94,32,0.58)] hover:scale-[1.04]
+            active:scale-[0.97] transition-all duration-200 ease-out"
+          aria-label={`View cart — ${cartCount} item${cartCount > 1 ? 's' : ''}`}
+          style={{ animation: 'cartPillPop 0.3s cubic-bezier(0.34,1.56,0.64,1) both' }}
+        >
+          <style>{`
+            @keyframes cartPillPop {
+              from { opacity: 0; transform: translateY(12px) scale(0.88); }
+              to   { opacity: 1; transform: translateY(0)   scale(1); }
+            }
+            /* Mobile: sit above the AI FAB (bottom:100px) + FAB height ~80px + 12px gap */
+            .cart-pill-btn { bottom: 192px; }
+            /* Desktop md+: AI FAB is fixed at bottom:32px, 56px tall + 20px gap */
+            @media (min-width: 768px) { .cart-pill-btn { bottom: 108px; } }
+          `}</style>
+
+          {/* Cart icon + badge */}
+          <div className="relative">
+            <span
+              className="material-symbols-outlined text-[22px] text-white"
+              style={{ fontVariationSettings: "'FILL' 1" }}
+            >
+              shopping_cart
+            </span>
+            <span className="absolute -top-1.5 -right-1.5 w-[17px] h-[17px] rounded-full bg-[#f9a825] text-[#1b2b1c] text-[10px] font-extrabold flex items-center justify-center leading-none shadow-sm">
+              {cartCount}
+            </span>
           </div>
-        </div>
+
+          {/* Price */}
+          <span className="font-headline font-extrabold text-[14px] text-white tracking-[-0.2px]">
+            ₹{cartSubtotal.toLocaleString()}
+          </span>
+
+          {/* Arrow */}
+          <span className="material-symbols-outlined text-[16px] text-white/70">
+            arrow_forward_ios
+          </span>
+        </button>
       )}
+
+
 
       {/* ── Bottom Nav — Mobile only ── */}
           </div>

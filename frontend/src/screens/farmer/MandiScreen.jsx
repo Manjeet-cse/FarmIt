@@ -176,7 +176,7 @@ export default function MandiScreen() {
   }
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-surface">
+    <div className="flex flex-col h-full overflow-hidden bg-surface-light">
       {!selectedCrop && isMobile && (
         <AppTopBar 
           title="Mandi Updates" 
@@ -188,7 +188,7 @@ export default function MandiScreen() {
       {/* ── Scrollable Content Area ─────────── */}
       <div className="flex-1 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {selectedCrop ? (
-          <main className="w-full min-h-full flex flex-col bg-[#F8F9FA]">
+          <main className="w-full min-h-full flex flex-col bg-surface-light">
             
             {/* Custom Top Bar */}
             <header className="px-4 py-4 flex justify-between items-start bg-primary text-white sticky top-0 z-50 shadow-md">
@@ -605,10 +605,10 @@ export default function MandiScreen() {
             </div>
 
             {/* Crop Prices List Section */}
-            <div className="flex flex-col gap-4 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               
               {filteredCrops.length === 0 ? (
-                <div className="text-center py-10 px-5 text-onSurface-variant font-body text-[15px]">
+                <div className="col-span-full text-center py-10 px-5 text-onSurface-variant font-body text-[15px]">
                   <p className="m-0">No crops found matching your criteria.</p>
                 </div>
               ) : (
@@ -618,7 +618,7 @@ export default function MandiScreen() {
                     onClick={() => setSelectedCrop(crop)}
                     className="bg-white border border-[#bfcaba]/20 rounded-2xl p-4 flex justify-between items-center cursor-pointer transition-all shadow-[0_1px_3px_rgba(0,0,0,0.02)] hover:bg-surface-containerLow hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)]"
                   >
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-4 min-w-0">
                       <div className="w-12 h-12 rounded-full bg-surface-containerHighest overflow-hidden flex items-center justify-center relative shrink-0">
                         <img 
                           src={getCropImage(crop.image, crop.name)} 
@@ -626,9 +626,9 @@ export default function MandiScreen() {
                           className="absolute inset-0 w-full h-full object-cover opacity-90 mix-blend-multiply" 
                         />
                       </div>
-                      <div>
-                        <h3 className="font-headline font-bold text-base text-onSurface mb-0.5 mt-0">{crop.name}</h3>
-                        <p className="font-body text-[13px] text-onSurface-variant m-0">{crop.variety}</p>
+                      <div className="min-w-0">
+                        <h3 className="font-headline font-bold text-base text-onSurface mb-0.5 mt-0 truncate">{crop.name}</h3>
+                        <p className="font-body text-[13px] text-onSurface-variant m-0 truncate">{crop.variety}</p>
                       </div>
                     </div>
                     <div className="text-right shrink-0">

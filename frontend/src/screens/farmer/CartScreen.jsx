@@ -14,7 +14,7 @@ export default function CartScreen() {
   const total = cartSubtotal + deliveryFee;
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-surface-containerLowest relative">
+    <div className="flex flex-col h-full overflow-hidden bg-surface-light relative">
       {isMobile && <AppTopBar title={t('cart.title')} />}
       
       <main className="flex-1 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pb-32">

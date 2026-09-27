@@ -16,7 +16,7 @@ export default function ResponsiveShell({ children }) {
 
   if (isMobile) {
     return (
-      <div className="fixed inset-0 flex flex-col overflow-hidden bg-surface">
+      <div className="fixed inset-0 flex flex-col overflow-hidden bg-surface-light">
         <div className="flex-1 overflow-hidden flex flex-col">
           {children}
         </div>
@@ -30,7 +30,7 @@ export default function ResponsiveShell({ children }) {
 
   // Tablet + Desktop
   return (
-    <div className="flex h-[100dvh] overflow-hidden bg-[#f5f8f5]">
+    <div className="flex h-[100dvh] overflow-hidden bg-surface-light">
       <DesktopSidebar
         collapsed={sidebarCollapsed}
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}

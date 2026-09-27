@@ -24,7 +24,7 @@ export default function CheckoutScreen() {
 
   if (cartItems.length === 0) {
     return (
-      <div className="flex flex-col h-full overflow-hidden bg-surface-containerLowest relative">
+      <div className="flex flex-col h-full overflow-hidden bg-surface-light relative">
         {isMobile && <AppTopBar title="Checkout" />}
         <main className="flex-1 overflow-y-auto overflow-x-hidden" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <p>No items to checkout.</p>
@@ -34,7 +34,7 @@ export default function CheckoutScreen() {
   }
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-surface-containerLowest relative">
+    <div className="flex flex-col h-full overflow-hidden bg-surface-light relative">
       {isMobile && <AppTopBar title="Checkout" />}
       
       <main className="flex-1 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pb-32">

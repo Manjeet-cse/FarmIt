@@ -218,7 +218,7 @@ export default function Weather() {
 
   if (loading) {
     return (
-      <div className="flex flex-col h-full items-center justify-center bg-gradient-to-br from-[#FEF9E6] to-[#E8F5E9]">
+      <div className="flex flex-col h-full items-center justify-center bg-surface-light">
         <Loader2 size={40} className="text-primary animate-spin mb-3" />
         <span className="font-body text-onSurface-variant text-sm">Fetching weather data...</span>
       </div>
@@ -226,7 +226,7 @@ export default function Weather() {
   }
 
   return (
-    <div className={`flex flex-col h-full overflow-hidden bg-gradient-to-br transition-colors duration-700 ease-in-out ${getBackgroundClass()} ${textColor}`}>
+    <div className={`flex flex-col h-full overflow-hidden bg-surface-light ${textColor}`}>
       
       {/* Mobile Top Bar */}
       {isMobile && (

@@ -26,15 +26,15 @@ export default function useMediaQuery(query) {
 
 /** True when viewport < 768px (phone) */
 export function useIsMobile() {
-  return true; // Forced mobile mode for centered layout wrapper
+  return useMediaQuery('(max-width: 767px)');
 }
 
 /** True when 768px ≤ viewport < 1024px */
 export function useIsTablet() {
-  return false;
+  return useMediaQuery('(min-width: 768px) and (max-width: 1023px)');
 }
 
 /** True when viewport ≥ 1024px */
 export function useIsDesktop() {
-  return false;
+  return useMediaQuery('(min-width: 1024px)');
 }

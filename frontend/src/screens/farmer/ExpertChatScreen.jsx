@@ -51,7 +51,7 @@ export default function ExpertChatScreen() {
   };
 
   return (
-    <div className="flex flex-col h-full overflow-hidden bg-surface relative z-50">
+    <div className="flex flex-col h-full overflow-hidden bg-surface-light relative z-50">
       {/* Custom Top Bar for Chat */}
       <div className="shrink-0 flex items-center h-16 px-2 bg-primary-container relative shadow-sm border-b border-[#bfcaba]/20">
         <button className="w-10 h-10 flex items-center justify-center text-onPrimaryContainer rounded-full bg-transparent border-none cursor-pointer" onClick={() => navigate(-1)}>
@@ -70,7 +70,7 @@ export default function ExpertChatScreen() {
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-4 bg-[#f4f8f4] flex flex-col gap-4">
+      <div className="flex-1 overflow-y-auto p-4 bg-surface-light flex flex-col gap-4">
         <div className="text-center mb-2 mt-2">
           <span className="bg-[#e5f9e2] text-[#006e1c] text-[10px] font-bold tracking-wide py-1.5 px-3 rounded-full border border-[#006e1c]/20 uppercase shadow-sm">
             Start of Consultation
