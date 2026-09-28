@@ -16,6 +16,55 @@ export default function CheckoutScreen() {
   const handlePlaceOrder = () => {
     // Generate mock order ID
     const orderId = 'OD' + Math.floor(Math.random() * 1000000000);
+    
+    // Save to localStorage farmit_orders
+    try {
+      const stored = localStorage.getItem('farmit_orders');
+      const existingOrders = stored ? JSON.parse(stored) : [];
+      const newOrder = {
+        id: orderId,
+        date: new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        status: 'In Transit',
+        statusCode: 'active',
+        statusBadgeColor: 'bg-amber-50 text-amber-700 border-amber-200',
+        estimatedDelivery: 'In 3 days',
+        deliveryPartner: 'Kisan Express Logistics',
+        trackingNumber: 'KEL-' + Math.floor(10000000 + Math.random() * 90000000),
+        agentName: 'Ramesh Meena',
+        agentPhone: '+91 98261 44520',
+        paymentMethod: paymentMethod === 'upi' ? 'UPI' : paymentMethod === 'cod' ? 'Cash on Delivery' : 'Credit / Debit Card',
+        deliveryAddress: {
+          name: 'Manjeet Lodha',
+          tag: 'Home Farm',
+          address: 'House No. 45, Near Hanuman Temple, Village Bamori, Guna, Madhya Pradesh - 473105',
+          phone: '+91 98765 43210'
+        },
+        items: cartItems.map(item => ({
+          id: item.id,
+          name: item.name,
+          brand: item.brand || 'FarmIt Verified',
+          category: item.category || 'Supplies',
+          unit: item.unit || '1 unit',
+          quantity: item.quantity,
+          price: item.price,
+          image: item.image || '/images/marketplace/cat_fertilizer_1776883473185.webp'
+        })),
+        itemSubtotal: cartSubtotal,
+        deliveryFee: deliveryFee,
+        totalAmount: total,
+        timeline: [
+          { title: 'Order Placed', time: 'Just now', desc: 'Order received and confirmed', done: true, current: true },
+          { title: 'Packed at Warehouse', time: 'Expected tomorrow', desc: 'Inspection & packaging', done: false },
+          { title: 'In Transit', time: 'Expected in 2 days', desc: 'Dispatch to Guna Hub', done: false },
+          { title: 'Out for Delivery', time: 'Expected in 3 days', desc: 'Courier agent assignment', done: false },
+          { title: 'Delivered', time: 'Expected in 3 days', desc: 'Handover at doorstep', done: false }
+        ]
+      };
+      localStorage.setItem('farmit_orders', JSON.stringify([newOrder, ...existingOrders]));
+    } catch (e) {
+      console.error('Failed to save order to localStorage', e);
+    }
+
     // Clear cart
     clearCart();
     // Navigate to success screen

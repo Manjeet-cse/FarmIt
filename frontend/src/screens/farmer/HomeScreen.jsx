@@ -5,6 +5,7 @@ import { useIsMobile } from '../../hooks/useMediaQuery';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../store/AuthContext';
 import DashboardGridCard from '../../components/common/DashboardGridCard';
+import SparrowAnimation from '../../components/common/SparrowAnimation';
 
 
 
@@ -157,8 +158,11 @@ export default function Home() {
           
           {/* Desktop Welcome Banner — uses live weather data */}
           {!isMobile && (
-            <section className="bg-gradient-to-r from-[#0A1F0D] to-[#1B5E20] rounded-2xl px-7 py-5 lg:px-8 lg:py-6 text-white relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-[#4CAF50]/10 rounded-full blur-3xl -mr-20 -mt-20" />
+            <section className="bg-gradient-to-r from-[#0A1F0D] to-[#1B5E20] rounded-2xl px-7 py-5 lg:px-8 lg:py-6 text-white relative">
+              <div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-[#4CAF50]/10 rounded-full blur-3xl -mr-20 -mt-20" />
+              </div>
+              <SparrowAnimation />
               <div className="relative z-10 flex items-center justify-between gap-6">
                 <div>
                   <h1 className="font-headline font-bold text-xl lg:text-2xl text-white mb-1">{t('home.goodEvening')}</h1>

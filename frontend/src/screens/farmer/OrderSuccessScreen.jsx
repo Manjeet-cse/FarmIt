@@ -46,7 +46,10 @@ export default function OrderSuccessScreen() {
       </div>
 
       <div className="flex flex-col gap-3 pb-6">
-        <button className="bg-primary text-onPrimary border-none p-4 rounded-full font-label font-bold text-[1.125rem] cursor-pointer transition-opacity duration-200 hover:opacity-90">
+        <button 
+          className="bg-primary text-onPrimary border-none p-4 rounded-full font-label font-bold text-[1.125rem] cursor-pointer transition-opacity duration-200 hover:opacity-90"
+          onClick={() => navigate('/farmer/orders')}
+        >
           Track Order
         </button>
         <button className="bg-transparent text-primary border border-primary p-4 rounded-full font-label font-bold text-[1.125rem] cursor-pointer transition-colors duration-200 hover:bg-[rgba(46,125,50,0.05)]" onClick={() => navigate('/farmer/home')}>
