@@ -57,18 +57,17 @@ export default function DesktopSidebar() {
   }, []);
 
   return (
-    <div className="hidden md:block w-[72px] shrink-0 h-screen relative z-50">
-      <aside
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        className={`
-          flex flex-col h-screen fixed top-0 left-0
-          bg-[#0A1F0D] text-white
-          transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] z-50
-          ${isHovered ? 'w-[260px] shadow-[10px_0_36px_rgba(0,0,0,0.55)] border-r border-white/10' : 'w-[72px] shadow-none border-r border-white/5'}
-          overflow-hidden select-none
-        `}
-      >
+    <aside
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className={`
+        hidden md:flex flex-col h-screen sticky top-0
+        bg-[#0A1F0D] text-white
+        transition-[width] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] z-40
+        ${isHovered ? 'w-[260px] border-r border-white/10' : 'w-[72px] border-r border-white/5'}
+        shrink-0 overflow-hidden select-none
+      `}
+    >
         {/* Brand Header */}
         <div className="flex items-center h-20 shrink-0 border-b border-white/10 px-3 relative overflow-hidden">
           {/* Collapsed Icon Mark */}
@@ -199,6 +198,5 @@ export default function DesktopSidebar() {
           </div>
         </div>
       </aside>
-    </div>
   );
 }
