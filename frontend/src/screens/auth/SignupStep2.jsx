@@ -217,7 +217,7 @@ export default function SignupStep2() {
             </div>
             <h2 className="font-headline text-2xl font-bold text-[#0f1f11] mb-2">Account Created!</h2>
             <p className="font-body text-[#40493d] text-sm leading-relaxed">
-              Welcome to NeokrishiTech, {formData.fullName?.split(' ')[0] || 'Farmer'}!<br/>
+              Welcome to FarmIt, {formData.fullName?.split(' ')[0] || 'Farmer'}!<br/>
               Redirecting you to dashboard...
             </p>
           </div>

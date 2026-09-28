@@ -37,6 +37,28 @@ export default function More() {
     navigate('/login');
   };
 
+  const handleShare = async () => {
+    const shareData = {
+      title: 'FarmIt',
+      text: 'FarmIt — AI-powered smart agriculture platform for Indian farmers.',
+      url: window.location.origin,
+    };
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        if (err.name !== 'AbortError') console.error('Share error:', err);
+      }
+    } else if (navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(`${shareData.title}\n${shareData.text}\n${shareData.url}`);
+        alert('Link copied to clipboard!');
+      } catch (err) {
+        console.error('Clipboard error:', err);
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col h-full w-full relative bg-surface-light overflow-hidden">
 
@@ -76,7 +98,7 @@ export default function More() {
 
           {/* ── Explore Grid ────────────────── */}
           <section className="flex flex-col gap-3.5">
-            <h3 className="font-['Be_Vietnam_Pro',sans-serif] font-semibold text-[11px] tracking-[0.1em] uppercase text-onSurface-variant px-0.5 m-0">{t('more.exploreNeoKrishi')}</h3>
+            <h3 className="font-['Be_Vietnam_Pro',sans-serif] font-semibold text-[11px] tracking-[0.1em] uppercase text-onSurface-variant px-0.5 m-0">{t('more.exploreFarmIt')}</h3>
             <div className="grid grid-cols-2 gap-3">
               {GRID_ITEMS.map(({ icon, label, iconClass, route }) => (
                 <button
@@ -121,7 +143,7 @@ export default function More() {
           <section className="flex flex-col items-center gap-3.5 pb-2">
             <p className="font-['Be_Vietnam_Pro',sans-serif] text-[12px] text-onSurface-variant m-0">{t('more.connectFarmIt')}</p>
             <div className="flex gap-3.5">
-              <button className="w-10 h-10 rounded-full border-none bg-surface-container text-primary flex items-center justify-center cursor-pointer transition-all duration-200 hover:bg-primary-container hover:text-white active:scale-[0.92]" aria-label="Share">
+              <button onClick={handleShare} className="w-10 h-10 rounded-full border-none bg-surface-container text-primary flex items-center justify-center cursor-pointer transition-all duration-200 hover:bg-primary-container hover:text-white active:scale-[0.92]" aria-label="Share">
                 <span className="material-symbols-outlined text-[20px]">share</span>
               </button>
               <button className="w-10 h-10 rounded-full border-none bg-surface-container text-primary flex items-center justify-center cursor-pointer transition-all duration-200 hover:bg-primary-container hover:text-white active:scale-[0.92]" aria-label="Like">

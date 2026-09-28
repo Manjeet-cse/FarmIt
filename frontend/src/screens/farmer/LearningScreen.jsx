@@ -431,7 +431,30 @@ const VideoView = ({ video, content, onToggleSave, onVideoSelect }) => {
 
         {/* ACTIONS */}
         <section className="flex gap-3">
-          <button className="flex-1 h-11 bg-primary text-white border-none rounded-xl font-label text-[13px] font-semibold shadow-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2 cursor-pointer active:scale-95">
+          <button
+            onClick={async () => {
+              const shareData = {
+                title: item?.title ? `${item.title} — FarmIt` : 'FarmIt Learning',
+                text: `Learn about "${item?.title || 'Farming'}" on FarmIt — Smart Agriculture Platform.`,
+                url: window.location.href,
+              };
+              if (navigator.share) {
+                try {
+                  await navigator.share(shareData);
+                } catch (err) {
+                  if (err.name !== 'AbortError') console.error('Share error:', err);
+                }
+              } else if (navigator.clipboard) {
+                try {
+                  await navigator.clipboard.writeText(`${shareData.title}\n${shareData.text}\n${shareData.url}`);
+                  alert('Video link copied to clipboard!');
+                } catch (err) {
+                  console.error('Clipboard error:', err);
+                }
+              }
+            }}
+            className="flex-1 h-11 bg-primary text-white border-none rounded-xl font-label text-[13px] font-semibold shadow-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+          >
             <span className="material-symbols-outlined text-[18px]">share</span>
             Share
           </button>

@@ -145,7 +145,7 @@ export default function Home() {
       {/* Top App Bar — Mobile only */}
       {isMobile && (
         <AppTopBar 
-          title="NeokrishiTech" 
+          title="FarmIt" 
           showBack={false} 
           showNotification={true} 
         />

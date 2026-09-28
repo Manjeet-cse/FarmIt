@@ -12,7 +12,7 @@ export const CartProvider = ({ children }) => {
   // Load from local storage initially
   useEffect(() => {
     try {
-      const stored = localStorage.getItem('neokrishi_cart');
+      const stored = localStorage.getItem('farmit_cart') || localStorage.getItem('neokrishi_cart');
       if (stored) {
         setCartItems(JSON.parse(stored));
       }
@@ -24,7 +24,7 @@ export const CartProvider = ({ children }) => {
   // Save to local storage on change
   useEffect(() => {
     try {
-      localStorage.setItem('neokrishi_cart', JSON.stringify(cartItems));
+      localStorage.setItem('farmit_cart', JSON.stringify(cartItems));
     } catch (err) {
       console.error('Failed to save cart', err);
     }

@@ -60,7 +60,7 @@ export default function DesktopSidebar({ collapsed = false, onToggle }) {
             </button>
           ) : (
             <div className="w-full h-full flex items-center px-1 overflow-hidden">
-              <img src="/images/logo-white.png" alt="NeoKrishiTech Logo" className="h-11 max-w-full object-contain" />
+              <img src="/images/logo-white.png" alt="FarmIt Logo" className="h-11 max-w-full object-contain" />
             </div>
           )}
         </div>

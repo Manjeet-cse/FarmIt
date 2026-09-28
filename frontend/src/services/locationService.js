@@ -7,7 +7,7 @@
  */
 
 const NOMINATIM_BASE = 'https://nominatim.openstreetmap.org';
-const USER_AGENT = 'NeokrishiTech-App/1.0';
+const USER_AGENT = 'FarmIt-App/1.0';
 
 /**
  * Search for locations by query string (forward geocoding).

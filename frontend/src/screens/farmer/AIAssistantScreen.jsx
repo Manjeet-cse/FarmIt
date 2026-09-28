@@ -69,7 +69,7 @@ export default function AIAssistantScreen() {
             <span className="material-symbols-outlined text-[20px] text-[#cbffc2]" style={{ fontVariationSettings: "'FILL' 1" }}>robot_2</span>
           </div>
           <div>
-            <h1 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-[18px] leading-tight text-[#0f1f11] m-0">NeoKrishi AI</h1>
+            <h1 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-[18px] leading-tight text-[#0f1f11] m-0">FarmIt AI</h1>
             <p className="flex items-center gap-1 text-[12px] font-medium text-[#0d631b] m-0">
               <span className="w-1.5 h-1.5 rounded-full bg-[#006e1c] block"></span>
               Online
@@ -180,7 +180,7 @@ export default function AIAssistantScreen() {
             <input
               type="text"
               className="flex-1 bg-transparent border-none outline-none font-['Be_Vietnam_Pro',sans-serif] text-[14px] text-[#0f1f11] py-3 px-2 placeholder:text-[rgba(64,73,61,0.5)]"
-              placeholder="Message NeoKrishi..."
+              placeholder="Message FarmIt..."
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyPress={e => e.key === 'Enter' && handleSend()}
