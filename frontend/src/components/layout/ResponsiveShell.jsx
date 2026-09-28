@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import DesktopSidebar from './DesktopSidebar';
 import TopNavbar from './TopNavbar';
 import BottomTabs from './BottomTabs';
@@ -12,7 +11,6 @@ import FloatingAIButton from '../ai/FloatingAIButton';
  */
 export default function ResponsiveShell({ children }) {
   const isMobile = useIsMobile();
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   if (isMobile) {
     return (
@@ -31,10 +29,7 @@ export default function ResponsiveShell({ children }) {
   // Tablet + Desktop
   return (
     <div className="flex h-[100dvh] overflow-hidden bg-surface-light">
-      <DesktopSidebar
-        collapsed={sidebarCollapsed}
-        onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
-      />
+      <DesktopSidebar />
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <TopNavbar />
         <main className="flex-1 overflow-y-auto overflow-x-hidden [scrollbar-width:thin] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#d4e8d1] [&::-webkit-scrollbar-thumb]:rounded-full">
