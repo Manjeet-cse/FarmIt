@@ -5,7 +5,7 @@ import { useCart } from '../../store/CartContext';
 const ROUTE_TITLES = {
   '/farmer/home': 'Dashboard',
   '/farmer/weather': 'Weather Intelligence',
-  '/farmer/diagnosis': 'Crop Health',
+  '/farmer/diagnosis': 'AI Diagnosis',
   '/farmer/mandi': 'Mandi Prices',
   '/farmer/marketplace': 'Marketplace',
   '/farmer/learning': 'Learning Hub',
@@ -25,7 +25,7 @@ const ROUTE_TITLES = {
 };
 
 const MOCK_NOTIFICATIONS = [
-  { id: 1, title: 'Crop Health Alert', desc: 'Wheat crop might be at risk of Aphids.', time: '10 min ago', icon: 'pest_control', path: '/farmer/diagnosis' },
+  { id: 1, title: 'AI Diagnosis Alert', desc: 'Wheat crop might be at risk of Aphids.', time: '10 min ago', icon: 'pest_control', path: '/farmer/diagnosis' },
   { id: 2, title: 'Irrigation Reminder', desc: 'Scheduled irrigation for Mustard field is due today.', time: '1 hour ago', icon: 'water_drop', path: '/farmer/home' },
   { id: 3, title: 'Mandi Price Update', desc: 'Tomato prices surged by 10% in local mandi.', time: '2 hours ago', icon: 'trending_up', path: '/farmer/mandi' },
   { id: 4, title: 'Expert Reply', desc: 'Dr. Sharma answered your soil query.', time: '3 hours ago', icon: 'support_agent', path: '/farmer/experts' },

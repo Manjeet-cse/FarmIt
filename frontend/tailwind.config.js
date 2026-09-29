@@ -54,6 +54,7 @@ export default {
         }
       },
       fontFamily: {
+        sans: ['Be Vietnam Pro', 'Plus Jakarta Sans', 'sans-serif'],
         headline: ['Plus Jakarta Sans', 'sans-serif'],
         body: ['Be Vietnam Pro', 'sans-serif'],
         label: ['Be Vietnam Pro', 'sans-serif'],

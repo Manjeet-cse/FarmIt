@@ -50,8 +50,23 @@ html, body {
   overscroll-behavior-y: none;
   font-family: var(--font-body);
   color: var(--on-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   /* Premium desktop background */
   background: linear-gradient(135deg, #0f1f11 0%, #1a331c 100%);
+}
+
+button, input, optgroup, select, textarea {
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6, .font-headline {
+  font-family: var(--font-headline);
+  letter-spacing: -0.02em;
+}
+
+p, label, span, li, td, th, .font-body, .font-label {
+  font-family: var(--font-body);
 }
 
 #root {

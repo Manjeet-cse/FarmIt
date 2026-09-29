@@ -104,13 +104,13 @@
 
   "nav": {
     "home": "Home",
-    "diagnosis": "Diagnosis",
+    "diagnosis": "AI Diagnosis",
     "experts": "Experts",
     "learning": "Learning",
     "marketplace": "Marketplace",
     "dashboard": "Dashboard",
     "weather": "Weather",
-    "cropHealth": "Crop Health",
+    "cropHealth": "AI Diagnosis",
     "mandiPrices": "Mandi Prices",
     "learningHub": "Learning Hub",
     "aiAssistant": "AI Assistant",

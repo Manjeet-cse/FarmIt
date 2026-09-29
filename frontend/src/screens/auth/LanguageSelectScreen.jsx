@@ -25,7 +25,7 @@ export default function LanguageSelectScreen() {
   };
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-[#ebffe7] font-['Be_Vietnam_Pro',sans-serif] overflow-y-auto overflow-x-hidden relative [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div className="flex flex-col h-[100dvh] bg-[#ebffe7] font-body overflow-y-auto overflow-x-hidden relative [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
 
       {/* ── Header ────────────────────────────── */}
       <header className="flex items-center gap-3 px-6 pt-5 pb-3 shrink-0">
@@ -33,7 +33,7 @@ export default function LanguageSelectScreen() {
           className="material-symbols-outlined text-[28px] text-[#0d631b]"
           aria-hidden="true"
         >language</span>
-        <h1 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-[24px] text-[#0d631b] m-0">{t('languageSelect.title')}</h1>
+        <h1 className="font-headline font-bold text-[24px] text-[#0d631b] m-0">{t('languageSelect.title')}</h1>
       </header>
 
       {/* ── Subtitle ──────────────────────────── */}
@@ -62,8 +62,8 @@ export default function LanguageSelectScreen() {
                   style={{ fontVariationSettings: "'FILL' 1" }}
                 >check_circle</span>
               )}
-              <span className={`font-['Plus_Jakarta_Sans',sans-serif] font-bold text-[16px] z-10 ${isActive ? 'text-white' : 'text-[#0f1f11]'}`}>{lang.native}</span>
-              <span className={`font-['Be_Vietnam_Pro',sans-serif] text-[10px] z-10 ${isActive ? 'text-white/85' : 'text-[#40493d]'}`}>{lang.label}</span>
+              <span className={`font-headline font-bold text-[16px] z-10 ${isActive ? 'text-white' : 'text-[#0f1f11]'}`}>{lang.native}</span>
+              <span className={`font-body text-[10px] z-10 ${isActive ? 'text-white/85' : 'text-[#40493d]'}`}>{lang.label}</span>
             </button>
           );
         })}
@@ -71,7 +71,7 @@ export default function LanguageSelectScreen() {
 
       {/* ── Bottom CTA ────────────────────────── */}
       <div className="sticky bottom-0 left-0 w-full px-6 pt-10 pb-8 bg-gradient-to-t from-[#ebffe7] from-60% to-transparent z-20 flex justify-center shrink-0">
-        <button className="w-full h-14 rounded-full bg-gradient-to-b from-[#0d631b] to-[#2e7d32] text-white font-['Be_Vietnam_Pro',sans-serif] text-[14px] font-semibold uppercase tracking-[0.08em] flex items-center justify-center gap-2 border-none cursor-pointer shadow-[0_12px_24px_rgba(15,31,17,0.15)] transition-transform duration-150 active:scale-[0.95]" onClick={handleContinue}>
+        <button className="w-full h-14 rounded-full bg-gradient-to-b from-[#0d631b] to-[#2e7d32] text-white font-body text-[14px] font-semibold uppercase tracking-[0.08em] flex items-center justify-center gap-2 border-none cursor-pointer shadow-[0_12px_24px_rgba(15,31,17,0.15)] transition-transform duration-150 active:scale-[0.95]" onClick={handleContinue}>
           {t('common.continue').toUpperCase()}
           <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>
             arrow_forward

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../store/CartContext';
 
 const MOCK_NOTIFICATIONS = [
-  { id: 1, title: 'Crop Health Alert', desc: 'Your Wheat crop might be at risk of Aphids due to recent humidity.', time: '10 min ago', icon: 'pest_control', path: '/farmer/diagnosis' },
+  { id: 1, title: 'AI Diagnosis Alert', desc: 'Your Wheat crop might be at risk of Aphids due to recent humidity.', time: '10 min ago', icon: 'pest_control', path: '/farmer/diagnosis' },
   { id: 2, title: 'Irrigation Reminder', desc: 'Scheduled irrigation for Mustard field is due today at 5 PM.', time: '1 hour ago', icon: 'water_drop', path: '/farmer/home' },
   { id: 3, title: 'New Disease Identified', desc: 'Leaf blight detected in nearby farms. Check prevention tips.', time: '2 hours ago', icon: 'coronavirus', path: '/farmer/diagnosis' },
   { id: 4, title: 'Harvesting Soon', desc: 'Wheat crop is ready for harvest in 18 days. Prepare equipment.', time: '3 hours ago', icon: 'agriculture', path: '/farmer/home' },

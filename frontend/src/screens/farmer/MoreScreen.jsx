@@ -83,22 +83,30 @@ export default function More() {
             onClick={() => navigate('/farmer/profile')}
           >
             <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEb0sZMqDMto5a4tOacryaoNpPVY9MFLppg4BPXQvlaHB2Us8kPTKPfAbdFIhSNX7Rb_A7sCtfIIbpPa1UGC2S36bJhZEiGYgPh4CpwHnDY8PiicAlajxrkZNDMtLO5PIc9kMRn8ByNuiw21_ac33FkkRINFOK-nC1nYCIxl-tcsVWNEybcpX4YVHGp1qxguwhVAfgeEsbP8bz-u9fEzdLnGZ2Z0Len8dJTaHNWZQQrHMuNIpi_WOizy_y4dE7qttRWhgHGdFEEqk"
+              src="/images/manjeet_profile.webp"
               alt="Farmer profile"
-              className="w-[54px] h-[54px] rounded-full object-cover border-[2.5px] border-primary-fixed shrink-0"
+              className="w-[54px] h-[54px] rounded-full object-cover object-[center_20%] scale-135 border-[2.5px] border-primary-fixed shrink-0"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?fit=crop&w=200&h=200';
+              }}
             />
             <div className="flex-1">
-              <h2 className="font-['Plus_Jakarta_Sans',sans-serif] font-bold text-base text-onSurface m-0">Ramesh Kumar</h2>
-              <p className="font-['Be_Vietnam_Pro',sans-serif] text-[13px] text-onSurface-variant mt-0.5 m-0">Premium Member</p>
+              <h2 className="font-headline font-bold text-base text-onSurface m-0">Manjeet Lodha</h2>
+              <p className="font-body text-[13px] text-onSurface-variant mt-0.5 m-0">Kisan Member • Guna, MP</p>
             </div>
-            <button className="w-9 h-9 rounded-full bg-white border-none flex items-center justify-center text-primary cursor-pointer shadow-[0_4px_12px_rgba(15,31,17,0.08)] transition-colors duration-200 hover:bg-surface-containerLow" aria-label="View profile">
+            <button 
+              onClick={() => navigate('/farmer/profile')}
+              className="w-9 h-9 rounded-full bg-white border-none flex items-center justify-center text-primary cursor-pointer shadow-[0_4px_12px_rgba(15,31,17,0.08)] transition-colors duration-200 hover:bg-surface-containerLow" 
+              aria-label="View profile"
+            >
               <span className="material-symbols-outlined">chevron_right</span>
             </button>
           </div>
 
           {/* ── Explore Grid ────────────────── */}
           <section className="flex flex-col gap-3.5">
-            <h3 className="font-['Be_Vietnam_Pro',sans-serif] font-semibold text-[11px] tracking-[0.1em] uppercase text-onSurface-variant px-0.5 m-0">{t('more.exploreFarmIt')}</h3>
+            <h3 className="font-headline font-semibold text-[11px] tracking-[0.1em] uppercase text-onSurface-variant px-0.5 m-0">{t('more.exploreFarmIt')}</h3>
             <div className="grid grid-cols-2 gap-3">
               {GRID_ITEMS.map(({ icon, label, iconClass, route }) => (
                 <button
@@ -111,7 +119,7 @@ export default function More() {
                       {icon}
                     </span>
                   </div>
-                  <span className="font-['Plus_Jakarta_Sans',sans-serif] font-semibold text-[13px] text-onSurface leading-[1.3]">{label}</span>
+                  <span className="font-headline font-semibold text-[13px] text-onSurface leading-[1.3]">{label}</span>
                 </button>
               ))}
             </div>
@@ -119,29 +127,32 @@ export default function More() {
 
           {/* ── Account & Support ───────────── */}
           <section className="flex flex-col gap-3.5">
-            <h3 className="font-['Be_Vietnam_Pro',sans-serif] font-semibold text-[11px] tracking-[0.1em] uppercase text-onSurface-variant px-0.5 m-0">{t('more.accountSupport')}</h3>
+            <h3 className="font-headline font-semibold text-[11px] tracking-[0.1em] uppercase text-onSurface-variant px-0.5 m-0">{t('more.accountSupport')}</h3>
             <div className="flex flex-col gap-0.5">
               <button className="w-full flex items-center gap-3.5 py-3.5 px-3 rounded-2xl border-none bg-transparent cursor-pointer text-left transition-colors duration-200 hover:bg-surface-containerLow" onClick={() => setShowLangSheet(true)}>
                 <span className="material-symbols-outlined text-[22px] text-outline shrink-0">language</span>
-                <span className="font-['Be_Vietnam_Pro',sans-serif] font-medium text-[14px] text-onSurface flex-1">{t('common.language')}</span>
-                <span className="font-['Be_Vietnam_Pro',sans-serif] text-[13px] text-onSurface-variant">{currentLangNative}</span>
+                <span className="font-body font-medium text-[14px] text-onSurface flex-1">{t('common.language')}</span>
+                <span className="font-body text-[13px] text-onSurface-variant">{currentLangNative}</span>
                 <span className="material-symbols-outlined text-[18px] text-[#bfcaba]">chevron_right</span>
               </button>
-              <button className="w-full flex items-center gap-3.5 py-3.5 px-3 rounded-2xl border-none bg-transparent cursor-pointer text-left transition-colors duration-200 hover:bg-surface-containerLow">
+              <button 
+                onClick={() => navigate('/farmer/help-support')}
+                className="w-full flex items-center gap-3.5 py-3.5 px-3 rounded-2xl border-none bg-transparent cursor-pointer text-left transition-colors duration-200 hover:bg-surface-containerLow"
+              >
                 <span className="material-symbols-outlined text-[22px] text-outline shrink-0">help</span>
-                <span className="font-['Be_Vietnam_Pro',sans-serif] font-medium text-[14px] text-onSurface flex-1">{t('more.helpSupport')}</span>
+                <span className="font-body font-medium text-[14px] text-onSurface flex-1">{t('more.helpSupport')}</span>
                 <span className="material-symbols-outlined text-[18px] text-[#bfcaba]">chevron_right</span>
               </button>
               <button className="w-full flex items-center gap-3.5 py-3.5 px-3 rounded-2xl border-none bg-transparent cursor-pointer text-left transition-colors duration-200 hover:bg-[#fff1f0]" onClick={handleLogout}>
                 <span className="material-symbols-outlined text-[22px] text-error shrink-0">logout</span>
-                <span className="font-['Be_Vietnam_Pro',sans-serif] font-medium text-[14px] text-error flex-1">{t('common.logout')}</span>
+                <span className="font-body font-medium text-[14px] text-error flex-1">{t('common.logout')}</span>
               </button>
             </div>
           </section>
 
           {/* ── Social Section ──────────────── */}
           <section className="flex flex-col items-center gap-3.5 pb-2">
-            <p className="font-['Be_Vietnam_Pro',sans-serif] text-[12px] text-onSurface-variant m-0">{t('more.connectFarmIt')}</p>
+            <p className="font-body text-[12px] text-onSurface-variant m-0">{t('more.connectFarmIt')}</p>
             <div className="flex gap-3.5">
               <button onClick={handleShare} className="w-10 h-10 rounded-full border-none bg-surface-container text-primary flex items-center justify-center cursor-pointer transition-all duration-200 hover:bg-primary-container hover:text-white active:scale-[0.92]" aria-label="Share">
                 <span className="material-symbols-outlined text-[20px]">share</span>
