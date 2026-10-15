@@ -185,7 +185,7 @@ export default function Home() {
             {/* SECTION 1: Your Crops */}
             <section className="full-span">
               <h2 className="font-headline font-bold text-lg mb-4 text-onSurface mt-0">{t('home.yourCrops')}</h2>
-              <div className="flex gap-4 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-4 px-4 pb-2 snap-x snap-mandatory md:grid md:grid-cols-3 md:gap-4 md:mx-0 md:px-0 md:pb-0 md:snap-none">
+              <div className="flex gap-4 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pb-2 pr-4 snap-x snap-mandatory md:grid md:grid-cols-3 md:gap-4 md:pr-0 md:pb-0 md:snap-none">
                 {/* Wheat Card */}
                 <div className="min-w-[260px] w-[70vw] max-w-[300px] md:min-w-0 md:w-full md:max-w-none shrink-0 md:shrink bg-surface-containerLowest rounded-2xl overflow-hidden shadow-[0_1px_2px_rgba(0,0,0,0.05)] flex flex-col card-hover snap-start">
                   <div className="h-32 bg-[#e5e5e5]">
