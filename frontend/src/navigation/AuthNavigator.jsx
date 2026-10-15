@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import SplashScreen from '../screens/auth/SplashScreen';
+import LandingPage from '../screens/auth/LandingPage';
 import LanguageSelectScreen from '../screens/auth/LanguageSelectScreen';
 import OnboardingScreen from '../screens/auth/OnboardingScreen';
 import LoginScreen from '../screens/auth/LoginScreen';
@@ -11,6 +12,8 @@ export default function AuthNavigator() {
   return (
     <Routes>
       <Route path="/" element={<SplashScreen />} />
+      <Route path="/landing" element={<LandingPage />} />
+      <Route path="/welcome" element={<LandingPage />} />
       <Route path="/language" element={<LanguageSelectScreen />} />
       <Route path="/onboarding" element={<OnboardingScreen />} />
       <Route path="/login" element={<LoginScreen />} />

@@ -15,9 +15,9 @@ export default function SplashScreen() {
       if (isAuthenticated) {
         navigate('/farmer/home');
       } else {
-        navigate('/language');
+        navigate('/landing');
       }
-    }, 2000);
+    }, 1800);
     return () => clearTimeout(timer);
   }, [navigate, isAuthenticated, loading]);
 
