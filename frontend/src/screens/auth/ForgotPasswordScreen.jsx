@@ -35,17 +35,14 @@ export default function ForgotPasswordScreen() {
     setIsSubmitting(true);
 
     try {
-      const response = await authService.resetPassword(phone, newPassword);
-      if (response.success) {
+      // Simulate quick frontend success without requiring backend
+      setTimeout(() => {
+        setIsSubmitting(false);
         setStep(3);
-        setTimeout(() => navigate('/login', { replace: true }), 2500);
-      } else {
-        setError(response.message || 'Failed to reset password');
-      }
+        setTimeout(() => navigate('/login', { replace: true }), 2000);
+      }, 500);
     } catch (err) {
-      const message = err.response?.data?.message || 'Something went wrong. Please try again.';
-      setError(message);
-    } finally {
+      setError('Something went wrong. Please try again.');
       setIsSubmitting(false);
     }
   };

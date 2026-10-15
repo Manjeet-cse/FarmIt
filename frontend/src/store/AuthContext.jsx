@@ -15,7 +15,7 @@ const DUMMY_USER = {
 };
 
 export function AuthProvider({ children }) {
-  // Synchronously initialize user from localStorage or fallback to DUMMY_USER so isAuthenticated is immediately true
+  // Synchronously initialize user from localStorage
   const [user, setUser] = useState(() => {
     try {
       const stored = localStorage.getItem('farmit_user');
@@ -26,7 +26,7 @@ export function AuthProvider({ children }) {
     } catch (e) {
       console.warn('Failed to parse stored user', e);
     }
-    return DUMMY_USER;
+    return null;
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -35,24 +35,29 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     if (user) {
       localStorage.setItem('farmit_user', JSON.stringify(user));
-      localStorage.setItem('farmit_token', user.token || 'dev-bypass-token');
+      localStorage.setItem('farmit_token', user.token || 'dummy-farmit-token');
       localStorage.setItem('role', user.role || 'farmer');
     }
   }, [user]);
 
-  const bypassLogin = useCallback((phone = '9876543210') => {
+  const bypassLogin = useCallback((phone = '9876543210', name = '', location = '') => {
+    const formattedPhone = String(phone).replace(/\D/g, '').slice(0, 10) || '9876543210';
     const bypassUser = {
-      _id: 'dev-' + phone,
-      name: 'Manjeet Lodha',
-      phone: phone,
+      _id: 'user-' + formattedPhone,
+      name: name || (formattedPhone === '9876543210' ? 'Manjeet Lodha' : 'Kisan ' + formattedPhone.slice(-4)),
+      phone: formattedPhone,
       role: 'farmer',
-      location: 'Guna, Madhya Pradesh',
-      token: 'dev-bypass-token',
+      location: location || 'Guna, Madhya Pradesh',
+      token: 'dummy-token-' + formattedPhone,
       profileImage: '/images/manjeet_profile.webp',
     };
-    localStorage.setItem('farmit_token', 'dev-bypass-token');
-    localStorage.setItem('farmit_user', JSON.stringify(bypassUser));
-    localStorage.setItem('role', 'farmer');
+    try {
+      localStorage.setItem('farmit_token', bypassUser.token);
+      localStorage.setItem('farmit_user', JSON.stringify(bypassUser));
+      localStorage.setItem('role', 'farmer');
+    } catch (e) {
+      console.warn('Failed to store in localStorage', e);
+    }
     setUser(bypassUser);
     setError(null);
     return { success: true, data: bypassUser };
@@ -61,37 +66,34 @@ export function AuthProvider({ children }) {
   const login = useCallback(async (identifier, password) => {
     setError(null);
     setLoading(true);
-    try {
-      const response = await authService.login(identifier, password);
-      setUser(response.data);
-      setLoading(false);
-      return { success: true, data: response.data };
-    } catch (err) {
-      const message = err.response?.data?.message || 'Login failed. Please try again.';
-      setError(message);
-      setLoading(false);
-      return { success: false, message };
-    }
-  }, []);
+    // Pure frontend dummy login: accepts any 10-digit number
+    const cleanPhone = String(identifier).replace(/\D/g, '').slice(0, 10) || '9876543210';
+    const res = bypassLogin(cleanPhone);
+    setLoading(false);
+    return res;
+  }, [bypassLogin]);
 
   const signup = useCallback(async (userData) => {
     setError(null);
     setLoading(true);
-    try {
-      const response = await authService.signup(userData);
-      setUser(response.data);
-      setLoading(false);
-      return { success: true, data: response.data };
-    } catch (err) {
-      const message = err.response?.data?.message || 'Signup failed. Please try again.';
-      setError(message);
-      setLoading(false);
-      return { success: false, message };
-    }
-  }, []);
+    // Pure frontend dummy signup: creates dummy user from provided data
+    const cleanPhone = String(userData.phone || userData.mobile || '').replace(/\D/g, '').slice(0, 10) || '9876543210';
+    const name = userData.name || userData.fullName || 'Kisan Mitra';
+    const location = userData.location || userData.village || userData.state || 'Guna, Madhya Pradesh';
+    const res = bypassLogin(cleanPhone, name, location);
+    setLoading(false);
+    return res;
+  }, [bypassLogin]);
 
   const logout = useCallback(() => {
-    authService.logout();
+    try {
+      authService.logout();
+      localStorage.removeItem('farmit_token');
+      localStorage.removeItem('farmit_user');
+      localStorage.removeItem('role');
+    } catch (e) {
+      console.warn('Logout error', e);
+    }
     setUser(null);
     setError(null);
   }, []);
@@ -99,43 +101,33 @@ export function AuthProvider({ children }) {
   const googleLogin = useCallback(async (credential) => {
     setError(null);
     setLoading(true);
-    try {
-      const response = await authService.googleLogin(credential);
-      setUser(response.data);
-      setLoading(false);
-      return { success: true, data: response.data };
-    } catch (err) {
-      const message = err.response?.data?.message || 'Google login failed. Please try again.';
-      setError(message);
-      setLoading(false);
-      return { success: false, message };
-    }
-  }, []);
+    const res = bypassLogin('9876543210', 'Manjeet Lodha');
+    setLoading(false);
+    return res;
+  }, [bypassLogin]);
 
   const updateProfile = useCallback(async (userData) => {
     setError(null);
     setLoading(true);
-    try {
-      const response = await authService.updateProfile(userData);
-      setUser(response.data);
-      setLoading(false);
-      return { success: true, data: response.data };
-    } catch (err) {
-      const message = err.response?.data?.message || 'Profile update failed. Please try again.';
-      setError(message);
-      setLoading(false);
-      return { success: false, message };
-    }
+    setUser(prev => {
+      const updated = { ...prev, ...userData };
+      try {
+        localStorage.setItem('farmit_user', JSON.stringify(updated));
+      } catch (e) {
+        console.warn('Failed to save updated user', e);
+      }
+      return updated;
+    });
+    setLoading(false);
+    return { success: true, data: userData };
   }, []);
 
   const refreshUser = useCallback(async () => {
     try {
-      const response = await authService.getMe();
-      if (response.success && response.data) {
-        const token = authService.getToken();
-        const userData = { ...response.data, token };
-        localStorage.setItem('farmit_user', JSON.stringify(userData));
-        setUser(userData);
+      const stored = localStorage.getItem('farmit_user');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed) setUser(parsed);
       }
     } catch (err) {
       console.error('Failed to refresh user', err);

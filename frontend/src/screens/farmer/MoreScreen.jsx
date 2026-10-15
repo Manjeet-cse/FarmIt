@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../store/AuthContext';
 
 const GRID_ITEMS = [
   { icon: 'description',   label: 'Subsidy Guide',   iconClass: 'bg-primary-container text-white',   route: '/farmer/subsidy'     },
@@ -16,6 +17,7 @@ export default function More() {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const { t, i18n } = useTranslation();
+  const { logout } = useAuth();
   const [showLangSheet, setShowLangSheet] = useState(false);
   const [currentLang, setCurrentLang] = useState(i18n.language || 'en');
 
@@ -33,8 +35,8 @@ export default function More() {
   const currentLangNative = languages.find(l => l.code === currentLang)?.native || 'English';
 
   const handleLogout = () => {
-    localStorage.removeItem('role');
-    navigate('/login');
+    logout();
+    navigate('/login', { replace: true });
   };
 
   const handleShare = async () => {
