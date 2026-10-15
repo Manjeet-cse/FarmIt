@@ -1,52 +1,76 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { useAuth } from '../../store/AuthContext';
 
 export default function SplashScreen() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
-  const { isAuthenticated, user, loading } = useAuth();
 
   useEffect(() => {
-    if (loading) return; // Wait until auth state is loaded
-
+    // Hold logo screen for exactly 3 seconds, then always transition to the landing page
     const timer = setTimeout(() => {
-      if (isAuthenticated) {
-        navigate('/farmer/home');
-      } else {
-        navigate('/landing');
-      }
-    }, 1800);
+      navigate('/landing', { replace: true });
+    }, 3000);
+
     return () => clearTimeout(timer);
-  }, [navigate, isAuthenticated, loading]);
+  }, [navigate]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-[100dvh] w-full bg-[#2e7d32] text-white relative overflow-hidden">
+    <div className="flex flex-col items-center justify-between h-[100dvh] w-full bg-gradient-to-b from-[#1b6d24] via-[#245e2a] to-[#15461c] text-white relative overflow-hidden select-none">
+      
       <style>{`
-        @keyframes splash-load {
-          from { width: 0%; }
-          to   { width: 100%; }
+        @keyframes splash-progress {
+          0% { width: 0%; }
+          100% { width: 100%; }
+        }
+        @keyframes logo-pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.05); }
         }
       `}</style>
-      <div className="flex-1 flex flex-col items-center justify-center z-10 w-full px-6">
-        <div className="mb-8 w-40 h-40 rounded-full shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-2px_rgba(0,0,0,0.05)] border-4 border-white backdrop-blur-md relative overflow-hidden bg-white flex items-center justify-center p-3">
-          <img src="/images/logo-icon.png" alt="FarmIt Logo" className="w-full h-full object-contain" />
+
+      {/* Decorative Glow Elements */}
+      <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#88d982] rounded-full blur-[130px] opacity-25 pointer-events-none"></div>
+      <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-[#2e7d32] rounded-full blur-[130px] opacity-35 pointer-events-none"></div>
+
+      {/* Top Spacer */}
+      <div className="h-12 w-full" />
+
+      {/* Centered Logo & Branding */}
+      <div className="flex flex-col items-center justify-center text-center px-6 z-10">
+        
+        {/* Logo Container */}
+        <div className="mb-6 w-36 h-36 rounded-3xl shadow-[0_16px_36px_rgba(0,0,0,0.22)] border-2 border-white/20 backdrop-blur-md relative overflow-hidden bg-white flex items-center justify-center p-4 animate-[logo-pulse_2.4s_ease-in-out_infinite]">
+          <img 
+            src="/images/logo-icon.png" 
+            alt="FarmIt Logo" 
+            className="w-full h-full object-contain"
+          />
         </div>
-        <div className="text-center relative z-10">
-          <p className="text-sm italic text-[#88d982] font-medium tracking-[0.025em] drop-shadow-[0_1px_2px_rgba(0,0,0,0.1)] mt-2">{t('splash.tagline')}</p>
-        </div>
-      </div>
-      
-      <div className="absolute bottom-16 w-full px-12 z-10">
-        <div className="h-1 bg-white/20 rounded-full overflow-hidden w-full max-w-md mx-auto">
-          <div className="h-full bg-white rounded-full w-0 animate-[splash-load_2s_ease-in-out_forwards]"></div>
-        </div>
-        <p className="text-center text-xs mt-3 text-white/60 font-medium tracking-[0.1em] uppercase">{t('splash.initializing')}</p>
+
+        {/* Brand Name */}
+        <h1 className="font-headline font-extrabold text-[32px] sm:text-[38px] text-white tracking-tight m-0 leading-tight">
+          FarmIt
+        </h1>
+
+        <span className="inline-block bg-white/15 border border-white/20 text-[#cbffc2] text-[11px] font-bold uppercase tracking-[0.15em] px-3 py-1 rounded-full mt-2.5">
+          Smart Krishi Platform
+        </span>
+
+        {/* Tagline */}
+        <p className="font-body text-[14px] sm:text-[15px] text-[#cbffc2] font-medium tracking-wide mt-3 m-0 max-w-[280px]">
+          Voice of the Farmer • Power of AI
+        </p>
       </div>
 
-      <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#0d631b] rounded-full blur-[120px] opacity-60"></div>
-      <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-[#91f78e] rounded-full blur-[120px] opacity-20"></div>
+      {/* Bottom 3-Second Loading Bar */}
+      <div className="w-full max-w-xs px-8 pb-12 z-10 flex flex-col items-center">
+        <div className="h-1.5 bg-white/20 rounded-full overflow-hidden w-full">
+          <div className="h-full bg-[#cbffc2] rounded-full animate-[splash-progress_3s_linear_forwards]" />
+        </div>
+        <span className="text-[11px] text-white/70 font-semibold tracking-wider uppercase mt-3">
+          Loading FarmIt...
+        </span>
+      </div>
+
     </div>
   );
 }
