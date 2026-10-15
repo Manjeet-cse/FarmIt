@@ -26,18 +26,8 @@ api.interceptors.response.use(
   (response) => response.data,
   (error) => {
     if (error.response?.status === 401) {
-      // In dev bypass mode, NEVER auto-redirect or clear the user session
-      const userStr = localStorage.getItem('farmit_user');
-      const token = localStorage.getItem('farmit_token');
-      const isBypass = token === 'dev-bypass-token' || (userStr && (userStr.includes('dev-') || userStr.includes('bypass')));
-
-      if (!isBypass) {
-        localStorage.removeItem('farmit_token');
-        localStorage.removeItem('farmit_user');
-        window.location.href = '/login';
-      } else {
-        console.warn('[API Interceptor] Backend returned 401, but preserving bypass session.');
-      }
+      // In frontend mode, preserve local session and never force-eject the user
+      console.warn('[API Interceptor] 401 response received from backend, preserving local session.');
     }
     return Promise.reject(error);
   }
